@@ -33,12 +33,12 @@ const bookController = {
     try {
         const books = await Book.findAll();
         if (!books || books.length === 0) {
-            return res.status(404).json({ error: 'No users found' });
+            return res.status(404).json({ error: 'No Books found' });
         }
         res.status(200).json(books);
     } catch (error) {
         console.error('Error fetching users:', error);
-        res.status(500).json({ error: 'Error fetching users' });
+        res.status(500).json({ error: 'Error fetching books' });
     }
 },
 
