@@ -40,6 +40,7 @@ router.delete('/admins/:id', adminController.deleteAdmin);
 // Book routes
 router.post('/books', bookController.createBook);
 router.get('/books/:id', bookController.getBookById);
+router.get('/books', bookController.getAllBooks);
 router.put('/books/:id', bookController.updateBook);
 router.delete('/books/:id', bookController.deleteBook);
 
