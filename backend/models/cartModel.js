@@ -1,11 +1,8 @@
-// wishlistModel.js
-
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
 
-// Define the Wishlist model
-const Wishlist = sequelize.define('wishlist', {
-  WishlistID: {
+const Cart = sequelize.define('cart', {
+  CartID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -19,8 +16,8 @@ const Wishlist = sequelize.define('wishlist', {
     allowNull: false
   }
 }, {
-  tableName: 'wishlist',
+  tableName: 'cart',
   timestamps: false  
 });
 
-module.exports = Wishlist;
+module.exports = Cart;

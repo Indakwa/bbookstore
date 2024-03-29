@@ -11,6 +11,7 @@ const wishlistController = require('../controllers/wishlistController');
 const publisherSubmissionController = require('../controllers/publisherSubmissionController');
 const publisherCatalogController = require('../controllers/publisherCatalogController');
 const transactionController = require('../controllers/transactionController');
+const cartController = require('../controllers/cartController');
 
 // User routes
 router.post('/signup', userController.createUser);
@@ -52,10 +53,13 @@ router.put('/favorites/:id', favoriteController.updateFavorite);
 router.delete('/favorites/:id', favoriteController.deleteFavorite);
 
 // Wishlist routes
-router.post('/wishlists', wishlistController.createWishlistItem);
-router.get('/wishlists/:id', wishlistController.getWishlistItemById);
-router.put('/wishlists/:id', wishlistController.updateWishlistItem);
-router.delete('/wishlists/:id', wishlistController.deleteWishlistItem);
+router.post('/wishlist/add', wishlistController.addToWishlist);
+router.delete('/wishlist/remove', wishlistController.removeFromWishlist);
+
+// Cart routes
+router.post('/cart/add', cartController.addToCart);
+router.delete('/cart/remove', cartController.removeFromCart);
+router.get('/cart', cartController.getCartItems);
 
 // Publisher submission routes
 router.post('/publisher-submissions', publisherSubmissionController.createPublisherSubmission);

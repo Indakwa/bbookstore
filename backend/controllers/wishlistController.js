@@ -1,59 +1,41 @@
 const Wishlist = require('../models/wishListModel');
 
 const wishlistController = {
-  createWishlistItem: async (req, res) => {
+  addToWishlist: async (req, res) => {
     try {
-      const newWishlistItem = await Wishlist.create(req.body);
+      const { userId, bookId } = req.body;
+      
+      // Check if the book is already in the wishlist
+      const existingWishlistItem = await Wishlist.findOne({ where: { UserID: userId, BookID: bookId } });
+
+      if (existingWishlistItem) {
+        return res.status(400).json({ error: 'Book already exists in the wishlist' });
+      }
+
+      // Create a new wishlist item
+      const newWishlistItem = await Wishlist.create({ UserID: userId, BookID: bookId });
       res.status(201).json(newWishlistItem);
     } catch (error) {
-      console.error('Error creating wishlist item:', error);
-      res.status(500).json({ error: 'Error creating wishlist item' });
+      console.error('Error adding to wishlist:', error);
+      res.status(500).json({ error: 'Error adding to wishlist' });
     }
   },
 
-  getWishlistItemById: async (req, res) => {
-    const wishlistItemId = req.params.id;
+  removeFromWishlist: async (req, res) => {
+    const { userId, bookId } = req.body;
     try {
-      const wishlistItem = await Wishlist.findByPk(wishlistItemId);
+      // Find the wishlist item to remove
+      const wishlistItem = await Wishlist.findOne({ where: { UserID: userId, BookID: bookId } });
       if (!wishlistItem) {
         return res.status(404).json({ error: 'Wishlist item not found' });
       }
-      res.status(200).json(wishlistItem);
-    } catch (error) {
-      console.error('Error fetching wishlist item:', error);
-      res.status(500).json({ error: 'Error fetching wishlist item' });
-    }
-  },
 
-  updateWishlistItem: async (req, res) => {
-    const wishlistItemId = req.params.id;
-    try {
-      const [updatedRows] = await Wishlist.update(req.body, {
-        where: { WishlistID: wishlistItemId }
-      });
-      if (updatedRows === 0) {
-        return res.status(404).json({ error: 'Wishlist item not found' });
-      }
-      res.status(200).json({ message: 'Wishlist item updated successfully' });
+      // Delete the wishlist item
+      await wishlistItem.destroy();
+      res.status(200).json({ message: 'Book removed from wishlist successfully' });
     } catch (error) {
-      console.error('Error updating wishlist item:', error);
-      res.status(500).json({ error: 'Error updating wishlist item' });
-    }
-  },
-
-  deleteWishlistItem: async (req, res) => {
-    const wishlistItemId = req.params.id;
-    try {
-      const deletedRows = await Wishlist.destroy({
-        where: { WishlistID: wishlistItemId }
-      });
-      if (deletedRows === 0) {
-        return res.status(404).json({ error: 'Wishlist item not found' });
-      }
-      res.status(200).json({ message: 'Wishlist item deleted successfully' });
-    } catch (error) {
-      console.error('Error deleting wishlist item:', error);
-      res.status(500).json({ error: 'Error deleting wishlist item' });
+      console.error('Error removing from wishlist:', error);
+      res.status(500).json({ error: 'Error removing from wishlist' });
     }
   }
 };
