@@ -1,5 +1,3 @@
-// transactionModel.js
-
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
 
@@ -18,11 +16,11 @@ const Transaction = sequelize.define('transaction', {
     type: DataTypes.DATE,
     allowNull: false
   },
-  PaymentMethod: {
-    type: DataTypes.STRING,
+  CartItems: {
+    type: DataTypes.JSON, // Assuming CartItems will be stored as JSON data
     allowNull: false
   },
-  TotalAmount: {
+  TotalPrice: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
@@ -31,7 +29,8 @@ const Transaction = sequelize.define('transaction', {
     allowNull: false
   }
 }, {
-  tableName: 'transaction' // Specify the table name explicitly
+  tableName: 'transaction',
+  timestamps: false 
 });
 
 module.exports = Transaction;
