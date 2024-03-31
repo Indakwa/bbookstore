@@ -1,5 +1,6 @@
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
+const Book = require('./bookModel'); 
 
 const Cart = sequelize.define('cart', {
   CartID: {
@@ -19,5 +20,8 @@ const Cart = sequelize.define('cart', {
   tableName: 'cart',
   timestamps: false  
 });
+
+// Define association with the Book model
+Cart.belongsTo(Book, { foreignKey: 'BookID' });
 
 module.exports = Cart;

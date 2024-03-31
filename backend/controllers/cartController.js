@@ -1,4 +1,6 @@
 const Cart = require('../models/cartModel');
+const Transaction = require('../models/transactionModel');
+const Book = require('../models/bookModel'); // Import the Book model
 
 const cartController = {
   addToCart: async (req, res) => {
@@ -36,20 +38,66 @@ const cartController = {
       console.error('Error removing from cart:', error);
       res.status(500).json({ error: 'Error removing from cart' });
     }
-  }, 
+  },
 
   getCartItems: async (req, res) => {
     const { userId } = req.params;
     try {
       // Find all cart items for the user
-      const cartItems = await Cart.findAll({ where: { UserId: userId } });
+      const cartItems = await Cart.findAll({ 
+        where: { UserId: userId }, 
+        include: [{ model: Book }] // Include the Book model to fetch book details
+      });
       if (!cartItems || cartItems.length === 0) {
         return res.status(404).json({ error: 'Cart is empty' });
       }
+
       res.status(200).json(cartItems);
     } catch (error) {
       console.error('Error fetching cart items:', error);
       res.status(500).json({ error: 'Error fetching cart items' });
+    }
+  },
+
+  checkout: async (req, res) => {
+    const { userId } = req.body;
+    try {
+        // Find all cart items for the user
+        const cartItems = await Cart.findAll({
+            where: { UserId: userId },
+            include: [{ model: Book }] // Include the Book model to fetch book details
+        });
+        if (!cartItems || cartItems.length === 0) {
+            return res.status(404).json({ error: 'Cart is empty' });
+        }
+
+        // Calculate total price
+        const totalPrice = cartItems.reduce((total, item) => total + item.book.price, 0); // Change item.book.Price to item.book.price
+
+        res.status(200).json({ cartItems, totalPrice });
+    } catch (error) {
+        console.error('Error during checkout:', error);
+        res.status(500).json({ error: 'Error during checkout' });
+    }
+},
+
+  confirmPayment: async (req, res) => {
+    const { userId } = req.body;
+    try {
+      // Create a new transaction record
+      const newTransaction = await Transaction.create({
+        UserID: userId,
+        TransactionDate: new Date(),
+        TransactionStatus: 'pending' // Assuming the transaction status is initially pending
+      });
+
+      // Clear the cart by removing all items
+      await Cart.destroy({ where: { UserId: userId } });
+
+      res.status(201).json(newTransaction);
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+      res.status(500).json({ error: 'Error confirming payment' });
     }
   }
 };

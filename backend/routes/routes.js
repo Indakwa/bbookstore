@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const userController = require('../controllers/userController');
 const userProfile = require('../controllers/userProfile');
 const userBooksController = require('../controllers/userBooksController');
@@ -12,6 +13,7 @@ const publisherSubmissionController = require('../controllers/publisherSubmissio
 const publisherCatalogController = require('../controllers/publisherCatalogController');
 const transactionController = require('../controllers/transactionController');
 const cartController = require('../controllers/cartController');
+const orderController = require('../controllers/orderController');
 
 // User routes
 router.post('/signup', userController.createUser);
@@ -60,6 +62,8 @@ router.delete('/wishlist/remove', wishlistController.removeFromWishlist);
 router.post('/cart/add', cartController.addToCart);
 router.delete('/cart/remove', cartController.removeFromCart);
 router.get('/cart', cartController.getCartItems);
+router.post('/cart/checkout', cartController.checkout);
+router.post('/cart/payment-confirm', cartController.confirmPayment);
 
 // Publisher submission routes
 router.post('/publisher-submissions', publisherSubmissionController.createPublisherSubmission);
@@ -78,5 +82,10 @@ router.post('/transactions', transactionController.createTransaction);
 router.get('/transactions/:id', transactionController.getTransactionById);
 router.put('/transactions/:id', transactionController.updateTransaction);
 router.delete('/transactions/:id', transactionController.deleteTransaction);
+
+
+// order routes
+router.post('/orders', orderController.createOrder);
+router.put('/orders/:id/complete', orderController.completeOrder);
 
 module.exports = router;
