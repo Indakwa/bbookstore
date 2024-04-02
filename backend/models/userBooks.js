@@ -4,7 +4,7 @@ const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
 
 // Define the UserBook model
-const UserBook = sequelize.define('userbook', {
+const UserBook = sequelize.define('userbooks', {
   UserBookID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -27,7 +27,8 @@ const UserBook = sequelize.define('userbook', {
     allowNull: true
   }
 }, {
-  tableName: 'userbook' // Specify the table name explicitly
+  tableName: 'userbooks', // Specify the table name explicitly
+  timestamps: false  
 });
 
 module.exports = UserBook;
