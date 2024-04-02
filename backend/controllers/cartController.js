@@ -62,24 +62,24 @@ const cartController = {
   checkout: async (req, res) => {
     const { userId } = req.body;
     try {
-        // Find all cart items for the user
-        const cartItems = await Cart.findAll({
-            where: { UserId: userId },
-            include: [{ model: Book }] // Include the Book model to fetch book details
-        });
-        if (!cartItems || cartItems.length === 0) {
-            return res.status(404).json({ error: 'Cart is empty' });
-        }
+      // Find all cart items for the user
+      const cartItems = await Cart.findAll({
+        where: { UserId: userId },
+        include: [{ model: Book }] // Include the Book model to fetch book details
+      });
+      if (!cartItems || cartItems.length === 0) {
+        return res.status(404).json({ error: 'Cart is empty' });
+      }
 
-        // Calculate total price
-        const totalPrice = cartItems.reduce((total, item) => total + item.book.price, 0); // Change item.book.Price to item.book.price
+      // Calculate total price
+      const totalPrice = cartItems.reduce((total, item) => total + parseFloat(item.book.Price), 0);
 
-        res.status(200).json({ cartItems, totalPrice });
+      res.status(200).json({ cartItems, totalPrice });
     } catch (error) {
-        console.error('Error during checkout:', error);
-        res.status(500).json({ error: 'Error during checkout' });
+      console.error('Error during checkout:', error);
+      res.status(500).json({ error: 'Error during checkout' });
     }
-},
+  },
 
   confirmPayment: async (req, res) => {
     const { userId } = req.body;
