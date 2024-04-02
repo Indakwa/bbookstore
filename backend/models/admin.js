@@ -21,9 +21,14 @@ const Admin = sequelize.define('admin', {
   Password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  Role: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
-  tableName: 'admin' // Specify the table name explicitly
+  tableName: 'admin', // Specify the table name explicitly
+  timestamps: false
 });
 
 module.exports = Admin;

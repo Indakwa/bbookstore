@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { authenticateAdmin, authorize } = require('../middleware/authMiddleware');
 
 const userController = require('../controllers/userController');
 const userProfile = require('../controllers/userProfile');
@@ -36,10 +36,8 @@ router.put('/user-books/:id', userBooksController.updateUserBook);
 router.delete('/user-books/:id', userBooksController.deleteUserBook);
 
 // Admin routes
-router.post('/admins', adminController.createAdmin);
-router.get('/admins/:id', adminController.getAdminById);
-router.put('/admins/:id', adminController.updateAdmin);
-router.delete('/admins/:id', adminController.deleteAdmin);
+router.put('/admin/:id', authenticateAdmin, authorize, adminController.updateAdmin);
+router.post('/admin', adminController.loginAdmin);
 
 // Book routes
 router.post('/books', bookController.createBook);
@@ -78,10 +76,8 @@ router.put('/publisher-catalogs/:id', publisherCatalogController.updatePublisher
 router.delete('/publisher-catalogs/:id', publisherCatalogController.deletePublisherCatalog);
 
 // Transaction routes
-router.post('/transactions', transactionController.createTransaction);
 router.get('/transactions/:id', transactionController.getTransactionById);
-router.put('/transactions/:id', transactionController.updateTransaction);
-router.delete('/transactions/:id', transactionController.deleteTransaction);
+router.put('/transactions/:id/status', authenticateAdmin, authorize,transactionController.updateTransactionStatus);
 
 
 // order routes

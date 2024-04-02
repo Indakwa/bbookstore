@@ -1,30 +1,31 @@
 const Admin = require('../models/admin');
+const jwt = require('jsonwebtoken');
 
 // Controller for handling CRUD operations for Admin
 const adminController = {
-  // Create a new admin
-  createAdmin: async (req, res) => {
+  // Admin login
+  loginAdmin: async (req, res) => {
+    const { email, password } = req.body;
     try {
-      const newAdmin = await Admin.create(req.body);
-      res.status(201).json(newAdmin);
-    } catch (error) {
-      console.error('Error creating admin:', error);
-      res.status(500).json({ error: 'Error creating admin' });
-    }
-  },
-
-  // Get admin by ID
-  getAdminById: async (req, res) => {
-    const adminId = req.params.id;
-    try {
-      const admin = await Admin.findByPk(adminId);
+      // Find admin by email
+      const admin = await Admin.findOne({ where: { Email: email } });
       if (!admin) {
-        return res.status(404).json({ error: 'Admin not found' });
+        return res.status(401).json({ error: 'Invalid credentials' });
       }
-      res.status(200).json(admin);
+
+      // Check if password is correct
+      const validPassword = (password === admin.Password);
+      if (!validPassword) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      // Generate JWT token
+      const token = jwt.sign({ AdminID: admin.AdminID, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      res.status(200).json({ token });
     } catch (error) {
-      console.error('Error fetching admin:', error);
-      res.status(500).json({ error: 'Error fetching admin' });
+      console.error('Error logging in admin:', error);
+      res.status(500).json({ error: 'Error logging in admin' });
     }
   },
 
@@ -43,24 +44,8 @@ const adminController = {
       console.error('Error updating admin:', error);
       res.status(500).json({ error: 'Error updating admin' });
     }
-  },
-
-  // Delete admin
-  deleteAdmin: async (req, res) => {
-    const adminId = req.params.id;
-    try {
-      const deletedRows = await Admin.destroy({
-        where: { AdminID: adminId }
-      });
-      if (deletedRows === 0) {
-        return res.status(404).json({ error: 'Admin not found' });
-      }
-      res.status(200).json({ message: 'Admin deleted successfully' });
-    } catch (error) {
-      console.error('Error deleting admin:', error);
-      res.status(500).json({ error: 'Error deleting admin' });
-    }
   }
+
 };
 
 module.exports = adminController;
