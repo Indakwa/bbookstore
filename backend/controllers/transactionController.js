@@ -1,6 +1,7 @@
 const Transaction = require('../models/transactionModel');
 const Book = require('../models/bookModel');
 const UserBook = require('../models/userBooks');
+const PayPublisher = require('../models/payPublisherModel');
 
 
 const transactionController = {
@@ -64,7 +65,31 @@ const transactionController = {
             ReadingProgress: 0 // Assuming starting reading progress is 0%
           });
         }
+
+        // Calculate 90% of the price of each book and create payPublisher entries
+        for (const item of cartItems) {
+          const bookName = item.Name;
+          const bookPrice = item.Price;
+
+          // Find the book by name
+          const book = await Book.findOne({ where: { Title: bookName } });
+
+          // Calculate 90% of the price
+          const amountToPay = bookPrice * 0.9;
+
+          // Create an entry in the payPublisher table
+          await PayPublisher.create({
+            PublisherContact: book.PublisherContact,
+            UserID: transaction.UserID,
+            BookID: book.BookID,
+            Amount: amountToPay,
+            Status: 'pending'
+          });
+        }
       }
+
+
+
 
       // Send success response
       res.status(200).json({ message: 'Transaction status updated successfully' });

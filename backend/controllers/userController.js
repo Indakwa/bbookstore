@@ -27,7 +27,7 @@ const User = require('../models/userModel');
       });
 
       // Generate JWT token
-      const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ userId: newUser.UserID }, process.env.JWT_SECRET, {
         expiresIn: '1d' // Token expires in 1 day
       });
 
@@ -59,7 +59,7 @@ const User = require('../models/userModel');
       }
 
       // Generate JWT
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ userId: user.UserID }, process.env.JWT_SECRET, {
         expiresIn: '1d' // Token expires in 1 day
       });
 

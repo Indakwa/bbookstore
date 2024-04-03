@@ -33,6 +33,10 @@ const Book = sequelize.define('book', {
   Price: {
     type: DataTypes.FLOAT,
     allowNull: false
+  },
+  PublisherContact: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, {
   tableName: 'book',
