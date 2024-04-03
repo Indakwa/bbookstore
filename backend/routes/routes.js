@@ -63,11 +63,11 @@ router.get('/cart', userCart.getCartItems);
 router.post('/cart/checkout', userCart.checkout);
 router.post('/cart/payment-confirm', userCart.confirmPayment);
 
-// Publisher submission routes
+// Publisher request submission routes
 router.post('/submit-request', publisherSubmissionController.submitRequest);
 router.put('/edit-request/:id', publisherSubmissionController.editRequest);
 router.delete('/delete-request/:id', publisherSubmissionController.deleteRequest);
-router.put('/approve-request/:id', publisherSubmissionController.approveRequest);
+router.put('/approve-request/:id', authenticateAdmin, authorize, publisherSubmissionController.approveRequest);
 
 // Publisher catalog routes
 router.post('/publisher-catalogs', publisherCatalogController.createPublisherCatalog);

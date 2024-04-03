@@ -1,5 +1,3 @@
-// bookModel.js
-
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
 
@@ -19,11 +17,11 @@ const Book = sequelize.define('book', {
     allowNull: false
   },
   Genre: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.JSON,
+    allowNull: true
   },
-  Description: {
-    type: DataTypes.STRING,
+  Synopsis: {
+    type: DataTypes.TEXT, // Change data type to TEXT
     allowNull: true
   },
   CoverImageURL: {
@@ -36,7 +34,7 @@ const Book = sequelize.define('book', {
   },
   PublisherContact: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true
   }
 }, {
   tableName: 'book',

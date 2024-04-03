@@ -1,5 +1,6 @@
 const PublisherSubmission = require('../models/publisherSubmissionModel');
 const User = require('../models/userModel');
+const Book = require('../models/bookModel');
 const jwt = require('jsonwebtoken');
 
 const publisherSubmissionController = {
@@ -62,22 +63,37 @@ const publisherSubmissionController = {
 
   approveRequest: async (req, res) => {
     const submissionId = req.params.id;
+    const { requestStatus } = req.body;
     try {
       const submission = await PublisherSubmission.findByPk(submissionId);
       if (!submission) {
-        return res.status(404).json({ error: 'Submission not found' });
+        return res.status(404).json({ error: 'Submission Request not found' });
       }
       // Change request status to 'approved'
-      submission.requestStatus = 'approved';
+      submission.requestStatus = requestStatus;
       await submission.save();
 
-      // Change user role to 'publisher'
-      const user = await User.findByPk(submission.UserID);
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+
+      if (requestStatus === 'approved'){
+        // Change user role to 'publisher'
+        const user = await User.findByPk(submission.UserID);
+        if (!user) {
+          return res.status(404).json({ error: 'Cannot Find ID of User who submitted' });
+        }
+        user.Role = 'publisher';
+        await user.save();
+
+        // Add the book to the book table
+        const newBook = await Book.create({
+          Title: submission.BookTitle,
+          Author: submission.Author,
+          Genre: submission.Genre.join(','), // Assuming Genre is an array of strings
+          Synopsis: submission.Synopsis,
+          Price: submission.Price,
+          // Add other fields as needed
+        });
       }
-      user.Role = 'publisher';
-      await user.save();
+
 
       res.status(200).json({ message: 'Submission approved successfully' });
     } catch (error) {
