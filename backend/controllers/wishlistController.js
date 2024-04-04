@@ -1,9 +1,17 @@
 const Wishlist = require('../models/wishListModel');
+const jwt = require('jsonwebtoken');
 
 const wishlistController = {
   addToWishlist: async (req, res) => {
     try {
-      const { userId, bookId } = req.body;
+      // Extract the user ID from the JWT token in the request headers
+      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+
+      console.log(token)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
+
+      const { bookId } = req.body;
       
       // Check if the book is already in the wishlist
       const existingWishlistItem = await Wishlist.findOne({ where: { UserID: userId, BookID: bookId } });

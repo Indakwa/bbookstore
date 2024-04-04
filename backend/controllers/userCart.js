@@ -1,11 +1,18 @@
 const UserCart = require('../models/userCart');
 const Transaction = require('../models/transactionModel');
 const Book = require('../models/bookModel'); // Import the Book model
+const jwt = require('jsonwebtoken');
 
 const userCartController = {
   addToCart: async (req, res) => {
     try {
-      const { userId, bookId } = req.body;
+      // Extract the user ID from the JWT token in the request headers
+      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+
+      console.log(token)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
+      const { bookId } = req.body;
       
       // Check if the item is already in the cart
       const existingCartItem = await UserCart.findOne({ where: { UserID: userId, BookID: bookId } });
@@ -41,8 +48,13 @@ const userCartController = {
   },
 
   getCartItems: async (req, res) => {
-    const { userId } = req.params;
     try {
+      // Extract the user ID from the JWT token in the request headers
+      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+
+      console.log(token)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
       // Find all cart items for the user
       const cartItems = await UserCart.findAll({ 
         where: { UserId: userId }, 
@@ -60,8 +72,13 @@ const userCartController = {
   },
 
   checkout: async (req, res) => {
-    const { userId } = req.body;
     try {
+        // Extract the user ID from the JWT token in the request headers
+        const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+
+        console.log(token)
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
         // Find all cart items for the user
         const cartItems = await UserCart.findAll({
             where: { UserId: userId },
@@ -86,9 +103,13 @@ const userCartController = {
 
 
 confirmPayment: async (req, res) => {
-    const { userId } = req.body;
     try {
-      // Find all cart items for the user
+      // Extract the user ID from the JWT token in the request headers
+      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+
+      console.log(token)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
       const cartItems = await UserCart.findAll({
         where: { UserID: userId },
         include: [{ model: Book }] // Include the Book model to fetch book details
