@@ -2,6 +2,7 @@ const PublisherSubmission = require('../models/publisherSubmissionModel');
 const User = require('../models/userModel');
 const Book = require('../models/bookModel');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('cloudinary').v2;
 
 const publisherSubmissionController = {
   submitRequest: async (req, res) => {
@@ -13,6 +14,28 @@ const publisherSubmissionController = {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decodedToken.userId;
 
+      // Extract file data from the request
+      const bookFile = req.files.epub[0];
+      const coverImageFile = req.files.coverImage[0];
+      const copyrightFile = req.files.copyright[0];
+
+
+      // Upload EPUB file to Cloudinary
+      const bookUpload = await cloudinary.uploader.upload(bookFile.path, {
+        folder: 'bbookstore/books', // Folder in Cloudinary to store EPUB files
+        resource_type: 'auto'
+      });
+
+      const coverImageUpload = await cloudinary.uploader.upload(coverImageFile.path, {
+        folder: 'bbookstore/coverImages', 
+        resource_type: 'auto'
+      });
+
+      const copyrightUpload = await cloudinary.uploader.upload(copyrightFile.path, {
+        folder: 'bbookstore/copyrightFiles', 
+        resource_type: 'auto'
+      });
+
       // Create the publisher submission with the associated user ID
       const newSubmission = await PublisherSubmission.create({
         UserID: userId,
@@ -20,7 +43,11 @@ const publisherSubmissionController = {
         Author: req.body.Author,
         Synopsis: req.body.Synopsis,
         Genre: req.body.Genre,
-        Price: req.body.Price
+        Price: req.body.Price,
+        BookURL: bookUpload.secure_url, 
+        CoverImageURL: coverImageUpload.secure_url,
+        CopyrightURL: copyrightUpload.secure_url,
+        PublisherContact: req.body.Contact
       });
 
       res.status(201).json(newSubmission);
@@ -90,7 +117,10 @@ const publisherSubmissionController = {
           Genre: submission.Genre.join(','), // Assuming Genre is an array of strings
           Synopsis: submission.Synopsis,
           Price: submission.Price,
-          // Add other fields as needed
+          BookURL: submission.BookURL, 
+          CoverImageURL: submission.CoverImageURL,
+          CopyrightURL: submission.CopyrightURL,
+          PublisherContact: submission.Contact
         });
       }
 

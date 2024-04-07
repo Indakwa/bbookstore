@@ -35,6 +35,14 @@ const Book = sequelize.define('book', {
   PublisherContact: {
     type: DataTypes.INTEGER,
     allowNull: true
+  },
+  BookURL: {
+    type: DataTypes.STRING,
+    allowNull: true // Allow null initially
+  },
+  CopyrightURL: {
+    type: DataTypes.STRING,
+    allowNull: true // Allow null initially
   }
 }, {
   tableName: 'book',

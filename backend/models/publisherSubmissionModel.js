@@ -35,6 +35,22 @@ const PublisherSubmission = sequelize.define('publishersubmission', {
   UserID: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  BookURL: {
+    type: DataTypes.STRING,
+    allowNull: true // Allow null initially
+  },
+  CoverImageURL: {
+    type: DataTypes.STRING,
+    allowNull: true // Allow null initially
+  },
+  CopyrightURL: {
+    type: DataTypes.STRING,
+    allowNull: true // Allow null initially
+  },
+  PublisherContact: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   }
 }, {
   tableName: 'publishersubmission',
