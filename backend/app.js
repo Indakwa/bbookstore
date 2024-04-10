@@ -5,10 +5,12 @@ const helmet = require('helmet');
 const routes = require('./routes/routes');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
+const cors = require('cors');
 
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));

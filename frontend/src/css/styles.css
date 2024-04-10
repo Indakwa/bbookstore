@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #252525;
+  color: #f5f5f5;
+}
+
+.sign-up .sign-up-container, .sign-up .login-container, .login .sign-up-container, .login .login-container {
+  width: 60vw;
+  margin: 0 auto;
+}
+.sign-up .sign-up-container .logo-div, .sign-up .login-container .logo-div, .login .sign-up-container .logo-div, .login .login-container .logo-div {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.sign-up .sign-up-container .logo-div #logo, .sign-up .login-container .logo-div #logo, .login .sign-up-container .logo-div #logo, .login .login-container .logo-div #logo {
+  font-size: 5rem;
+  letter-spacing: 2px;
+}
+.sign-up .sign-up-container h2, .sign-up .login-container h2, .login .sign-up-container h2, .login .login-container h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  margin-left: 6rem;
+}
+.sign-up .sign-up-container .inner-container, .sign-up .login-container .inner-container, .login .sign-up-container .inner-container, .login .login-container .inner-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.sign-up .sign-up-container .inner-container form, .sign-up .login-container .inner-container form, .login .sign-up-container .inner-container form, .login .login-container .inner-container form {
+  width: 50%;
+  margin-left: 6rem;
+}
+.sign-up .sign-up-container .inner-container form div label, .sign-up .login-container .inner-container form div label, .login .sign-up-container .inner-container form div label, .login .login-container .inner-container form div label {
+  font-size: 0.8rem;
+  display: inline-block;
+  position: relative;
+  left: 0.3rem;
+}
+.sign-up .sign-up-container .inner-container form div input, .sign-up .login-container .inner-container form div input, .login .sign-up-container .inner-container form div input, .login .login-container .inner-container form div input {
+  width: 80%;
+  font-size: 1rem;
+  display: block;
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #f5f5f5;
+  color: #f5f5f5;
+  padding: 0.8rem 0.3rem;
+  margin-bottom: 1.5rem;
+}
+.sign-up .sign-up-container .inner-container form button, .sign-up .login-container .inner-container form button, .login .sign-up-container .inner-container form button, .login .login-container .inner-container form button {
+  display: block;
+  width: 50%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
+}
+.sign-up .sign-up-container .inner-container form p, .sign-up .login-container .inner-container form p, .login .sign-up-container .inner-container form p, .login .login-container .inner-container form p {
+  font-size: 0.7rem;
+  margin-top: 1rem;
+}
+.sign-up .sign-up-container .inner-container form p #toLogin, .sign-up .login-container .inner-container form p #toLogin, .login .sign-up-container .inner-container form p #toLogin, .login .login-container .inner-container form p #toLogin {
+  text-decoration: none;
+  color: #96ca80;
+}
+.sign-up .sign-up-container .inner-container .right-div, .sign-up .login-container .inner-container .right-div, .login .sign-up-container .inner-container .right-div, .login .login-container .inner-container .right-div {
+  width: 50%;
+  position: relative;
+}
+.sign-up .sign-up-container .inner-container .right-div img, .sign-up .login-container .inner-container .right-div img, .login .sign-up-container .inner-container .right-div img, .login .login-container .inner-container .right-div img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transform: rotate(-30deg);
+  position: absolute;
+  top: -4rem;
+  left: 0;
+}
+
+.home .home-container {
+  width: 80vw;
+  margin: 0 auto;
+}
+.home .home-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+.home .home-container header .logo-div #logo {
+  font-size: 1.5rem;
+}
+.home .home-container header menu {
+  display: flex;
+  gap: 2rem;
+}
+.home .home-container header menu .menu-link {
+  text-decoration: none;
+  color: #f5f5f5;
+  display: block;
+}
+.home .home-container .hero {
+  padding: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6rem;
+}
+.home .home-container .hero .left {
+  width: 60%;
+}
+.home .home-container .hero .left h3 {
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 6.2rem;
+}
+.home .home-container .hero .left h3 #span1 {
+  display: inline-block;
+  width: 60px;
+  height: 80px;
+  background: #80a5ca;
+  border-radius: 40px 40px 40px 0px;
+  margin-right: 1.2rem;
+}
+.home .home-container .hero .left h3 #span2 {
+  display: inline-block;
+  width: 140px;
+  height: 60px;
+  background: #ee6e6e;
+  border-radius: 20px 0px 20px 0;
+  margin-right: 1.2rem;
+}
+.home .home-container .hero .left .links-div {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+.home .home-container .hero .left .links-div .links {
+  border: 2px solid #f5f5f5;
+  font-size: 1rem;
+  padding: 0.8rem 2.4rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.home .home-container .hero .left .links-div .link1 {
+  background: #eec16e;
+  color: #252525;
+}
+.home .home-container .hero .right {
+  width: 48%;
+  position: relative;
+}
+.home .home-container .hero .right img {
+  width: 120%;
+  height: 120%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transform: rotate(0deg);
+  position: absolute;
+  top: -3rem;
+  left: 0;
+}/*# sourceMappingURL=styles.css.map */
