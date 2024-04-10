@@ -114,7 +114,8 @@ const publisherSubmissionController = {
         const newBook = await Book.create({
           Title: submission.BookTitle,
           Author: submission.Author,
-          Genre: submission.Genre.join(','), // Assuming Genre is an array of strings
+          Genre: submission.Genre,
+          //Genre: submission.Genre.join(','), // Assuming Genre is an array of strings
           Synopsis: submission.Synopsis,
           Price: submission.Price,
           BookURL: submission.BookURL, 
