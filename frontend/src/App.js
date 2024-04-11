@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
+import Test from "./pages/Test";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<SignUp />} />
           <Route path='/home' element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/test' element={<Test />} />
         </Routes>
       </Router>
       <ToastContainer />

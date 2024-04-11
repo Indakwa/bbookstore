@@ -7,6 +7,15 @@
     transition: .5s ease;
 }
 
+.space{
+    height: 30vh;
+}
+
+$b: 2px solid red;
+$b2: 2px solid rgb(0, 225, 255);
+$b3: 2px solid rgb(123, 255, 0);
+
+
 $robo: "Roboto", sans-serif;
 $mont: "Montserrat", sans-serif;
 
@@ -22,6 +31,115 @@ body{
     font-family: $robo;
     background: $bla;
     color: $whi;
+}
+
+header{
+    width: 80vw;
+    margin:  0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+
+    .logo-div{
+        #logo{
+            font-size: 1.5rem;
+        }
+    }
+
+    menu{
+        //border: 2px solid rgb(68, 255, 0);
+        display: flex;
+        gap: 2rem;
+
+        .menu-link{
+            text-decoration: none;
+            color: $whi;
+            display: block;
+        }
+    }
+}
+
+footer{
+    width: 80vw;
+    margin:  0 auto;
+    margin-top: 8rem;
+    .footer-top{
+        display: flex;
+        justify-content: space-between;
+
+        .left{
+            width: 30%;
+
+            .logo{
+                #logo{
+                    font-size: 2rem;
+                    font-weight: 600;
+                }
+            }
+
+            .tagline{
+                font-family: $mont;
+                font-weight: 400;
+                font-size: .8rem;
+            }
+
+            .socials{
+                width: 100px;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 4rem;
+
+                .icon{
+                    display: block;
+                    font-size: 1.2rem;
+                }
+            }
+
+        }
+        .right{
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+
+            .footer-links{
+                
+                h6{
+                    font-size: 1.3rem;
+                    font-weight: 500;
+                }
+
+                .footer-link{
+                    font-family: $mont;
+                    display: block;
+                    color: $whi;
+                    text-decoration: none;
+                    margin: .25rem 0;
+                    padding: .25rem 0;
+                    font-size: .8rem;
+
+                    &:hover{
+                        color: $yell;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-bottom{
+        border-top: 1px solid rgba(255, 255, 255, 0.401);
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 2rem;
+
+        p{
+            font-size: .8rem;
+            opacity: .8;
+            font-weight: 400;
+        }
+    }
+
 }
 
 
