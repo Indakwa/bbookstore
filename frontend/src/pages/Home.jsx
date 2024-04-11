@@ -22,6 +22,15 @@ const Home = () => {
     fetchBooks();
   }, []);
 
+  function truncateTitle(title, limit) {
+    if (title.length <= limit) {
+      return title; // Title already fits, return it as is
+    }
+  
+    // Truncate the title and add ellipsis (...)
+    return title.substring(0, limit) + "...";
+  }
+
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -84,7 +93,9 @@ const Home = () => {
                       <img src={book.CoverImageURL} alt={book.Title} />
                     </div>
                     <div className="bottom">
-                      <p className="title">{book.Title}</p>
+                      <p className="title">
+                        {truncateTitle(book.Title, 40)}
+                      </p>
                       <p className="author">{book.Author}</p>
                       <p className='price'><span>KSh.</span>{book.Price}</p>
                     </div>

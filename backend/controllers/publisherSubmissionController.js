@@ -47,7 +47,7 @@ const publisherSubmissionController = {
         BookURL: bookUpload.secure_url, 
         CoverImageURL: coverImageUpload.secure_url,
         CopyrightURL: copyrightUpload.secure_url,
-        PublisherContact: req.body.Contact
+        PublisherContact: req.body.PublisherContact
       });
 
       res.status(201).json(newSubmission);
@@ -114,14 +114,13 @@ const publisherSubmissionController = {
         const newBook = await Book.create({
           Title: submission.BookTitle,
           Author: submission.Author,
-          Genre: submission.Genre,
-          //Genre: submission.Genre.join(','), // Assuming Genre is an array of strings
+          Genre: submission.Genre.split(','), // Assuming Genre is an array of strings
           Synopsis: submission.Synopsis,
           Price: submission.Price,
           BookURL: submission.BookURL, 
           CoverImageURL: submission.CoverImageURL,
           CopyrightURL: submission.CopyrightURL,
-          PublisherContact: submission.Contact
+          PublisherContact: submission.PublisherContact
         });
       }
 
