@@ -1,11 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { IoSearchOutline } from "react-icons/io5";
 import Footer from '../components/Footer';
+import axios from 'axios';
 
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/books');
+        setBooks(response.data);
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -63,56 +78,18 @@ const Home = () => {
             <section className="genre">
               <p className="genre-title">Bestsellers</p>
               <div className="genre-container">
-                <div className="book">
-                  <div className="top">
-                    <img src="/assets/book.jpg" alt="" />
+                {books.map((book) => (
+                  <div key={book.BookID} className="book">
+                    <div className="top">
+                      <img src={book.CoverImageURL} alt={book.Title} />
+                    </div>
+                    <div className="bottom">
+                      <p className="title">{book.Title}</p>
+                      <p className="author">{book.Author}</p>
+                      <p className='price'><span>KSh.</span>{book.Price}</p>
+                    </div>
                   </div>
-                  <div className="bottom">
-                    <p className="title">The Bigfoot Chronicles</p>
-                    <p className="author">Indakwa Benedict</p>
-                    <p className='price'><span>KSh.</span>50</p>
-                  </div>
-                </div>
-                <div className="book">
-                  <div className="top">
-                    <img src="/assets/book.jpg" alt="" />
-                  </div>
-                  <div className="bottom">
-                    <p className="title">The Bigfoot Chronicles</p>
-                    <p className="author">Indakwa Benedict</p>
-                    <p className='price'><span>KSh.</span>50</p>
-                  </div>
-                </div>
-                <div className="book">
-                  <div className="top">
-                    <img src="/assets/book.jpg" alt="" />
-                  </div>
-                  <div className="bottom">
-                    <p className="title">The Bigfoot Chronicles</p>
-                    <p className="author">Indakwa Benedict</p>
-                    <p className='price'><span>KSh.</span>50</p>
-                  </div>
-                </div>
-                <div className="book">
-                  <div className="top">
-                    <img src="/assets/book.jpg" alt="" />
-                  </div>
-                  <div className="bottom">
-                    <p className="title">The Bigfoot Chronicles</p>
-                    <p className="author">Indakwa Benedict</p>
-                    <p className='price'><span>KSh.</span>50</p>
-                  </div>
-                </div>
-                <div className="book">
-                  <div className="top">
-                    <img src="/assets/book.jpg" alt="" />
-                  </div>
-                  <div className="bottom">
-                    <p className="title">The Bigfoot Chronicles</p>
-                    <p className="author">Indakwa Benedict</p>
-                    <p className='price'><span>KSh.</span>50</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
           </section>
