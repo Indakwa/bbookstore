@@ -1,0 +1,127 @@
+.cart{
+    width: 80vw;
+    margin:  0 auto;
+    margin-top: 4rem;
+
+    
+    h5{
+        font-weight: 600;
+        font-size: 1.4rem;
+        font-family: $mont;
+        margin-bottom: .5rem;
+    }
+
+    .cart-container{
+        display: flex;
+        justify-content: space-between;
+
+        .cart-items{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+    
+            .cart-item{
+                //border: 1px solid $whi;
+                padding: 1rem;
+                display: flex;
+                justify-content: space-between;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 5px;
+
+                &:hover{
+                    background: rgba($yell, .1);
+                }
+    
+                .imageDiv{
+                    border: $b;
+                    padding: .5rem;
+                    height: 80px;
+                    width: 70px;
+    
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+    
+                .text{
+                    width: 45%;
+                    align-self: center;
+    
+                    .title{
+                        font-family: $mont;
+                        font-weight: 500;
+                        margin-bottom: .5rem;
+                    }
+                    .author{
+                        font-size: .8rem;
+                        font-weight: 600;
+                        color: $gree;
+                    }
+                }
+    
+                .price{
+                    font-size: 1.1rem;
+                    line-height: 70px;
+                }
+    
+                .closeIcon{
+                    display: block;
+                    font-size: 3rem;
+                    position: relative;
+                    line-height: 70px;
+                    align-self: center;
+                    color: $red;
+
+                    &:hover{
+                        cursor: pointer;
+                        transform: scale(1.2);
+                        rotate: (180deg);
+                    }
+                }
+            }
+        }
+    
+        .summary{
+            //border: 1px solid $whi;
+            padding: 2rem 1.5rem;
+            width: 25%;
+            border-radius: 5px;
+            height: 240px;
+            background: rgba(255, 255, 255, 0.1);
+    
+            h5{
+                font-size: 1.2rem;
+                font-family: $mont;
+                font-weight: 600;
+                margin-bottom: 2rem;
+            }
+            .totals{
+                display: flex;
+                justify-content: space-between;
+    
+                .total-text{
+                    font-size: 1rem;
+                    font-weight: 600;
+                }
+                .total-price{
+                    font-size: 1rem;
+                }
+            }
+    
+            #checkout{
+                display: block;
+                width: 100%;
+                padding: .8rem;
+                font-size: 1rem;
+                font-weight: 700;
+                border-radius: 5px;
+                border: none;
+                background: $yell;
+                margin-top: 3rem;
+            }
+        }
+    }
+}
