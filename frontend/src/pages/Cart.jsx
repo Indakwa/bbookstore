@@ -71,7 +71,6 @@ const Cart = () => {
             </div>
         </section>
         <Footer />
-        <div className="space"></div>
     </>
   )
 }

@@ -681,4 +681,149 @@ footer .footer-bottom p {
 .checkout-overlay .summary #cancel-btn:hover {
   cursor: pointer;
   transform: scale(0.98);
+}
+
+.profile {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+.profile .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+.profile .top .profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.profile .top .profilePic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile .top .profile-details {
+  width: 60%;
+}
+.profile .top .profile-details .username {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.profile .top .profile-details .email {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  color: #96ca80;
+}
+.profile .top .profile-details .bio {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+.profile .top .ctas {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.profile .top .ctas #request-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
+  color: #252525;
+}
+.profile .top .ctas #request-btn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.profile .top .ctas #edit-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #96ca80;
+  margin-top: 1.5rem;
+  color: #252525;
+}
+.profile .top .ctas #edit-btn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.profile .my-books {
+  margin-top: 4rem;
+}
+.profile .my-books h4 {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 0.5rem;
+}
+.profile .my-books .inner-container {
+  display: flex;
+  justify-content: space-between;
+}
+.profile .my-books .inner-container .container {
+  width: 68%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.profile .my-books .inner-container .container .book {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.profile .my-books .inner-container .container .book .coverImage {
+  border: 2px solid red;
+  padding: 0.5rem;
+  height: 80px;
+  width: 60px;
+}
+.profile .my-books .inner-container .container .book .coverImage img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profile .my-books .inner-container .container .book .book-details {
+  padding: 0.5rem;
+}
+.profile .my-books .inner-container .container .book .book-details .title {
+  font-family: "Montserrat", sans-serif;
+}
+.profile .my-books .inner-container .container .book .book-details .author {
+  font-size: 0.8rem;
+  color: #96ca80;
+  font-weight: 500;
+}
+.profile .my-books .inner-container .container .book .progress {
+  padding: 0.5rem;
+}
+.profile .my-books .inner-container .container .book .progress .progress-title {
+  font-size: 1.1rem;
+}
+.profile .my-books .inner-container .container .book .progress .percentage {
+  font-size: 1.2rem;
+}
+.profile .my-books .inner-container .side {
+  background: rgba(255, 255, 255, 0.1);
+  height: 300px;
+  width: 28%;
+  border-radius: 8px;
 }/*# sourceMappingURL=styles.css.map */

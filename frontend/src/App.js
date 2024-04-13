@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 import Test from "./pages/Test";
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/details' element={<Details />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/test' element={<Test />} />
         </Routes>
       </Router>
