@@ -289,7 +289,7 @@ footer .footer-bottom p {
 }
 .home .home-container .genre .genre-container {
   display: flex;
-  justify-content: space-between;
+  gap: 2.5%;
   flex-wrap: wrap;
 }
 .home .home-container .genre .genre-container .book {
@@ -331,6 +331,157 @@ footer .footer-bottom p {
   color: #96ca80;
 }
 .home .home-container .genre .genre-container .book .bottom .price {
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #ee6e6e;
+}
+
+.details {
+  width: 80vw;
+  margin: 0 auto;
+}
+.details .main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+.details .main .left {
+  width: 40%;
+}
+.details .main .left .imageDiv img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.details .main .right {
+  width: 50%;
+  padding-right: 3%;
+}
+.details .main .right .title {
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+.details .main .right .author {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  color: #96ca80;
+  font-weight: 500;
+}
+.details .main .right .price {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #ee6e6e;
+}
+.details .main .right #addToCart {
+  display: block;
+  width: 40%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
+  margin-top: 3rem;
+}
+.details .main .right .synopsis {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  line-height: 1.4rem;
+  margin-top: 3rem;
+  font-size: 0.8rem;
+}
+.details .main .right .addToWishlist {
+  display: block;
+  width: 30%;
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+  background: none;
+  color: #eec16e;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #eec16e;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2rem 0;
+}
+.details .main .right .addToWishlist .icon {
+  position: relative;
+  top: 0.07rem;
+}
+.details .main .right .book-genres {
+  display: flex;
+  gap: 0.4rem;
+}
+.details .main .right .book-genres h6 {
+  font-size: 0.8rem;
+}
+.details .main .right .book-genres ul {
+  display: flex;
+  gap: 0.3rem;
+}
+.details .main .right .book-genres ul li {
+  list-style-type: none;
+  font-size: 0.8rem;
+}
+.details .genre {
+  margin-top: 6rem;
+}
+.details .genre .genre-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.details .genre .genre-container {
+  display: flex;
+  gap: 2.5%;
+  flex-wrap: wrap;
+}
+.details .genre .genre-container .book {
+  width: 18%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+.details .genre .genre-container .book:hover {
+  cursor: pointer;
+  background: rgba(238, 193, 110, 0.18);
+}
+.details .genre .genre-container .book:hover .top img {
+  transform: scale(1.2);
+}
+.details .genre .genre-container .book .top {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.details .genre .genre-container .book .top img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.details .genre .genre-container .book .bottom {
+  padding: 1rem 0.8rem;
+}
+.details .genre .genre-container .book .bottom .title {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.details .genre .genre-container .book .bottom .author {
+  font-size: 1rem;
+  margin-top: 0.4rem;
+  color: #96ca80;
+}
+.details .genre .genre-container .book .bottom .price {
   font-size: 0.9rem;
   margin-top: 0.4rem;
   font-family: "Montserrat", sans-serif;
