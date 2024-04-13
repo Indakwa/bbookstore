@@ -1,10 +1,19 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { IoIosClose } from "react-icons/io";
+import { useState } from 'react';
+import Checkout from './Checkout';
 
 const Cart = () => {
+    const [showCheckout, setShowCheckout] = useState(false)
+
+    const handleCheckout = () => {
+        setShowCheckout(!showCheckout); 
+    };
+
   return (
     <>
+        { showCheckout && <Checkout onCancel={handleCheckout}/> }
         <Header />
         <section className='cart'>
             <h5>Books In Your Cart</h5>
@@ -57,7 +66,7 @@ const Cart = () => {
                         <p className="total-text">Total</p>
                         <p className="total-price"><span>KSh.</span>30.00</p>
                     </div>
-                    <button id='checkout'>Checkout</button>
+                    <button id='checkout' onClick={handleCheckout}>Checkout</button>
                 </div>
             </div>
         </section>

@@ -142,6 +142,17 @@ footer{
 
 }
 
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+    width: 6px; /* Adjust width as desired */
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #88888881; /* Adjust color as desired */
+    border-radius: 6px; /* Round corners */
+}
+  
+
 
 @import 'signup';
 @import 'home';
