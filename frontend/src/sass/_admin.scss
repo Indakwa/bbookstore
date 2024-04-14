@@ -1,0 +1,205 @@
+.admin{
+    width: 80vw;
+    margin: 0 auto;
+    margin-top: 3rem;
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2.5rem 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+
+        .profilePic{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .profile-details{
+            width: 60%;
+
+            .username{
+                font-family: $mont;
+                font-size: 1.4rem;
+                font-weight: 500;
+                margin-bottom: .8rem;
+            }
+            .email{
+                font-size: 1rem;
+                font-weight: 400;
+                margin-bottom: .8rem;
+                color: $gree;
+            }
+            .bio{
+                font-family: $mont;
+                font-size: .8rem;
+            }
+        }
+
+        .ctas{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            #request-btn{
+                display: block;
+                width: 100%;
+                padding: .5rem;
+                font-size: .8rem;
+                font-weight: 700;
+                border-radius: 5px;
+                border: none;
+                background: $yell;
+                color: $bla;
+
+                &:hover{
+                    cursor: pointer;
+                    transform: scale(1.05);
+                }
+            }
+
+            #edit-btn{
+                display: block;
+                width: 100%;
+                padding: .5rem;
+                font-size: .8rem;
+                font-weight: 700;
+                border-radius: 5px;
+                border: none;
+                background: $gree;
+                margin-top: 1.5rem;
+                color: $bla;
+
+                &:hover{
+                    cursor: pointer;
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+
+    .requests{
+        margin-top: 4rem;
+        margin-bottom: 1rem;
+
+        h4{
+            font-size: 1.5rem;
+            margin-bottom: .6rem;
+        }
+
+        .transaction-history-table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #33333372;
+                color: #ececec;
+        
+            th, td {
+                padding: 12px;
+                border: 1px solid #55555500;
+                text-align: start;
+            }
+            
+            th {
+                background-color: #2222226a;
+            }
+        
+            tbody {
+                tr:nth-child(even) {
+                    background-color: #1919194a;
+                }
+        
+                tr:hover {
+                    background-color: #66666625;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.verify{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $bla;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 3;
+
+    .container{
+        width: 80vw;
+        margin: 0 auto;
+        margin-top: 4rem;
+
+        h4{
+            font-family: $mont;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+    
+        .request-container{
+            display: flex;
+            justify-content: space-between;
+
+            .left{
+                width: 35%;
+                border: $b;
+                padding: .5rem;
+    
+                .cover-div{
+                    .label{
+                        font-size: .8rem;
+                    }
+    
+                    .cover{
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+    
+            .right{
+                width: 60%;
+                border: $b;
+                padding: .5rem;
+    
+                .label{
+                    font-size: 1.1rem;
+                    margin-top: 1rem;
+                }
+                .output{
+                    font-family: $mont;
+                }
+            }
+        }
+
+        .btns{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            width: 50%;
+
+            .btn{
+                display: block;
+                width: 40%;
+                padding: .8rem;
+                font-size: 1rem;
+                font-weight: 700;
+                border-radius: 5px;
+                border: none;
+                background: $yell;
+            }
+        }
+    }
+}

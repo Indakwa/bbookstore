@@ -7,7 +7,9 @@ import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
-import Test from "./pages/Test";
+import Admin from './pages/Admin';
+import BookReader from './components/BookReader';
+
 
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
           <Route path='/details' element={<Details />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/test' element={<Test />} />
+          <Route path='/admin' element={<Admin />} />
+          <Route path="/book/:bookId" element={<BookReader />} />
         </Routes>
       </Router>
       <ToastContainer />

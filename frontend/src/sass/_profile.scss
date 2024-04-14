@@ -62,7 +62,6 @@
 
                 &:hover{
                     cursor: pointer;
-                    transform: scale(1.05);
                 }
             }
 
@@ -105,49 +104,54 @@
                 flex-direction: column;
     
                 .book{
-                    border-radius: 8px;
                     background: rgba(255, 255, 255, 0.1);
                     border-radius: 8px;
-                    padding: 1.5rem;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
                     margin-bottom: 2rem;
     
-                    .coverImage{
-                        border: $b;
-                        padding: .5rem;
-                        height: 80px;
-                        width: 60px;
-    
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
+                    .book-link{
+                        padding: 1.5rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        text-decoration: none;
+                        color: $whi;
+
+
+                        .coverImage{
+                            border: $b;
+                            padding: .5rem;
+                            height: 80px;
+                            width: 60px;
+        
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
                         }
-                    }
-    
-                    .book-details{
-                        padding: .5rem;
-    
-                        .title{
-                            font-family: $mont;
+        
+                        .book-details{
+                            padding: .5rem;
+        
+                            .title{
+                                font-family: $mont;
+                            }
+                            .author{
+                                font-size: .8rem;
+                                color: $gree;
+                                font-weight: 500;
+                            }
                         }
-                        .author{
-                            font-size: .8rem;
-                            color: $gree;
-                            font-weight: 500;
-                        }
-                    }
-    
-                    .progress{
-                        padding: .5rem;
-    
-                        .progress-title{
-                            font-size: 1.1rem;
-                        }
-                        .percentage{
-                            font-size: 1.2rem;
+        
+                        .progress{
+                            padding: .5rem;
+        
+                            .progress-title{
+                                font-size: 1.1rem;
+                            }
+                            .percentage{
+                                font-size: 1.2rem;
+                            }
                         }
                     }
                 }
@@ -158,6 +162,110 @@
                 height: 300px;
                 width: 28%;
                 border-radius: 8px;
+            }
+        }
+    }
+}
+
+.request{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: $bla;
+
+    .request-container{
+        width: 80vw;
+        margin: 0 auto;
+        margin-top: 4rem;
+        position: relative;
+        
+        h4{
+            font-family: $mont;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        #closeIcon{
+            color: $red;
+            font-size: 4rem;
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+
+            &:hover{
+                rotate: (-180deg);
+                cursor: pointer;
+            }
+        }
+        .inner-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            .input-div{
+                width: 48%;
+                margin-bottom: 1.5rem;
+                position: relative;
+
+                label{
+                    font-size: .8rem;
+                    display: inline-block;
+                    position: relative;
+                    left: .3rem;
+                    margin-bottom: .3rem;
+                }
+                input, textarea{
+                    display: block;
+                    color: $whi;
+                    background: none;
+                    outline: none;
+                    border: 1px solid $whi;
+                    border-radius: 5px;
+                    font-size: 1rem;
+                    padding: .8rem 1rem;
+                    width: 80%;
+
+                    &:focus{
+                        border: 1px solid $yell; 
+                    }
+
+                    &::placeholder { 
+                        color: rgba(255, 255, 255, 0.5); 
+                    }
+                }
+
+                .submit{
+                    display: block;
+                    width: 50%;
+                    padding: .8rem;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    border-radius: 5px;
+                    border: none;
+                    background: $yell;
+                }
+
+                .custom-file-upload {
+                    border: 1px solid $whi;
+                    display: inline-block;
+                    padding: .5rem 1rem;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 1rem;
+                    margin-top: .8rem;
+                }
+
+                input[type="file"] {
+                    border: $b;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-size: 1rem;
+                    padding: .5rem 1rem;
+                    cursor: pointer;
+                    opacity: 0;
+                }
             }
         }
     }

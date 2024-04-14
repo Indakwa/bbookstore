@@ -612,6 +612,8 @@ footer .footer-bottom p {
 .checkout-overlay {
   z-index: 3;
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -744,7 +746,6 @@ footer .footer-bottom p {
 }
 .profile .top .ctas #request-btn:hover {
   cursor: pointer;
-  transform: scale(1.05);
 }
 .profile .top .ctas #edit-btn {
   display: block;
@@ -780,45 +781,48 @@ footer .footer-bottom p {
   flex-direction: column;
 }
 .profile .my-books .inner-container .container .book {
-  border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
+  margin-bottom: 2rem;
+}
+.profile .my-books .inner-container .container .book .book-link {
   padding: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  text-decoration: none;
+  color: #f5f5f5;
 }
-.profile .my-books .inner-container .container .book .coverImage {
+.profile .my-books .inner-container .container .book .book-link .coverImage {
   border: 2px solid red;
   padding: 0.5rem;
   height: 80px;
   width: 60px;
 }
-.profile .my-books .inner-container .container .book .coverImage img {
+.profile .my-books .inner-container .container .book .book-link .coverImage img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.profile .my-books .inner-container .container .book .book-details {
+.profile .my-books .inner-container .container .book .book-link .book-details {
   padding: 0.5rem;
 }
-.profile .my-books .inner-container .container .book .book-details .title {
+.profile .my-books .inner-container .container .book .book-link .book-details .title {
   font-family: "Montserrat", sans-serif;
 }
-.profile .my-books .inner-container .container .book .book-details .author {
+.profile .my-books .inner-container .container .book .book-link .book-details .author {
   font-size: 0.8rem;
   color: #96ca80;
   font-weight: 500;
 }
-.profile .my-books .inner-container .container .book .progress {
+.profile .my-books .inner-container .container .book .book-link .progress {
   padding: 0.5rem;
 }
-.profile .my-books .inner-container .container .book .progress .progress-title {
+.profile .my-books .inner-container .container .book .book-link .progress .progress-title {
   font-size: 1.1rem;
 }
-.profile .my-books .inner-container .container .book .progress .percentage {
+.profile .my-books .inner-container .container .book .book-link .progress .percentage {
   font-size: 1.2rem;
 }
 .profile .my-books .inner-container .side {
@@ -826,4 +830,276 @@ footer .footer-bottom p {
   height: 300px;
   width: 28%;
   border-radius: 8px;
+}
+
+.request {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #252525;
+}
+.request .request-container {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 4rem;
+  position: relative;
+}
+.request .request-container h4 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.request .request-container #closeIcon {
+  color: #ee6e6e;
+  font-size: 4rem;
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+}
+.request .request-container #closeIcon:hover {
+  rotate: -180deg;
+  cursor: pointer;
+}
+.request .request-container .inner-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.request .request-container .inner-container .input-div {
+  width: 48%;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.request .request-container .inner-container .input-div label {
+  font-size: 0.8rem;
+  display: inline-block;
+  position: relative;
+  left: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.request .request-container .inner-container .input-div input, .request .request-container .inner-container .input-div textarea {
+  display: block;
+  color: #f5f5f5;
+  background: none;
+  outline: none;
+  border: 1px solid #f5f5f5;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  width: 80%;
+}
+.request .request-container .inner-container .input-div input:focus, .request .request-container .inner-container .input-div textarea:focus {
+  border: 1px solid #eec16e;
+}
+.request .request-container .inner-container .input-div input::-moz-placeholder, .request .request-container .inner-container .input-div textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.request .request-container .inner-container .input-div input::placeholder, .request .request-container .inner-container .input-div textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.request .request-container .inner-container .input-div .submit {
+  display: block;
+  width: 50%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
+}
+.request .request-container .inner-container .input-div .custom-file-upload {
+  border: 1px solid #f5f5f5;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 0.8rem;
+}
+.request .request-container .inner-container .input-div input[type=file] {
+  border: 2px solid red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.admin {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+.admin .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+.admin .top .profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.admin .top .profilePic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.admin .top .profile-details {
+  width: 60%;
+}
+.admin .top .profile-details .username {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.admin .top .profile-details .email {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  color: #96ca80;
+}
+.admin .top .profile-details .bio {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+}
+.admin .top .ctas {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.admin .top .ctas #request-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
+  color: #252525;
+}
+.admin .top .ctas #request-btn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.admin .top .ctas #edit-btn {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #96ca80;
+  margin-top: 1.5rem;
+  color: #252525;
+}
+.admin .top .ctas #edit-btn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.admin .requests {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+.admin .requests h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.admin .requests .transaction-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(51, 51, 51, 0.4470588235);
+  color: #ececec;
+}
+.admin .requests .transaction-history-table th, .admin .requests .transaction-history-table td {
+  padding: 12px;
+  border: 1px solid rgba(85, 85, 85, 0);
+  text-align: start;
+}
+.admin .requests .transaction-history-table th {
+  background-color: rgba(34, 34, 34, 0.4156862745);
+}
+.admin .requests .transaction-history-table tbody tr:nth-child(even) {
+  background-color: rgba(25, 25, 25, 0.2901960784);
+}
+.admin .requests .transaction-history-table tbody tr:hover {
+  background-color: rgba(102, 102, 102, 0.1450980392);
+  cursor: pointer;
+}
+
+.verify {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #252525;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 3;
+}
+.verify .container {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+.verify .container h4 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.verify .container .request-container {
+  display: flex;
+  justify-content: space-between;
+}
+.verify .container .request-container .left {
+  width: 35%;
+  border: 2px solid red;
+  padding: 0.5rem;
+}
+.verify .container .request-container .left .cover-div .label {
+  font-size: 0.8rem;
+}
+.verify .container .request-container .left .cover-div .cover img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.verify .container .request-container .right {
+  width: 60%;
+  border: 2px solid red;
+  padding: 0.5rem;
+}
+.verify .container .request-container .right .label {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+.verify .container .request-container .right .output {
+  font-family: "Montserrat", sans-serif;
+}
+.verify .container .btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  width: 50%;
+}
+.verify .container .btns .btn {
+  display: block;
+  width: 40%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: none;
+  background: #eec16e;
 }/*# sourceMappingURL=styles.css.map */
