@@ -23,8 +23,7 @@ const publisherSubmissionController = {
       // Upload EPUB file to Cloudinary
       const bookUpload = await cloudinary.uploader.upload(bookFile.path, {
         folder: 'bbookstore/books', // Folder in Cloudinary to store EPUB files
-        resource_type: 'raw',
-        type: 'application/epub+zip'
+        resource_type: 'auto',
       });
 
       const coverImageUpload = await cloudinary.uploader.upload(coverImageFile.path, {
