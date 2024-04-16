@@ -1,38 +1,42 @@
-import { ReactReader } from 'react-reader'; // Import ReactReader
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const BookReader = () => {
   const { bookId } = useParams();
-  const [bookUrl, setBookUrl] = useState(null);
+  const [bookContent, setBookContent] = useState('');
   const [bookError, setBookError] = useState(null); // State for book errors
 
   useEffect(() => {
-    const fetchBookUrl = async () => {
+    const fetchBookContent = async () => {
       try {
+        // Fetch the book data from the backend
         const response = await axios.get(`http://localhost:3000/api/books/${bookId}`);
-        setBookUrl(response.data.BookURL);
-        console.log(`${response.data.BookURL}.epub`)
+        // Extract the book URL from the response data
+        const bookURL = response.data.BookURL;
+        // Fetch the book content from the Cloudinary URL
+        const bookContentResponse = await fetch(bookURL);
+        if (!bookContentResponse.ok) {
+          throw new Error('Network response was not ok');
+        }
+        // Read the text content of the response
+        const textContent = await bookContentResponse.text();
+        setBookContent(textContent);
       } catch (error) {
         setBookError(error.message); // Store error message
-        console.error('Error fetching book URL:', error);
+        console.error('Error fetching book content:', error);
       }
     };
-    fetchBookUrl();
+    fetchBookContent();
   }, [bookId]);
 
   return (
     <div>
-      {bookUrl && 
-        <ReactReader 
-          url={bookUrl} 
-          epubInitOptions={{
-            openAs: 'epub',
-          }}
-        />} {/* Render ReactReader for ePub */}
-      {!bookUrl && !bookError && <p>Loading...</p>} {/* Loading state */}
-      {bookError && <p>Error: {bookError}</p>}  {/* Display error message */}
+      {bookError ? (
+        <p>Error: {bookError}</p>
+      ) : (
+        <p>{bookContent}</p>
+      )}
     </div>
   );
 };
