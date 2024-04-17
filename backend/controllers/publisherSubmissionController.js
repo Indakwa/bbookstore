@@ -14,6 +14,8 @@ const publisherSubmissionController = {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decodedToken.userId;
 
+
+      console.log('Req Files', req.files)
       // Extract file data from the request
       const bookFile = req.files.epub[0];
       const coverImageFile = req.files.coverImage[0];

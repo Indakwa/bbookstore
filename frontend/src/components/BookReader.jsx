@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
 import axios from 'axios';
 
 const BookReader = () => {
+  const navigate = useNavigate();
   const { bookId } = useParams();
   const [bookTitle, setBookTitle] = useState('');
   const [bookContent, setBookContent] = useState('');
   const [bookError, setBookError] = useState(null); // State for book errors
+
+
+  const handleClose = () => {
+    navigate("/profile");
+  }
 
   useEffect(() => {
     const fetchBookContent = async () => {
@@ -37,7 +43,9 @@ const BookReader = () => {
   return (
     <>
       <div className="reader-page">
-        <p className="closeIcon"><IoIosClose id='icon'/></p>
+        <p className="closeIcon">
+          <IoIosClose id='icon' onClick={handleClose}/>
+        </p>
         
         <p className="book-title">
           {bookTitle}

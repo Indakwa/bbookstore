@@ -889,6 +889,7 @@ footer .footer-bottom p {
   font-size: 1rem;
   padding: 0.8rem 1rem;
   width: 80%;
+  font-family: "Montserrat", sans-serif;
 }
 .request .request-container .inner-container .input-div input:focus, .request .request-container .inner-container .input-div textarea:focus {
   border: 1px solid #eec16e;
@@ -926,7 +927,7 @@ footer .footer-bottom p {
   font-size: 1rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.7;
 }
 
 .admin {

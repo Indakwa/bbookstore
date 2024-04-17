@@ -16,6 +16,13 @@ const Login = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleLoginSuccess = (token) => {
+        // Save token to localStorage
+        localStorage.setItem('bb_tkn', token);
+        // Redirect user to home page
+        navigate('/home');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -30,7 +37,10 @@ const Login = () => {
              // Handle successful login
             toast.success('Login successful');
             // Optionally redirect user to another page upon successful login
-            navigate("/home");
+            const { token } = response.data;
+            // Call function to save token to localStorage
+            console.log(token)
+            handleLoginSuccess(token);
         }catch (error) {
             if (error.response) {
                 // The request was made and the server responded with a status code

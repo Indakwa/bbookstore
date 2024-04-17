@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { IoIosClose } from "react-icons/io";
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Request = ({ onCancel }) => {
     const handleClose = () => {
@@ -14,14 +16,49 @@ const Request = ({ onCancel }) => {
         Genre: '',
         Price: '',
         epub: '',
-        CoverImage: '',
-        Copyright: '',
+        coverImage: '',
+        copyright: '',
         PublisherContact: ''
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        if (e.target.name === 'epub' || e.target.name === 'coverImage' || e.target.name === 'copyright') {
+            // If the input is a file input, update the state with the selected file
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+        } else {
+            // If the input is not a file input, update the state with the input value
+            const { name, value } = e.target;
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();     
+        try {
+            // Create FormData object to send files along with other form data
+            const formDataToSend = new FormData();
+            for (const key in formData) {
+                formDataToSend.append(key, formData[key]);
+            }
+            // Get JWT token from localStorage (assuming it's stored there after login)
+            const token = localStorage.getItem('bb_tkn');
+            // Include JWT token in request headers
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+
+            console.log('formDataToSend', formDataToSend)
+            // Send the form data to the backend with JWT token in headers
+            await axios.post('http://localhost:3000/api/submit-request', formDataToSend, config);
+            // Handle success (e.g., show a success message, redirect user, etc.)
+            toast('Publish request submitted successfully!');
+        } catch (error) {
+            // Handle error (e.g., show error message to user)
+            console.error('Error submitting publish request:', error);
+            toast('Error submitting publish request. Please try again.');
+        }
     };
 
 
@@ -31,7 +68,11 @@ const Request = ({ onCancel }) => {
         <div className="request-container">
             <h4>Fill in The Book Details</h4>
             <IoIosClose id='closeIcon' onClick={handleClose}/>
-            <form className="inner-container">
+            <form 
+                className="inner-container" 
+                onSubmit={handleSubmit} 
+                encType="multipart/form-data"
+            >
                 <div className="input-div">
                     <label htmlFor="BookTitle">Enter Book Title</label>
                     <input 
@@ -106,22 +147,21 @@ const Request = ({ onCancel }) => {
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="epub" class="custom-file-upload">Upload Book (.epub)</label>
+                    <label htmlFor="epub" className="custom-file-upload">Upload Book (.txt)</label>
                     <input 
                         type="file" 
                         name='epub' 
-                        accept="application/epub+zip"
-                        value={formData.epub}
+                        accept=".txt"
                         onChange={handleChange}
                         required
                         autoComplete="off"
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="CoverImage" class="custom-file-upload">Upload Cover Image</label>
+                    <label htmlFor="CoverImage" className="custom-file-upload">Upload Cover Image</label>
                     <input 
                         type="file" 
-                        name='CoverImage' 
+                        name='coverImage' 
                         accept="image/*"
                         value={formData.CoverImage}
                         onChange={handleChange}
@@ -130,10 +170,10 @@ const Request = ({ onCancel }) => {
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="Copyright" class="custom-file-upload">Upload Copyright Information (.pdf)</label>
+                    <label htmlFor="Copyright" className="custom-file-upload">Upload Copyright Information (.pdf)</label>
                     <input 
                         type="file" 
-                        name='Copyright' 
+                        name='copyright' 
                         accept="application/pdf"
                         value={formData.Copyright}
                         onChange={handleChange}
