@@ -1102,4 +1102,54 @@ footer .footer-bottom p {
   border-radius: 5px;
   border: none;
   background: #eec16e;
+}
+
+.reader-page {
+  width: 80vw;
+  margin: 0 auto;
+  position: relative;
+}
+.reader-page .closeIcon {
+  position: fixed;
+  top: 1rem;
+  right: 6rem;
+  color: #ee6e6e;
+  font-size: 5rem;
+  z-index: 3;
+}
+.reader-page .closeIcon #icon:hover {
+  cursor: pointer;
+  rotate: 180deg;
+}
+.reader-page .book-title {
+  position: fixed;
+  top: 0;
+  width: 80vw;
+  background-color: #252525;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  color: #eec16e;
+}
+.reader-page .reader {
+  margin-top: 4rem;
+}
+.reader-page .reader h1 {
+  font-size: 1.5rem;
+}
+.reader-page .reader h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: 500;
+}
+.reader-page .reader h3 {
+  font-size: 1.5rem;
+}
+.reader-page .reader p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 2.2rem;
 }/*# sourceMappingURL=styles.css.map */

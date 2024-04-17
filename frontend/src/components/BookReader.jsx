@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { IoIosClose } from "react-icons/io";
 import axios from 'axios';
 
 const BookReader = () => {
   const { bookId } = useParams();
+  const [bookTitle, setBookTitle] = useState('');
   const [bookContent, setBookContent] = useState('');
   const [bookError, setBookError] = useState(null); // State for book errors
 
@@ -14,6 +16,8 @@ const BookReader = () => {
         const response = await axios.get(`http://localhost:3000/api/books/${bookId}`);
         // Extract the book URL from the response data
         const bookURL = response.data.BookURL;
+        setBookTitle(response.data.Title)
+        console.log(response.data.Title)
         // Fetch the book content from the Cloudinary URL
         const bookContentResponse = await fetch(bookURL);
         if (!bookContentResponse.ok) {
@@ -31,13 +35,23 @@ const BookReader = () => {
   }, [bookId]);
 
   return (
-    <div>
-      {bookError ? (
-        <p>Error: {bookError}</p>
-      ) : (
-        <p>{bookContent}</p>
-      )}
-    </div>
+    <>
+      <div className="reader-page">
+        <p className="closeIcon"><IoIosClose id='icon'/></p>
+        
+        <p className="book-title">
+          {bookTitle}
+        </p>
+        <section className='reader'>
+          {bookError ? (
+            <p>Error: {bookError}</p>
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: bookContent }} />
+            
+          )}
+        </section>
+      </div>
+    </>
   );
 };
 
