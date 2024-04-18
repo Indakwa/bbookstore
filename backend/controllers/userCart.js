@@ -94,54 +94,66 @@ const userCartController = {
             totalPrice += parseFloat(cartItem.book.Price);
         }
 
-        res.status(200).json({ cartItems, totalPrice });
+        // Prepare checkout details
+        const checkoutDetails = {
+            cartItems: cartItems.map(item => ({
+                title: item.book.Title,
+                author: item.book.Author,
+                price: item.book.Price
+            })),
+            totalPrice: totalPrice
+        };
+
+        res.status(200).json(checkoutDetails);
     } catch (error) {
         console.error('Error during checkout:', error);
         res.status(500).json({ error: 'Error during checkout' });
     }
-},
+}
+,
 
 
-confirmPayment: async (req, res) => {
-    try {
-      // Extract the user ID from the JWT token in the request headers
-      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+  confirmPayment: async (req, res) => {
+      try {
+        // Extract the user ID from the JWT token in the request headers
+        const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
 
-      console.log(token)
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decodedToken.userId;
-      const cartItems = await UserCart.findAll({
-        where: { UserID: userId },
-        include: [{ model: Book }] // Include the Book model to fetch book details
-      });
-      if (!cartItems || cartItems.length === 0) {
-        return res.status(404).json({ error: 'Cart is empty' });
+        console.log(token)
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
+        const cartItems = await UserCart.findAll({
+          where: { UserID: userId },
+          include: [{ model: Book }] // Include the Book model to fetch book details
+        });
+        if (!cartItems || cartItems.length === 0) {
+          return res.status(404).json({ error: 'Cart is empty' });
+        }
+
+        // Calculate total price
+        const totalPrice = cartItems.reduce((total, item) => total + parseFloat(item.book.Price), 0);
+
+        // Create a new transaction record
+        const newTransaction = await Transaction.create({
+          UserID: userId,
+          TransactionDate: new Date(),
+          TransactionStatus: 'pending', // Assuming the transaction status is initially pending
+          CartItems: cartItems.map(item => ({
+            Name: item.book.Title,
+            Price: item.book.Price
+          })),
+          TotalPrice: totalPrice
+        });
+
+        // Clear the cart by removing all items
+        await UserCart.destroy({ where: { UserID: userId } });
+
+        // Send a success response
+        res.status(201).json({ message: 'Payment confirmed successfully' });
+      } catch (error) {
+        console.error('Error confirming payment:', error);
+        res.status(500).json({ error: 'Error confirming payment' });
       }
-
-      // Calculate total price
-      const totalPrice = cartItems.reduce((total, item) => total + parseFloat(item.book.Price), 0);
-
-      // Create a new transaction record
-      const newTransaction = await Transaction.create({
-        UserID: userId,
-        TransactionDate: new Date(),
-        TransactionStatus: 'pending', // Assuming the transaction status is initially pending
-        CartItems: cartItems.map(item => ({
-          Name: item.book.Title,
-          Price: item.book.Price
-        })),
-        TotalPrice: totalPrice
-      });
-
-      // Clear the cart by removing all items
-      await UserCart.destroy({ where: { UserID: userId } });
-
-      res.status(201).json(newTransaction);
-    } catch (error) {
-      console.error('Error confirming payment:', error);
-      res.status(500).json({ error: 'Error confirming payment' });
     }
-  }
 };
 
 module.exports = userCartController;

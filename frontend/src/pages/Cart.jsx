@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import Checkout from './Checkout';
 import axios from 'axios';
 
+
 const Cart = () => {
     const [showCheckout, setShowCheckout] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [checkoutDetails, setCheckoutDetails] = useState(null);
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -28,9 +30,27 @@ const Cart = () => {
         fetchCartItems();
     }, []);
 
-    const handleCheckout = () => {
-        setShowCheckout(!showCheckout);
+    // Function to calculate the total price of items in the cart
+    const calculateTotalPrice = () => { // Added function to calculate total price
+        return cartItems.reduce((total, item) => total + parseFloat(item.book.Price), 0).toFixed(2);
     };
+
+    const handleCheckout = async () => {
+        try {
+            const token = localStorage.getItem('bb_tkn');
+            const response = await axios.post('http://localhost:3000/api/cart/checkout', {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setCheckoutDetails(response.data);
+            setShowCheckout(true);
+        } catch (error) {
+            console.error('Error during checkout:', error);
+        }
+    };
+
+    const handleCloseCheckout = () => {
+        setShowCheckout(false);
+    }
 
     const removeFromCart = async (userId, bookId) => {
         try {
@@ -48,7 +68,6 @@ const Cart = () => {
 
     return (
         <>
-            {showCheckout && <Checkout onCancel={handleCheckout} />}
             <Header />
             <section className='cart'>
                 <h5>Books In Your Cart</h5>
@@ -78,12 +97,21 @@ const Cart = () => {
                         <h5>Your Order Summary</h5>
                         <div className="totals">
                             <p className="total-text">Total</p>
-                            <p className="total-price"><span>KSh.</span>30.00</p>
+                            <p className="total-price">
+                                <span>KSh.</span>
+                                {calculateTotalPrice()}
+                            </p>
                         </div>
                         <button id='checkout' onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
             </section>
+            {showCheckout && checkoutDetails && (
+                <Checkout
+                    onCancel={handleCloseCheckout}
+                    totalPrice={checkoutDetails.totalPrice}
+                />
+            )}
             <Footer />
         </>
     );

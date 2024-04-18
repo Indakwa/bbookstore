@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useParams, Link } from 'react-router-dom'; 
+import { toast } from 'react-toastify'
 import axios from 'axios';
 import Footer from '../components/Footer';
 
@@ -53,8 +54,12 @@ const Details = () => {
         );
         alert('Book added to cart successfully!');
       } catch (error) {
-        console.error('Error adding to cart:', error);
-        alert('Failed to add book to cart.');
+          if (error.response && error.response.status === 400) {
+            // Item already exists in the cart
+            toast('Item already exists in the cart');
+        } else {
+            console.error('Error when adding book to cart', error);
+        }
       }
     };
 
