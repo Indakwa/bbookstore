@@ -1120,7 +1120,7 @@ footer .footer-bottom p {
 .verify .modal .modal-container {
   width: 80vw;
   margin: 0 auto;
-  margin-top: 4rem;
+  margin-top: 8rem;
 }
 .verify .modal .modal-container .closeIcon {
   position: fixed;
@@ -1194,7 +1194,8 @@ footer .footer-bottom p {
   color: #eec16e;
 }
 .reader-page .reader {
-  margin-top: 4rem;
+  margin-top: 8rem;
+  padding-bottom: 8rem;
 }
 .reader-page .reader h1 {
   font-size: 1.5rem;

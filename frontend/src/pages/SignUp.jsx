@@ -43,6 +43,13 @@ const SignUp = () => {
         return null; // Password is valid
     };
 
+    const handleSignUpSuccess = (token) => {
+        // Save token to localStorage
+        localStorage.setItem('bb_tkn', token);
+        // Redirect user to home page
+        navigate('/home');
+    };
+
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +77,11 @@ const SignUp = () => {
             // Handle successful signup (e.g., redirect user)
             // For now, let's just log a success message
             toast('Signup successful');
-            navigate("/home");
+            // Optionally redirect user to another page upon successful login
+            const { token } = response.data;
+            // Call function to save token to localStorage
+            console.log(token)
+            handleSignUpSuccess(token);
         } catch (error) {
             toast('Signup error:', error.message);
             // Handle signup error (e.g., display error message to user)
