@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { IoSearchOutline } from "react-icons/io5";
 import Footer from '../components/Footer';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -88,18 +89,20 @@ const Home = () => {
               <p className="genre-title">Bestsellers</p>
               <div className="genre-container">
                 {books.map((book) => (
-                  <div key={book.BookID} className="book">
-                    <div className="top">
-                      <img src={book.CoverImageURL} alt={book.Title} />
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div >
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
                     </div>
-                    <div className="bottom">
-                      <p className="title">
-                        {truncateTitle(book.Title, 40)}
-                      </p>
-                      <p className="author">{book.Author}</p>
-                      <p className='price'><span>KSh.</span>{book.Price}</p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </section>
