@@ -1040,13 +1040,9 @@ footer .footer-bottom p {
 }
 
 .verify {
-  position: absolute;
-  top: 0;
-  left: 0;
   background: #252525;
   width: 100%;
   min-height: 100vh;
-  z-index: 3;
 }
 .verify .container {
   width: 80vw;
@@ -1088,6 +1084,13 @@ footer .footer-bottom p {
 .verify .container .request-container .right .output {
   font-family: "Montserrat", sans-serif;
 }
+.verify .container .request-container .right .output a {
+  color: #eec16e;
+  text-decoration: none;
+}
+.verify .container .request-container .right .book:hover {
+  cursor: pointer;
+}
 .verify .container .btns {
   display: flex;
   justify-content: space-between;
@@ -1103,6 +1106,62 @@ footer .footer-bottom p {
   border-radius: 5px;
   border: none;
   background: #eec16e;
+}
+.verify .modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #252525;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 3;
+  padding-bottom: 8rem;
+}
+.verify .modal .modal-container {
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+.verify .modal .modal-container .closeIcon {
+  position: fixed;
+  top: 1rem;
+  right: 6rem;
+  color: #ee6e6e;
+  font-size: 5rem;
+  z-index: 2;
+}
+.verify .modal .modal-container .closeIcon #icon:hover {
+  cursor: pointer;
+  rotate: 180deg;
+}
+.verify .modal .modal-container .book-title {
+  position: fixed;
+  top: 0;
+  width: 80vw;
+  background-color: #252525;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  color: #eec16e;
+}
+.verify .modal .modal-container h1 {
+  font-size: 1.5rem;
+}
+.verify .modal .modal-container h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: 500;
+}
+.verify .modal .modal-container h3 {
+  font-size: 1.5rem;
+}
+.verify .modal .modal-container p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 2.2rem;
 }
 
 .reader-page {

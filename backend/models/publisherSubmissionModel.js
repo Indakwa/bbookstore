@@ -1,5 +1,6 @@
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
+const User = require('./userModel');
 
 const PublisherSubmission = sequelize.define('publishersubmission', {
   SubmissionID: {
@@ -56,5 +57,8 @@ const PublisherSubmission = sequelize.define('publishersubmission', {
   tableName: 'publishersubmission',
   timestamps: false
 });
+
+// Define association
+PublisherSubmission.belongsTo(User, { foreignKey: 'UserID' });
 
 module.exports = PublisherSubmission;

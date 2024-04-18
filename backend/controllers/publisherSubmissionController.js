@@ -132,6 +132,53 @@ const publisherSubmissionController = {
       console.error('Error approving submission:', error);
       res.status(500).json({ error: 'Error approving submission' });
     }
+  },
+
+  declineRequest: async (req, res) => {
+    const submissionId = req.params.id;
+    const { requestStatus } = req.body;
+    try {
+        const submission = await PublisherSubmission.findByPk(submissionId);
+        if (!submission) {
+            return res.status(404).json({ error: 'Submission Request not found' });
+        }
+        // Change request status to 'declined'
+        submission.requestStatus = requestStatus;
+        await submission.save();
+
+        res.status(200).json({ message: 'Submission declined successfully' });
+    } catch (error) {
+        console.error('Error declining submission:', error);
+        res.status(500).json({ error: 'Error declining submission' });
+    }
+  },
+
+  getAllRequests: async (req, res) => {
+    try {
+      const allSubmissions = await PublisherSubmission.findAll({
+        include: User // Include associated user data
+      });
+      res.status(200).json(allSubmissions);
+    } catch (error) {
+      console.error('Error fetching all submissions:', error);
+      res.status(500).json({ error: 'Error fetching all submissions' });
+    }
+  },
+
+  getRequestById: async (req, res) => {
+    const submissionId = req.params.id;
+    try {
+      const submission = await PublisherSubmission.findByPk(submissionId, {
+        include: User // Include associated user data
+      });
+      if (!submission) {
+        return res.status(404).json({ error: 'Submission not found' });
+      }
+      res.status(200).json(submission);
+    } catch (error) {
+      console.error('Error fetching submission by ID:', error);
+      res.status(500).json({ error: 'Error fetching submission by ID' });
+    }
   }
 };
 

@@ -5,16 +5,16 @@ const jwt = require('jsonwebtoken');
 const adminController = {
   // Admin login
   loginAdmin: async (req, res) => {
-    const { email, password } = req.body;
+    const { Email, Password } = req.body;
     try {
       // Find admin by email
-      const admin = await Admin.findOne({ where: { Email: email } });
+      const admin = await Admin.findOne({ where: { Email: Email } });
       if (!admin) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
       // Check if password is correct
-      const validPassword = (password === admin.Password);
+      const validPassword = (Password === admin.Password);
       if (!validPassword) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }

@@ -36,7 +36,7 @@ router.delete('/user-books/:id', userBooksController.deleteUserBook);
 
 // Admin routes
 router.put('/admin/:id', authenticateAdmin, authorize, adminController.updateAdmin);
-router.post('/admin', adminController.loginAdmin);
+router.post('/login-admin', adminController.loginAdmin);
 
 // Book routes
 router.post('/books', bookController.createBook);
@@ -67,6 +67,10 @@ router.post('/submit-request', publisherSubmissionController.submitRequest);
 router.put('/edit-request/:id', publisherSubmissionController.editRequest);
 router.delete('/delete-request/:id', publisherSubmissionController.deleteRequest);
 router.put('/approve-request/:id', authenticateAdmin, authorize, publisherSubmissionController.approveRequest);
+router.put('/decline-request/:id', authenticateAdmin, authorize, publisherSubmissionController.declineRequest);
+router.get('/all-requests', publisherSubmissionController.getAllRequests);
+router.get('/requests/:id', publisherSubmissionController.getRequestById);
+
 
 // Publisher catalog routes
 router.post('/publisher-catalogs', publisherCatalogController.createPublisherCatalog);

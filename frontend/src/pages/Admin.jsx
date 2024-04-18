@@ -1,20 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Verify from '../components/Verify';
 import { FaAngleRight } from "react-icons/fa6";
-
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
-    const [showVerify, setShowVerify] = useState(false)
+    const API_URL = 'http://localhost:3000/api';
+    const [showVerify, setShowVerify] = useState(true)
+    const [requests, setRequests] = useState([]);
+    const [verifySubmissionId, setVerifySubmissionId] = useState("");
 
-    const handleVerify = () => {
-        setShowVerify(!showVerify); 
+    const handleVerify = (submissionId) => {
+        setShowVerify(true);
+        setVerifySubmissionId(submissionId);
+        console.log("Clicked") // Set the ID of the submission to verify
+        console.log(`verifySubmissionId ${verifySubmissionId}`)
     };
+
+    useEffect(() => {
+        const fetchRequests = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/all-requests`);
+                setRequests(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching requests:', error);
+            }
+        };
+        fetchRequests();
+    }, []);
 
   return (
     <>
-        { showVerify && <Verify onCancel={handleVerify}/> }
+        {/* { showVerify && <Verify submissionId={verifySubmissionId}/> } */}
         <Header />
         <section className="admin">
             <div className="top">
@@ -48,38 +68,20 @@ const Admin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Toma The Tiny Boy</td>
-                            <td>Xhaka Buoy</td>
-                            <td><span>KSh.</span>30.00</td>
-                            <td>Adams Smith</td>
-                            <td>pending</td>
-                            <td onClick={handleVerify}>Verify Request <FaAngleRight className='icon'/></td>
-                        </tr>
-                        <tr>
-                            <td>Toma The Tiny Boy</td>
-                            <td>Xhaka Buoy</td>
-                            <td><span>KSh.</span>30.00</td>
-                            <td>Adams Smith</td>
-                            <td>pending</td>
-                            <td onClick={handleVerify}>Verify Request <FaAngleRight className='icon'/></td>
-                        </tr>
-                        <tr>
-                            <td>Toma The Tiny Boy</td>
-                            <td>Xhaka Buoy</td>
-                            <td><span>KSh.</span>30.00</td>
-                            <td>Adams Smith</td>
-                            <td>pending</td>
-                            <td onClick={handleVerify}>Verify Request <FaAngleRight className='icon'/></td>
-                        </tr>
-                        <tr>
-                            <td>Toma The Tiny Boy</td>
-                            <td>Xhaka Buoy</td>
-                            <td><span>KSh.</span>30.00</td>
-                            <td>Adams Smith</td>
-                            <td>pending</td>
-                            <td onClick={handleVerify}>Verify Request <FaAngleRight className='icon'/></td>
-                        </tr>
+                        {requests.map(request => (
+                            <tr key={request.SubmissionID}>
+                                <td>{request.BookTitle}</td>
+                                <td>{request.Author}</td>
+                                <td><span>KSh.</span>{parseFloat(request.Price).toFixed(2)}</td>
+                                <td>{request.user ? request.user.Username : 'Unknown'}</td>
+                                <td>{request.requestStatus}</td>
+                                <td>
+                                    <Link to={`/verify/${request.SubmissionID}`}>
+                                        Verify Request <FaAngleRight className='icon'/>
+                                    </Link>
+                                </td>   
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

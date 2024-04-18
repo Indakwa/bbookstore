@@ -1,6 +1,29 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Verify = () => {
+const Verify = ({ submissionId }) => {
+    const API_URL = 'http://localhost:3000/api';
+    const [submissionDetails, setSubmissionDetails] = useState(null);
+
+    useEffect(() => {
+      const fetchSubmissionDetails = async () => {
+        try {
+            console.log(submissionId)
+          const response = await axios.get(`${API_URL}/requests/${submissionId}`);
+          setSubmissionDetails(response.data);
+        } catch (error) {
+          console.error('Error fetching submission details:', error);
+        }
+      };
+      fetchSubmissionDetails();
+    }, [submissionId]);
+
+
+    if (!submissionDetails) {
+        return <div>Loading...</div>;
+      }
+
+
   return (
     <section className='verify'>
         <div className="container">
