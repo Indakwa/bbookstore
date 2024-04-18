@@ -1014,32 +1014,32 @@ footer .footer-bottom p {
   cursor: pointer;
   transform: scale(1.05);
 }
-.admin .requests {
+.admin .requests, .admin .transactions {
   margin-top: 4rem;
   margin-bottom: 1rem;
 }
-.admin .requests h4 {
+.admin .requests h4, .admin .transactions h4 {
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
 }
-.admin .requests .transaction-history-table {
+.admin .requests .transaction-history-table, .admin .requests .request-history-table, .admin .transactions .transaction-history-table, .admin .transactions .request-history-table {
   width: 100%;
   border-collapse: collapse;
   background-color: rgba(51, 51, 51, 0.4470588235);
   color: #ececec;
 }
-.admin .requests .transaction-history-table th, .admin .requests .transaction-history-table td {
+.admin .requests .transaction-history-table th, .admin .requests .transaction-history-table td, .admin .requests .request-history-table th, .admin .requests .request-history-table td, .admin .transactions .transaction-history-table th, .admin .transactions .transaction-history-table td, .admin .transactions .request-history-table th, .admin .transactions .request-history-table td {
   padding: 12px;
   border: 1px solid rgba(85, 85, 85, 0);
   text-align: start;
 }
-.admin .requests .transaction-history-table th {
+.admin .requests .transaction-history-table th, .admin .requests .request-history-table th, .admin .transactions .transaction-history-table th, .admin .transactions .request-history-table th {
   background-color: rgba(34, 34, 34, 0.4156862745);
 }
-.admin .requests .transaction-history-table tbody tr:nth-child(even) {
+.admin .requests .transaction-history-table tbody tr:nth-child(even), .admin .requests .request-history-table tbody tr:nth-child(even), .admin .transactions .transaction-history-table tbody tr:nth-child(even), .admin .transactions .request-history-table tbody tr:nth-child(even) {
   background-color: rgba(25, 25, 25, 0.2901960784);
 }
-.admin .requests .transaction-history-table tbody tr:hover {
+.admin .requests .transaction-history-table tbody tr:hover, .admin .requests .request-history-table tbody tr:hover, .admin .transactions .transaction-history-table tbody tr:hover, .admin .transactions .request-history-table tbody tr:hover {
   background-color: rgba(102, 102, 102, 0.1450980392);
   cursor: pointer;
 }

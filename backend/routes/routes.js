@@ -79,6 +79,7 @@ router.put('/publisher-catalogs/:id', publisherCatalogController.updatePublisher
 router.delete('/publisher-catalogs/:id', publisherCatalogController.deletePublisherCatalog);
 
 // Transaction routes
+router.get('/transactions', transactionController.getAllTransactions);
 router.get('/transactions/:id', transactionController.getTransactionById);
 router.put('/transactions/:id', authenticateAdmin, authorize,transactionController.updateTransactionStatus);
 

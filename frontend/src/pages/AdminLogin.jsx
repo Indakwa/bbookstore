@@ -20,7 +20,7 @@ const AdminLogin = () => {
         // Save token to localStorage
         localStorage.setItem('bb_tkn', token);
         // Redirect user to home page
-        navigate('/home');
+        navigate('/admin');
     };
 
     const handleSubmit = async (e) => {

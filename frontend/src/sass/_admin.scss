@@ -86,7 +86,7 @@
         }
     }
 
-    .requests{
+    .requests, .transactions{
         margin-top: 4rem;
         margin-bottom: 1rem;
 
@@ -95,7 +95,7 @@
             margin-bottom: .6rem;
         }
 
-        .transaction-history-table {
+        .transaction-history-table, .request-history-table {
                 width: 100%;
                 border-collapse: collapse;
                 background-color: #33333372;

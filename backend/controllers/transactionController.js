@@ -2,10 +2,22 @@ const Transaction = require('../models/transactionModel');
 const Book = require('../models/bookModel');
 const UserBook = require('../models/userBooks');
 const PayPublisher = require('../models/payPublisherModel');
+const User = require('../models/userModel');
+
 
 
 const transactionController = {
 
+  getAllTransactions: async (req, res) => {
+    try {
+        const transactions = await Transaction.findAll({ include: User });
+        res.status(200).json(transactions);
+    } catch (error) {
+        console.error('Error fetching transactions:', error);
+        res.status(500).json({ error: 'Error fetching transactions' });
+    }
+  },
+  
   getTransactionById: async (req, res) => {
     const transactionId = req.params.id;
     try {

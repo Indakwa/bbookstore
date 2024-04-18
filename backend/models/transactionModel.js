@@ -1,5 +1,6 @@
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
+const User = require('./userModel');
 
 // Define the Transaction model
 const Transaction = sequelize.define('transaction', {
@@ -32,5 +33,9 @@ const Transaction = sequelize.define('transaction', {
   tableName: 'transaction',
   timestamps: false 
 });
+
+// Define the association between Transaction and User
+Transaction.belongsTo(User, { foreignKey: 'UserID' });
+
 
 module.exports = Transaction;

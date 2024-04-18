@@ -1,36 +1,54 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Verify from '../components/Verify';
 import { FaAngleRight } from "react-icons/fa6";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Admin = () => {
     const API_URL = 'http://localhost:3000/api';
-    const [showVerify, setShowVerify] = useState(true)
     const [requests, setRequests] = useState([]);
-    const [verifySubmissionId, setVerifySubmissionId] = useState("");
+    const [transactions, setTransactions] = useState([]);
 
-    const handleVerify = (submissionId) => {
-        setShowVerify(true);
-        setVerifySubmissionId(submissionId);
-        console.log("Clicked") // Set the ID of the submission to verify
-        console.log(`verifySubmissionId ${verifySubmissionId}`)
-    };
-
+ 
     useEffect(() => {
         const fetchRequests = async () => {
             try {
                 const response = await axios.get(`${API_URL}/all-requests`);
                 setRequests(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.error('Error fetching requests:', error);
             }
         };
         fetchRequests();
     }, []);
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/transactions`);
+                setTransactions(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching transactions:', error);
+            }
+        };
+        fetchTransactions();
+    }, []);
+
+    const formatKenyanDateTime = (dateTimeString) => {
+        const dateTime = new Date(dateTimeString);
+        return dateTime.toLocaleString('en-KE', {
+            timeZone: 'Africa/Nairobi',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+
 
   return (
     <>
@@ -56,7 +74,7 @@ const Admin = () => {
 
             <div className="requests">
                 <h4>Pending Requests</h4>
-                <table className="transaction-history-table">
+                <table className="request-history-table">
                     <thead>
                         <tr>
                             <th>Book Title</th>
@@ -85,6 +103,32 @@ const Admin = () => {
                     </tbody>
                 </table>
             </div>
+
+            <div className="transactions">
+                    <h4>Transaction History</h4>
+                    <table className="transaction-history-table">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transactions.map(transaction => (
+                                <tr key={transaction.TransactionID}>
+                                    <td>{transaction.user.Username}</td>
+                                    <td><span>KSh.</span>{transaction.TotalPrice}</td>
+                                    <td>
+                                        {formatKenyanDateTime(transaction.TransactionDate)}
+                                    </td>
+                                    <td>{transaction.TransactionStatus}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
         </section>
         <Footer />
     </>
