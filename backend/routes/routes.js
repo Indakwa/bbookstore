@@ -13,6 +13,7 @@ const publisherSubmissionController = require('../controllers/publisherSubmissio
 const publisherCatalogController = require('../controllers/publisherCatalogController');
 const transactionController = require('../controllers/transactionController');
 const userCart = require('../controllers/userCart');
+const payPublisherController = require('../controllers/payPublisherController');
 
 // User routes
 router.post('/signup', userController.createUser);
@@ -82,6 +83,11 @@ router.delete('/publisher-catalogs/:id', publisherCatalogController.deletePublis
 router.get('/transactions', transactionController.getAllTransactions);
 router.get('/transactions/:id', transactionController.getTransactionById);
 router.put('/transactions/:id', authenticateAdmin, authorize,transactionController.updateTransactionStatus);
+
+
+//paypublisher routes
+router.put('/pay-publisher/:id', payPublisherController.updatePayPublisherStatus);
+router.get('/pay-publishers', payPublisherController.getAllPayPublishers);
 
 
 module.exports = router;

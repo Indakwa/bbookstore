@@ -4,11 +4,20 @@ import Footer from '../components/Footer';
 import { FaAngleRight } from "react-icons/fa6";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'
 
 const Admin = () => {
     const API_URL = 'http://localhost:3000/api';
     const [requests, setRequests] = useState([]);
     const [transactions, setTransactions] = useState([]);
+    const [payPublishers, setPayPublishers] = useState([]);
+    const [jwt, setJwt] = useState(null);
+
+    useEffect(() => {
+        // Retrieve JWT from local storage
+        const storedJwt = localStorage.getItem('bb_tkn');
+        setJwt(storedJwt);
+    }, []);
 
  
     useEffect(() => {
@@ -35,6 +44,87 @@ const Admin = () => {
         };
         fetchTransactions();
     }, []);
+
+    useEffect(() => {
+        const fetchPayPublishers = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/pay-publishers`);
+                setPayPublishers(response.data);
+            } catch (error) {
+                console.error('Error fetching pay publishers:', error);
+            }
+        };
+        fetchPayPublishers();
+    }, []);
+
+    const handleReceived = async (transactionId) => {
+        try {
+            await axios.put(`${API_URL}/transactions/${transactionId}`, {
+                transactionStatus: 'completed'
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt}` // Include JWT in request headers
+                }
+            });
+            // Refresh transactions after status update
+            const updatedTransactions = transactions.map(transaction =>
+                transaction.TransactionID === transactionId
+                    ? { ...transaction, TransactionStatus: 'completed' }
+                    : transaction
+            );
+            setTransactions(updatedTransactions);
+            toast("Transaction Status Updated Succesfully")
+        } catch (error) {
+            console.error('Error updating transaction status:', error);
+            toast("Error updating transaction status");
+        }
+    };
+
+    const handleNotReceived = async (transactionId) => {
+        try {
+            await axios.put(`${API_URL}/transactions/${transactionId}`, {
+                transactionStatus: 'incomplete'
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt}` // Include JWT in request headers
+                }
+            });
+            // Refresh transactions after status update
+            const updatedTransactions = transactions.map(transaction =>
+                transaction.TransactionID === transactionId
+                    ? { ...transaction, TransactionStatus: 'incomplete' }
+                    : transaction
+            );
+            setTransactions(updatedTransactions);
+            toast("Transaction Status Updated Succesfully")
+        } catch (error) {
+            console.error('Error updating transaction status:', error);
+            toast("Error updating transaction status");
+        }
+    };
+
+    const handlePaid = async (payPublisherId) => {
+        try {
+            await axios.put(`${API_URL}/pay-publisher/${payPublisherId}`, {
+                status: 'paid'
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
+            const updatedPayPublishers = payPublishers.map(payPublisher =>
+                payPublisher.PayPublisherID === payPublisherId
+                    ? { ...payPublisher, Status: 'paid' }
+                    : payPublisher
+            );
+            setPayPublishers(updatedPayPublishers);
+            toast("Pay Publisher Status Updated Successfully");
+        } catch (error) {
+            console.error('Error updating pay publisher status:', error);
+            toast("Error updating pay publisher status");
+        }
+    };
+
 
     const formatKenyanDateTime = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
@@ -105,30 +195,67 @@ const Admin = () => {
             </div>
 
             <div className="transactions">
-                    <h4>Transaction History</h4>
-                    <table className="transaction-history-table">
-                        <thead>
-                            <tr>
-                                <th>User Name</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                <h4>Transaction History</h4>
+                <table className="transaction-history-table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {transactions.map(transaction => (
+                            <tr key={transaction.TransactionID}>
+                                <td>{transaction.user.Username}</td>
+                                <td><span>KSh.</span>{transaction.TotalPrice}</td>
+                                <td>
+                                    {formatKenyanDateTime(transaction.TransactionDate)}
+                                </td>
+                                <td>{transaction.TransactionStatus}</td>
+                                <td className='actions'>
+                                    {transaction.TransactionStatus === 'pending' && (
+                                        <>
+                                            <button className='btn-1' onClick={() => handleReceived(transaction.TransactionID)}>Received</button>
+                                            <button className='btn-2' onClick={() => handleNotReceived(transaction.TransactionID)}>Not Received</button>
+                                        </>
+                                    )}
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {transactions.map(transaction => (
-                                <tr key={transaction.TransactionID}>
-                                    <td>{transaction.user.Username}</td>
-                                    <td><span>KSh.</span>{transaction.TotalPrice}</td>
-                                    <td>
-                                        {formatKenyanDateTime(transaction.TransactionDate)}
-                                    </td>
-                                    <td>{transaction.TransactionStatus}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div className="pay-publishers">
+                <h4>Pay Publishers</h4>
+                <table className="pay-publishers-table">
+                    <thead>
+                        <tr>
+                            <th>Publisher Contact</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {payPublishers.map(payPublisher => (
+                            <tr key={payPublisher.PayPublisherID}>
+                                <td>{payPublisher.PublisherContact}</td>
+                                <td>{payPublisher.Amount}</td>
+                                <td>{payPublisher.Status}</td>
+                                <td className='actions'>
+                                    {payPublisher.Status === 'pending' && (
+                                        <button className='btn-1' onClick={() => handlePaid(payPublisher.PayPublisherID)}>I Have Paid</button>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </section>
         <Footer />
     </>
