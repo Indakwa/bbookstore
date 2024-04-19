@@ -2,6 +2,7 @@
 
 const { sequelize } = require('../configs/dbConfig');
 const { DataTypes } = require('sequelize');
+const Book = require('./bookModel');
 
 // Define the UserBook model
 const UserBook = sequelize.define('userbooks', {
@@ -30,5 +31,7 @@ const UserBook = sequelize.define('userbooks', {
   tableName: 'userbooks', // Specify the table name explicitly
   timestamps: false  
 });
+
+UserBook.belongsTo(Book, { foreignKey: 'BookID' });
 
 module.exports = UserBook;

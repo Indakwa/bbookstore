@@ -31,7 +31,7 @@ router.delete('/user-profiles/:id', userProfile.deleteProfile);
 
 // User books routes
 router.post('/user-books', userBooksController.createUserBook);
-router.get('/user-books/:id', userBooksController.getUserBookById);
+router.get('/user-books', userBooksController.getUserBooksByUserId);
 router.put('/user-books/:id', userBooksController.updateUserBook);
 router.delete('/user-books/:id', userBooksController.deleteUserBook);
 

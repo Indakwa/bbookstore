@@ -1,4 +1,6 @@
 const UserBooks = require('../models/userBooks');
+const jwt = require('jsonwebtoken');
+const Book = require('../models/bookModel');
 
 // Controller for handling CRUD operations for UserBooks
 const userBooksController = {
@@ -13,18 +15,23 @@ const userBooksController = {
     }
   },
 
-  // Get user book entry by ID
-  getUserBookById: async (req, res) => {
-    const userBookId = req.params.id;
+  // Fetch user books by UserID
+  getUserBooksByUserId: async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1]; // Extract JWT token from request headers
     try {
-      const userBook = await UserBooks.findByPk(userBookId);
-      if (!userBook) {
-        return res.status(404).json({ error: 'User book entry not found' });
-      }
-      res.status(200).json(userBook);
+      // Verify and decode JWT token to get user ID
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace 'your-secret-key' with your actual secret key
+      const userId = decoded.userId;
+  
+      // Now fetch user books based on the user ID, including associated book details
+      const userBooks = await UserBooks.findAll({ 
+        where: { UserID: userId },
+        include: Book // Include Book model to get associated book details
+      });
+      res.status(200).json(userBooks);
     } catch (error) {
-      console.error('Error fetching user book entry:', error);
-      res.status(500).json({ error: 'Error fetching user book entry' });
+      console.error('Error fetching user books:', error);
+      res.status(500).json({ error: 'Error fetching user books' });
     }
   },
 

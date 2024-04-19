@@ -7,7 +7,7 @@ import Request from '../pages/Request';
 
 const Profile = () => {
     const [showRequest, setShowRequest] = useState(false)
-    const [books, setBooks] = useState([]);
+    const [userBooks, setUserBooks] = useState([]);
 
     const handleRequest = () => {
         setShowRequest(!showRequest); 
@@ -15,17 +15,25 @@ const Profile = () => {
 
 
     useEffect(() => {
-        const fetchBooks = async () => {
-          try {
-            const response = await axios.get('http://localhost:3000/api/books');
-            setBooks(response.data);
-          } catch (error) {
-            console.error('Error fetching books:', error);
-          }
+        const fetchUserBooks = async () => {
+            try {
+                const token = localStorage.getItem('bb_tkn'); // Retrieve JWT token from local storage
+                const response = await axios.get(`http://localhost:3000/api/user-books`, {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Include JWT token in request headers
+                    }
+                });
+                setUserBooks(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error fetching user books:', error);
+            }
         };
     
-        fetchBooks();
+        fetchUserBooks();
     }, []);
+
+    
   return (
     <>
         { showRequest && <Request onCancel={handleRequest}/> }
@@ -52,20 +60,20 @@ const Profile = () => {
                 <h4>My Library</h4>
                 <div className="inner-container">
                     <div className="container">
-                        {books.map((book) => (
-                            <div key={book.BookID} className="book">
-                                <Link to={`/book/${book.BookID}`} className="book-link"> {/* Link to BookReader */}
-                                    <div className="coverImage">
-                                        <img src={book.CoverImageURL} alt={book.Title} />
-                                    </div>
-                                    <div className="book-details">
-                                        <p className="title">{book.Title}</p>
-                                        <p className="author">{book.Author}</p>
-                                    </div>
-                                    <div className="progress">
-                                        <p className="progress-title">Progress</p>
-                                        <p className="percentage">20%</p>
-                                    </div>
+                        {userBooks.map((userBook) => (
+                            <div key={userBook.UserBookID} className='book'>
+                                <Link to={`/book/${userBook.BookID}`} className='book-link'>
+                                <div className='coverImage'>
+                                    <img src={userBook.book.CoverImageURL} alt={userBook.book.Title} />
+                                </div>
+                                <div className='book-details'>
+                                    <p className='title'>{userBook.book.Title}</p>
+                                    <p className='author'>{userBook.book.Author}</p>
+                                </div>
+                                <div className='progress'>
+                                    <p className='progress-title'>Progress</p>
+                                    <p className='percentage'>{userBook.ReadingProgress}%</p>
+                                </div>
                                 </Link>
                             </div>
                         ))}
