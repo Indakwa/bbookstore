@@ -118,6 +118,13 @@
         .genre{
             margin-top: 6rem;
 
+            .search-feedback{
+                font-size: 1.5rem;
+                font-family: $mont;
+                font-weight: 400;
+                color: $red;
+            }
+
             .genre-title{
                 font-size: 2rem;
                 font-weight: 500;

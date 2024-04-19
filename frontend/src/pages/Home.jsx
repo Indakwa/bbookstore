@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [books, setBooks] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchFeedback, setSearchFeedback] = useState('');
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -23,6 +25,18 @@ const Home = () => {
     fetchBooks();
   }, []);
 
+  
+  
+  useEffect(() => {
+    // Filter books based on searchTerm
+    const filteredBooks = books.filter(book =>
+      book.Title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.Author.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(filteredBooks);
+    setSearchFeedback(filteredBooks.length === 0 ? 'No Matching Results Found.' : '');
+  }, [searchTerm, books]);
+
   function truncateTitle(title, limit) {
     if (title.length <= limit) {
       return title; // Title already fits, return it as is
@@ -35,6 +49,9 @@ const Home = () => {
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  
+
   return (
     <>
       <Header />
@@ -84,6 +101,35 @@ const Home = () => {
                 <p>Comedy</p>
               </div>
             </section>
+
+             {/* Conditional rendering for search results section */}
+            {searchTerm && (
+              <section className="genre search">
+                <p className="genre-title">Search Results</p>
+                {searchFeedback ? (
+                  <p className="search-feedback">{searchFeedback}</p>
+                ) : (
+                  <div className="genre-container">
+                    {searchResults.map((book) => (
+                      <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                        <div >
+                          <div className="top">
+                            <img src={book.CoverImageURL} alt={book.Title} />
+                          </div>
+                          <div className="bottom">
+                            <p className="title">
+                              {truncateTitle(book.Title, 40)}
+                            </p>
+                            <p className="author">{book.Author}</p>
+                            <p className='price'><span>KSh.</span>{book.Price}</p>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </section>
+            )}
 
             <section className="genre">
               <p className="genre-title">Bestsellers</p>

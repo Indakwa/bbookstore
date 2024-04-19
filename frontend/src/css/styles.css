@@ -311,6 +311,12 @@ footer .footer-bottom p {
 .home .home-container .genre {
   margin-top: 6rem;
 }
+.home .home-container .genre .search-feedback {
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: #ee6e6e;
+}
 .home .home-container .genre .genre-title {
   font-size: 2rem;
   font-weight: 500;
