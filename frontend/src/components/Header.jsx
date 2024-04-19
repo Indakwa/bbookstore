@@ -14,9 +14,9 @@ const Header = () => {
   
   const fetchCartItemCount = async () => {
     try {
-      const response = await fetch('/api/cart/count', {
+      const response = await fetch('http://localhost:3000/api/cart/count', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}` // Assuming you store the token in localStorage
+          Authorization: `Bearer ${localStorage.getItem('bb_tkn')}` // Assuming you store the token in localStorage
         }
       });
       const data = await response.json();
