@@ -70,6 +70,22 @@ const userCartController = {
       res.status(500).json({ error: 'Error fetching cart items' });
     }
   },
+  getCartItemCount: async (req, res) => {
+    try {
+      // Extract the user ID from the JWT token in the request headers
+      const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the format "Bearer <token>"
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
+  
+      // Find the count of items in the user's cart
+      const cartItemCount = await UserCart.count({ where: { UserID: userId } });
+  
+      res.status(200).json({ count: cartItemCount });
+    } catch (error) {
+      console.error('Error fetching cart item count:', error);
+      res.status(500).json({ error: 'Error fetching cart item count' });
+    }
+  },  
 
   checkout: async (req, res) => {
     try {

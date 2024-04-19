@@ -50,12 +50,35 @@ header{
     menu{
         //border: 2px solid rgb(68, 255, 0);
         display: flex;
-        gap: 2rem;
+        gap: 4rem;
 
         .menu-link{
+            position: relative;
             text-decoration: none;
             color: $whi;
             display: block;
+
+            &:hover{
+                color: $yell;
+            }
+        }
+
+        #cartIcon{
+            transform: scale(1.5);
+        }
+        #profileIcon{
+            transform: scale(1.5);
+        }
+
+        
+        #cart-tag{
+            position: absolute;
+            top: -.9rem;
+            left: .2rem;
+            font-size: .9rem;
+            font-weight: 800;
+            color: $red;
+            z-index: 2;
         }
     }
 }

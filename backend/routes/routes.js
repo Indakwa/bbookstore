@@ -62,6 +62,8 @@ router.delete('/cart/remove', userCart.removeFromCart);
 router.get('/cart', userCart.getCartItems);
 router.post('/cart/checkout', userCart.checkout);
 router.post('/cart/payment-confirm', userCart.confirmPayment);
+router.get('/cart/count', userCart.getCartItemCount);
+
 
 // Publisher request submission routes
 router.post('/submit-request', publisherSubmissionController.submitRequest);
