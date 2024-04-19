@@ -3,10 +3,11 @@ import Header from '../components/Header';
 import { IoSearchOutline } from "react-icons/io5";
 import Footer from '../components/Footer';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -25,7 +26,11 @@ const Home = () => {
     fetchBooks();
   }, []);
 
-  
+    // Function to handle genre box click
+    const handleGenreClick = (genre) => {
+      // Redirect to page showing books of the clicked genre
+      navigate(`/genres/${genre}`);
+    };
   
   useEffect(() => {
     // Filter books based on searchTerm
@@ -82,22 +87,22 @@ const Home = () => {
             </section>
 
             <section className='all-genres'>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Fiction')}>
                 <p>Fiction</p>
               </div>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Fantasy')}>
                 <p>Fantasy</p>
               </div>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Romance')}>
                 <p>Romance</p>
               </div>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Horror')}>
                 <p>Horror</p>
               </div>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Adventure')}>
                 <p>Adventure</p>
               </div>
-              <div className="genre-box">
+              <div className="genre-box" onClick={() => handleGenreClick('Comedy')}>
                 <p>Comedy</p>
               </div>
             </section>
@@ -156,8 +161,6 @@ const Home = () => {
       </section>
 
       <Footer />
-
-      <div className="space"></div>
     </>
 
   )

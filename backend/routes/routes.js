@@ -45,6 +45,7 @@ router.get('/books/:id', bookController.getBookById);
 router.get('/books', bookController.getAllBooks);
 router.put('/books/:id', bookController.updateBook);
 router.delete('/books/:id', bookController.deleteBook);
+router.get('/books/genre/:genre', bookController.getBooksByGenre);
 
 // Favorite routes
 router.post('/favorites', favoriteController.createFavorite);

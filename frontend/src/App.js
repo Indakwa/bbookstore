@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Cart from "./pages/Cart";
+import Genres from "./pages/Genres";
 import Profile from "./pages/Profile";
 import Admin from './pages/Admin';
 import BookReader from './components/BookReader';
@@ -27,6 +28,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path="/genres/:genre" element={<Genres />} />
           <Route path='/admin-login' element={<AdminLogin />} />
           <Route path='/verify/:submissionId' element={<VerifyRequest />} />
           <Route path="/book/:bookId" element={<BookReader />} />

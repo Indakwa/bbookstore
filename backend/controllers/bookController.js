@@ -1,4 +1,6 @@
 const Book = require('../models/bookModel');
+const { sequelize } = require('../configs/dbConfig');
+
 
 // Controller for handling CRUD operations for Book
 const bookController = {
@@ -12,6 +14,27 @@ const bookController = {
       res.status(500).json({ error: 'Error creating book' });
     }
   },
+
+  getBooksByGenre: async (req, res) => {
+    const { genre } = req.params;
+    console.log(`GENREEEE  ${genre}`)
+
+    try {
+        const books = await Book.findAll({
+            where: sequelize.where(sequelize.fn('JSON_CONTAINS', sequelize.col('Genre'), JSON.stringify(genre)), true)
+        });
+
+        if (!books || books.length === 0) {
+            return res.status(404).json({ error: 'No books found for the specified genre' });
+        }
+
+        res.status(200).json(books);
+    } catch (error) {
+        console.error('Error fetching books:', error);
+        res.status(500).json({ error: 'Error fetching books' });
+    }
+}
+,
 
   // Get book by ID
   getBookById: async (req, res) => {

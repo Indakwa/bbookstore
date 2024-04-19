@@ -102,7 +102,7 @@ const Request = ({ onCancel }) => {
                     <input 
                         type="text" 
                         name='Genre' 
-                        placeholder='Fantasy, Comedy'
+                        placeholder='Fantasy, Comedy, Horror'
                         value={formData.Genre}
                         onChange={handleChange}
                         required

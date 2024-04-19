@@ -16,6 +16,7 @@ const Verify = () => {
           const response = await axios.get(`${API_URL}/requests/${submissionId}`);
           setSubmissionDetails(response.data);
 
+
                 // Extract the book URL from the response data
         const bookURL = response.data.BookURL;
         // Fetch the book content from the Cloudinary URL
@@ -108,7 +109,10 @@ const Verify = () => {
                         </div>
                         <div className="genre-div">
                             <p className="label">Genre</p>
-                            <p className='output genre'>{submissionDetails.Genre}</p>
+                            <p className='output genre'>
+                                {/* Map over the genres, capitalize each genre, and join with commas and spaces */}
+                                {submissionDetails.Genre.map(genre => genre.charAt(0).toUpperCase() + genre.slice(1)).join(', ')}
+                            </p>
                         </div>
                         <div className="price-div">
                             <p className="label">Price</p>

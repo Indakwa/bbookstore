@@ -19,6 +19,7 @@ const Details = () => {
         try {
           const response = await axios.get(`http://localhost:3000/api/books/${bookId}`);
           setBook(response.data);
+          console.log(response.data)
         } catch (error) {
           console.error('Error fetching book details:', error);
         }
@@ -105,13 +106,18 @@ const Details = () => {
                         
                     </button>
                     <div className="book-genres">
-                        <h6>Genre: </h6>
-                        <ul>
-                            <li>Fantasy</li>
-                            <li>Comedy</li>
-                            <li>Romance</li>
-                        </ul>
+                      <h6>Genre: </h6>
+                      <ul>
+                        {/* Parse the string containing genres from the database into an array,
+                            then map over the array to create <li> elements */}
+                        {JSON.parse(book.Genre).map(genre => (
+                          <li key={genre}>
+                            {genre.charAt(0).toUpperCase() + genre.slice(1)} {/* Capitalize the genre */}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+
                 </div>
             </div>
 

@@ -38,13 +38,16 @@ const publisherSubmissionController = {
         resource_type: 'auto'
       });
 
+       // Parse genres from the request body
+      const genres = req.body.Genre.split(',').map(genre => genre.trim());
+
       // Create the publisher submission with the associated user ID
       const newSubmission = await PublisherSubmission.create({
         UserID: userId,
         BookTitle: req.body.BookTitle,
         Author: req.body.Author,
         Synopsis: req.body.Synopsis,
-        Genre: req.body.Genre,
+        Genre: genres, // Assign parsed genres
         Price: req.body.Price,
         BookURL: bookUpload.secure_url, 
         CoverImageURL: coverImageUpload.secure_url,
@@ -116,7 +119,7 @@ const publisherSubmissionController = {
         const newBook = await Book.create({
           Title: submission.BookTitle,
           Author: submission.Author,
-          Genre: submission.Genre.split(','), // Assuming Genre is an array of strings
+          Genre: submission.Genre, // Assuming Genre is an array of strings
           Synopsis: submission.Synopsis,
           Price: submission.Price,
           BookURL: submission.BookURL, 
