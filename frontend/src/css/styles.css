@@ -59,7 +59,7 @@ header menu #cart-tag {
 footer {
   width: 80vw;
   margin: 0 auto;
-  margin-top: 8rem;
+  margin-top: 10rem;
 }
 footer .footer-top {
   display: flex;
@@ -860,6 +860,68 @@ footer .footer-bottom p {
   height: 300px;
   width: 28%;
   border-radius: 8px;
+}
+.profile .publisher-sales {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+.profile .publisher-sales h2 {
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+  color: #eec16e;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.profile .publisher-sales .books-on-sale-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(51, 51, 51, 0.4470588235);
+  color: #ececec;
+}
+.profile .publisher-sales .books-on-sale-table th, .profile .publisher-sales .books-on-sale-table td {
+  padding: 12px;
+  border: 1px solid rgba(85, 85, 85, 0);
+  text-align: start;
+}
+.profile .publisher-sales .books-on-sale-table th {
+  background-color: rgba(34, 34, 34, 0.4156862745);
+}
+.profile .publisher-sales .books-on-sale-table tbody tr:nth-child(even) {
+  background-color: rgba(25, 25, 25, 0.2901960784);
+}
+.profile .publisher-sales .books-on-sale-table tbody tr:hover {
+  background-color: rgba(102, 102, 102, 0.1450980392);
+  cursor: pointer;
+}
+.profile .publisher-sales .books-on-sale-table tbody .actions .btn-1 {
+  outline: none;
+  border: 1px solid #eec16e;
+  display: inline-block;
+  margin-right: 2rem;
+  background: none;
+  color: #eec16e;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+}
+.profile .publisher-sales .books-on-sale-table tbody .actions .btn-1:hover {
+  background-color: #eec16e;
+  color: #252525;
+  cursor: pointer;
+}
+.profile .publisher-sales .books-on-sale-table tbody .actions .btn-2 {
+  outline: none;
+  border: 1px solid #ee6e6e;
+  display: inline-block;
+  margin-right: 2rem;
+  background: none;
+  color: #ee6e6e;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+}
+.profile .publisher-sales .books-on-sale-table tbody .actions .btn-2:hover {
+  background-color: #ee6e6e;
+  color: #252525;
+  cursor: pointer;
 }
 
 .request {

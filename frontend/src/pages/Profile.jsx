@@ -11,6 +11,7 @@ const Profile = () => {
     const [showRequest, setShowRequest] = useState(false)
     const [userBooks, setUserBooks] = useState([]);
     const [booksOnSale, setBooksOnSale] = useState([]);
+    const [showBooksOnSale, setShowBooksOnSale] = useState(false);
 
     const handleRequest = () => {
         setShowRequest(!showRequest); 
@@ -47,6 +48,13 @@ const Profile = () => {
                     }
                 });
                 setBooksOnSale(response.data);
+
+                const book_count = Object.keys(response.data).length;
+                if(book_count > 0){
+                    setShowBooksOnSale(true);
+                }
+                
+                
             } catch (error) {
                 console.error('Error fetching publisher sales:', error);
                 toast.error('Error fetching publisher sales');
@@ -55,7 +63,6 @@ const Profile = () => {
 
         fetchBooksOnSale();
     }, []);
-
 
     
   return (
@@ -108,27 +115,30 @@ const Profile = () => {
                 </div>
             </div>
 
-            <section className="publisher-sales">
-                <h2>Books on Sale</h2>
-                <table className="publisher-sales-table">
-                    <thead>
-                        <tr>
-                            <th>Book Title</th>
-                            <th>Price</th>
-                            <th>Number Sold</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {booksOnSale.map(book => (
-                            <tr key={book.BookTitle}>
-                                <td>{book.BookTitle}</td>
-                                <td>{book.Price}</td>
-                                <td>{book.NumberSold}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
+            {showBooksOnSale && (
+    <section className="publisher-sales">
+        <h2>Books On Sale</h2>
+        <table className="books-on-sale-table">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Price</th>
+                    <th>Number Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(booksOnSale).map(([title, details]) => (
+                    <tr key={title}>
+                        <td>{title}</td>
+                        <td>{details.price}</td>
+                        <td>{details.numSold}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </section>
+)}
+
         </section>
         <Footer />
     </>

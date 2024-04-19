@@ -165,6 +165,83 @@
             }
         }
     }
+
+    .publisher-sales{
+        margin-top: 4rem;
+        margin-bottom: 1rem;
+
+        h2{
+            font-size: 2rem;
+            margin-bottom: .6rem;
+            color: $yell;
+            font-family: $mont;
+            font-weight: 500;
+        }
+
+        .books-on-sale-table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #33333372;
+                color: #ececec;
+        
+            th, td {
+                padding: 12px;
+                border: 1px solid #55555500;
+                text-align: start;
+            }
+            
+            th {
+                background-color: #2222226a;
+            }
+        
+            tbody {
+                tr:nth-child(even) {
+                    background-color: #1919194a;
+                }
+        
+                tr:hover {
+                    background-color: #66666625;
+                    cursor: pointer;
+                }
+
+                .actions{
+
+                    .btn-1{
+                        outline: none;
+                        border: 1px solid $yell;
+                        display: inline-block;
+                        margin-right: 2rem;
+                        background: none;
+                        color: $yell;
+                        padding: .2rem .4rem;
+                        border-radius: 3px;
+                        
+                        &:hover{
+                            background-color: $yell;
+                            color: $bla;
+                            cursor: pointer;
+                        }
+                    }
+                    .btn-2{
+                        outline: none;
+                        border: 1px solid $red;
+                        display: inline-block;
+                        margin-right: 2rem;
+                        background: none;
+                        color: $red;
+                        padding: .2rem .4rem;
+                        border-radius: 3px;
+
+                        &:hover{
+                            background-color: $red;
+                            color: $bla;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .request{

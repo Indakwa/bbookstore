@@ -194,7 +194,6 @@ const publisherSubmissionController = {
         const userId = decoded.userId;
         
         
-        
             // Fetch all approved submissions for the current publisher
             const submissions = await PublisherSubmission.findAll({
               where: { UserID: userId, requestStatus: 'approved' }
@@ -206,12 +205,12 @@ const publisherSubmissionController = {
           // Iterate through each approved submission
           for (const submission of submissions) {
               const bookTitle = submission.BookTitle;
+              const bookPrice = submission.Price;
 
               // Find transactions where the book title matches the submission's book title
               const transactions = await Transaction.findAll({
                   where: {
                       TransactionStatus: 'completed',
-                      // Using sequelize.fn and sequelize.col to access and query JSON data in CartItems
                       CartItems: sequelize.where(
                           sequelize.fn('JSON_CONTAINS', sequelize.col('CartItems'), JSON.stringify({ Name: bookTitle })),
                           true
@@ -222,8 +221,8 @@ const publisherSubmissionController = {
               // Count the number of transactions (i.e., books sold)
               const numSold = transactions.length;
 
-              // Add the book to the booksOnSale object with the number sold
-              booksOnSale[bookTitle] = numSold;
+              // Add the book to the booksOnSale object with the number sold and price
+              booksOnSale[bookTitle] = { numSold, price: bookPrice };
           }
 
           res.status(200).json(booksOnSale);
