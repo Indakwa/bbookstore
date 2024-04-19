@@ -4,10 +4,13 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Request from '../pages/Request';
+import { toast } from 'react-toastify'
 
 const Profile = () => {
+    const API_URL = 'http://localhost:3000/api';
     const [showRequest, setShowRequest] = useState(false)
     const [userBooks, setUserBooks] = useState([]);
+    const [booksOnSale, setBooksOnSale] = useState([]);
 
     const handleRequest = () => {
         setShowRequest(!showRequest); 
@@ -32,6 +35,27 @@ const Profile = () => {
     
         fetchUserBooks();
     }, []);
+
+       
+    useEffect(() => {
+        const fetchBooksOnSale = async () => {
+            try {
+                // Fetch books on sale for the current publisher
+                const response = await axios.get(`${API_URL}/publisher-sales`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('bb_tkn')}`
+                    }
+                });
+                setBooksOnSale(response.data);
+            } catch (error) {
+                console.error('Error fetching publisher sales:', error);
+                toast.error('Error fetching publisher sales');
+            }
+        };
+
+        fetchBooksOnSale();
+    }, []);
+
 
     
   return (
@@ -83,6 +107,28 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+
+            <section className="publisher-sales">
+                <h2>Books on Sale</h2>
+                <table className="publisher-sales-table">
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Price</th>
+                            <th>Number Sold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {booksOnSale.map(book => (
+                            <tr key={book.BookTitle}>
+                                <td>{book.BookTitle}</td>
+                                <td>{book.Price}</td>
+                                <td>{book.NumberSold}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </section>
         <Footer />
     </>

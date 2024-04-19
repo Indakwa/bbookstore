@@ -1,8 +1,10 @@
 const PublisherSubmission = require('../models/publisherSubmissionModel');
+const Transaction = require('../models/transactionModel');
 const User = require('../models/userModel');
 const Book = require('../models/bookModel');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
+const { sequelize } = require('../configs/dbConfig');
 
 const publisherSubmissionController = {
   submitRequest: async (req, res) => {
@@ -182,6 +184,53 @@ const publisherSubmissionController = {
       console.error('Error fetching submission by ID:', error);
       res.status(500).json({ error: 'Error fetching submission by ID' });
     }
+  },
+
+  getBooksOnSale: async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1]; 
+    try {
+        // Verify and decode JWT token to get user ID
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace 'your-secret-key' with your actual secret key
+        const userId = decoded.userId;
+        
+        
+        
+            // Fetch all approved submissions for the current publisher
+            const submissions = await PublisherSubmission.findAll({
+              where: { UserID: userId, requestStatus: 'approved' }
+          });
+
+          // Initialize an object to store book sales data
+          const booksOnSale = {};
+
+          // Iterate through each approved submission
+          for (const submission of submissions) {
+              const bookTitle = submission.BookTitle;
+
+              // Find transactions where the book title matches the submission's book title
+              const transactions = await Transaction.findAll({
+                  where: {
+                      TransactionStatus: 'completed',
+                      // Using sequelize.fn and sequelize.col to access and query JSON data in CartItems
+                      CartItems: sequelize.where(
+                          sequelize.fn('JSON_CONTAINS', sequelize.col('CartItems'), JSON.stringify({ Name: bookTitle })),
+                          true
+                      )
+                  }
+              });
+
+              // Count the number of transactions (i.e., books sold)
+              const numSold = transactions.length;
+
+              // Add the book to the booksOnSale object with the number sold
+              booksOnSale[bookTitle] = numSold;
+          }
+
+          res.status(200).json(booksOnSale);
+      } catch (error) {
+          console.error('Error fetching books on sale:', error);
+          res.status(500).json({ error: 'Error fetching books on sale' });
+      }
   }
 };
 

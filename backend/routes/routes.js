@@ -74,6 +74,7 @@ router.put('/approve-request/:id', authenticateAdmin, authorize, publisherSubmis
 router.put('/decline-request/:id', authenticateAdmin, authorize, publisherSubmissionController.declineRequest);
 router.get('/all-requests', publisherSubmissionController.getAllRequests);
 router.get('/requests/:id', publisherSubmissionController.getRequestById);
+router.get('/publisher-sales', publisherSubmissionController.getBooksOnSale);
 
 
 // Publisher catalog routes

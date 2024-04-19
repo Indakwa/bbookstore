@@ -17,7 +17,6 @@ const bookController = {
 
   getBooksByGenre: async (req, res) => {
     const { genre } = req.params;
-    console.log(`GENREEEE  ${genre}`)
 
     try {
         const books = await Book.findAll({
