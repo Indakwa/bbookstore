@@ -37,6 +37,7 @@ router.delete('/user-books/:id', userBooksController.deleteUserBook);
 
 // Admin routes
 router.put('/admin/:id', authenticateAdmin, authorize, adminController.updateAdmin);
+router.get('/admin', adminController.getAdmin);
 router.post('/login-admin', adminController.loginAdmin);
 
 // Book routes

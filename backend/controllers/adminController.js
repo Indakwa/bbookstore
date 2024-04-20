@@ -20,7 +20,7 @@ const adminController = {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ AdminID: admin.AdminID, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ AdminID: admin.AdminID, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
       res.status(200).json({ token });
     } catch (error) {
@@ -44,7 +44,27 @@ const adminController = {
       console.error('Error updating admin:', error);
       res.status(500).json({ error: 'Error updating admin' });
     }
+  },
+
+  // Get admin details
+  getAdmin: async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    try {
+      // Verify and decode JWT token to get user ID
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace 'your-secret-key' with your actual secret key
+      const adminId = decoded.AdminID; // Adjust to 'adminId'
+      const admin = await Admin.findByPk(adminId);
+      if (!admin) {
+        return res.status(404).json({ error: 'Admin not found' });
+      }
+      const { AdminID, Username, Email, role } = admin;
+      res.status(200).json({ AdminID, Username, Email, role });
+    } catch (error) {
+      console.error('Error fetching admin:', error);
+      res.status(500).json({ error: 'Error fetching admin' });
+    }
   }
+
 
 };
 

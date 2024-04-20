@@ -1056,6 +1056,12 @@ footer .footer-bottom p {
   width: 80vw;
   margin: 0 auto;
   margin-top: 3rem;
+  padding-bottom: 4rem;
+}
+.admin h2 {
+  font-size: 3rem;
+  color: #eec16e;
+  margin-bottom: 1rem;
 }
 .admin .top {
   display: flex;
@@ -1069,6 +1075,7 @@ footer .footer-bottom p {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  overflow: hidden;
 }
 .admin .top .profilePic img {
   width: 100%;
@@ -1077,35 +1084,31 @@ footer .footer-bottom p {
      object-fit: cover;
 }
 .admin .top .profile-details {
-  width: 60%;
+  width: 40%;
 }
 .admin .top .profile-details .username {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 500;
   margin-bottom: 0.8rem;
 }
 .admin .top .profile-details .email {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
   color: #96ca80;
 }
-.admin .top .profile-details .bio {
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.8rem;
-}
 .admin .top .ctas {
+  width: 40%;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 .admin .top .ctas #request-btn {
   display: block;
-  width: 100%;
+  width: 48%;
   padding: 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 500;
   border-radius: 5px;
   border: none;
   background: #eec16e;
@@ -1113,31 +1116,38 @@ footer .footer-bottom p {
 }
 .admin .top .ctas #request-btn:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
-.admin .top .ctas #edit-btn {
+.admin .top .ctas #logout-btn {
   display: block;
-  width: 100%;
+  width: 48%;
   padding: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   border-radius: 5px;
-  border: none;
-  background: #96ca80;
-  margin-top: 1.5rem;
-  color: #252525;
+  border: 2px solid #ee6e6e;
+  background: none;
+  color: #ee6e6e;
 }
-.admin .top .ctas #edit-btn:hover {
+.admin .top .ctas #logout-btn:hover {
   cursor: pointer;
   transform: scale(1.05);
+  background: #ee6e6e;
+  color: #f5f5f5;
 }
 .admin .requests, .admin .transactions, .admin .pay-publishers {
   margin-top: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 6rem;
 }
 .admin .requests h4, .admin .transactions h4, .admin .pay-publishers h4 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 0.6rem;
+}
+.admin .requests .green, .admin .transactions .green, .admin .pay-publishers .green {
+  color: #96ca80;
+}
+.admin .requests .yellow, .admin .transactions .yellow, .admin .pay-publishers .yellow {
+  color: #eec16e;
 }
 .admin .requests .transaction-history-table, .admin .requests .request-history-table, .admin .requests .pay-publishers-table, .admin .transactions .transaction-history-table, .admin .transactions .request-history-table, .admin .transactions .pay-publishers-table, .admin .pay-publishers .transaction-history-table, .admin .pay-publishers .request-history-table, .admin .pay-publishers .pay-publishers-table {
   width: 100%;

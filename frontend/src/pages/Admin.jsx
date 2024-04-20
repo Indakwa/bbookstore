@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { FaAngleRight } from "react-icons/fa6";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 
 const Admin = () => {
+    const navigate = useNavigate();
     const API_URL = 'http://localhost:3000/api';
     const [requests, setRequests] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [payPublishers, setPayPublishers] = useState([]);
     const [jwt, setJwt] = useState(null);
+    const [userDetails, setUserDetails] = useState({});
 
     useEffect(() => {
         // Retrieve JWT from local storage
@@ -20,6 +20,11 @@ const Admin = () => {
     }, []);
 
  
+    const handleLogout = () => {
+        localStorage.removeItem('bb_tkn');
+        navigate('/admin-login');
+    };
+
     useEffect(() => {
         const fetchRequests = async () => {
             try {
@@ -139,32 +144,46 @@ const Admin = () => {
         });
     };
 
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                const token = localStorage.getItem('bb_tkn');
+                const response = await axios.get(`${API_URL}/admin`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setUserDetails(response.data);
+            } catch (error) {
+                console.error('Error fetching user details:', error);
+            }
+        };
+        fetchUserDetails();
+    }, []);
+
 
 
   return (
     <>
-        {/* { showVerify && <Verify submissionId={verifySubmissionId}/> } */}
-        <Header />
         <section className="admin">
+            <h2>Admin Dashboard</h2>
+
             <div className="top">
                 <div className="profilePic">
-                    <img src="" alt="" />
+                    <img src="/assets/admin.jpg" alt="" />
                 </div>
                 <div className="profile-details">
-                    <p className="username">Groova</p>
-                    <p className="email">gro@gmail.com</p>
-                    <p className="bio">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit esse excepturi harum autem sunt ea provident adipisci. Facere, impedit repellat.
-                    </p>
+                    <p className="username">{userDetails.Username}</p>
+                    <p className="email">{userDetails.Email}</p>
                 </div>
                 <div className="ctas">
-                    <button id='request-btn'>Publish Your Book</button>
-                    <button id='edit-btn'>Edit Your Profile</button>
+                    <button id='request-btn'>Publish Book</button>
+                    <button id='logout-btn' onClick={handleLogout}>Log Out</button>
                 </div>
             </div>
 
             <div className="requests">
-                <h4>Pending Requests</h4>
+                <h4 className='green'>Pending Requests</h4>
                 <table className="request-history-table">
                     <thead>
                         <tr>
@@ -184,11 +203,13 @@ const Admin = () => {
                                 <td><span>KSh.</span>{parseFloat(request.Price).toFixed(2)}</td>
                                 <td>{request.user ? request.user.Username : 'Unknown'}</td>
                                 <td>{request.requestStatus}</td>
-                                <td>
+                                <td className='actions'>
+                                    {request.requestStatus.Status === 'pending' && (
                                     <Link to={`/verify/${request.SubmissionID}`}>
                                         Verify Request <FaAngleRight className='icon'/>
                                     </Link>
-                                </td>   
+                                    )}
+                                </td>  
                             </tr>
                         ))}
                     </tbody>
@@ -196,7 +217,7 @@ const Admin = () => {
             </div>
 
             <div className="transactions">
-                <h4>Transaction History</h4>
+                <h4 className='yellow'>Transaction History</h4>
                 <table className="transaction-history-table">
                     <thead>
                         <tr>
@@ -231,7 +252,7 @@ const Admin = () => {
             </div>
             
             <div className="pay-publishers">
-                <h4>Pay Publishers</h4>
+                <h4 className='green'>Pay Publishers</h4>
                 <table className="pay-publishers-table">
                     <thead>
                         <tr>
@@ -258,7 +279,6 @@ const Admin = () => {
                 </table>
             </div>
         </section>
-        <Footer />
     </>
   )
 }
