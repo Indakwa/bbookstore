@@ -39,7 +39,7 @@ router.delete('/user-books/:id', userBooksController.deleteUserBook);
 router.put('/admin/:id', authenticateAdmin, authorize, adminController.updateAdmin);
 router.get('/admin', adminController.getAdmin);
 router.post('/login-admin', adminController.loginAdmin);
-router.get('/books-inventory', adminController.getBooksInventory);
+router.get('/books-inventory', authenticateAdmin, authorize, adminController.getBooksInventory);
 
 // Book routes
 router.post('/books', bookController.createBook);

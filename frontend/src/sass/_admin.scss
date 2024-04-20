@@ -93,7 +93,7 @@
         }
     }
 
-    .requests, .transactions, .pay-publishers{
+    .requests, .transactions, .pay-publishers, .books-management{
         margin-top: 4rem;
         margin-bottom: 6rem;
 
@@ -109,7 +109,7 @@
             color: $yell;
         }
 
-        .transaction-history-table, .request-history-table, .pay-publishers-table {
+        .transaction-history-table, .request-history-table, .pay-publishers-table, .books-management-table {
                 width: 100%;
                 border-collapse: collapse;
                 background-color: #33333372;
@@ -123,6 +123,20 @@
             
             th {
                 background-color: #2222226a;
+            }
+
+            .edit-actions{
+                color: $gree;
+                .edit-icon{
+                    transform: scale(1.1);
+                }
+
+                &:hover{
+                    .edit-icon{
+                        transform: scale(1.3);
+                        transform: translateX(10px);
+                    }
+                }
             }
         
             tbody {

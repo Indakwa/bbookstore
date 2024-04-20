@@ -70,6 +70,11 @@
                     border-radius: 5px;
                     border: none;
                     background: $yell;
+
+                    &:hover{
+                        cursor: pointer;
+                        transform: scale(1.05);
+                    }
                 }
 
                 p{

@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { FaAngleRight } from "react-icons/fa6";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import { MdOutlineEdit } from "react-icons/md";
 
 const Admin = () => {
     const navigate = useNavigate();
     const API_URL = 'http://localhost:3000/api';
     const [requests, setRequests] = useState([]);
+    const [booksInventory, setBooksInventory] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [payPublishers, setPayPublishers] = useState([]);
     const [jwt, setJwt] = useState(null);
@@ -161,6 +163,27 @@ const Admin = () => {
         fetchUserDetails();
     }, []);
 
+           
+    useEffect(() => {
+        const fetchBooksInventory = async () => {
+            try {
+                // Fetch books on sale for the current publisher
+                const response = await axios.get(`${API_URL}/books-inventory`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('bb_tkn')}`
+                    }
+                });
+                setBooksInventory(response.data);
+                
+            } catch (error) {
+                console.error('Error fetching publisher sales:', error);
+                toast.error('Error fetching publisher sales');
+            }
+        };
+
+        fetchBooksInventory();
+    }, []);
+
 
 
   return (
@@ -278,6 +301,34 @@ const Admin = () => {
                     </tbody>
                 </table>
             </div>
+
+            <section className="books-management">
+                <h4 className='yellow'>All Books Management</h4>
+                <table className="books-management-table">
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Publisher Contact</th>
+                            <th>Price</th>
+                            <th>Number Sold</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.entries(booksInventory).map(([title, details]) => (
+                            <tr key={title}>
+                                <td>{title}</td>
+                                <td>{details.Author}</td>
+                                <td>{details.Contact}</td>
+                                <td>{details.price}</td>
+                                <td>{details.Number_Sold}</td>
+                                <td className='edit-actions'>Edit Book Info <MdOutlineEdit className='edit-icon'/></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </section>
     </>
   )
