@@ -4,6 +4,7 @@ import { IoIosClose } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import Checkout from './Checkout';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const Cart = () => {
@@ -36,15 +37,19 @@ const Cart = () => {
     };
 
     const handleCheckout = async () => {
-        try {
-            const token = localStorage.getItem('bb_tkn');
-            const response = await axios.post('http://localhost:3000/api/cart/checkout', {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setCheckoutDetails(response.data);
-            setShowCheckout(true);
-        } catch (error) {
-            console.error('Error during checkout:', error);
+        if(cartItems.length > 0){
+            try {
+                const token = localStorage.getItem('bb_tkn');
+                const response = await axios.post('http://localhost:3000/api/cart/checkout', {}, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setCheckoutDetails(response.data);
+                setShowCheckout(true);
+            } catch (error) {
+                console.error('Error during checkout:', error);
+            }
+        }else{
+            toast("Your Cart is Empty")
         }
     };
 
@@ -75,7 +80,7 @@ const Cart = () => {
                     {isLoading ? (
                         <p>Loading...</p>
                     ) : cartItems.length === 0 ? (
-                        <p>Cart is empty</p>
+                        <p className='empty'>Cart is empty</p>
                     ) : (
                         <div className="cart-items">
                             {cartItems.map(item => (

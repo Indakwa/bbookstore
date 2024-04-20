@@ -48,13 +48,14 @@ const Details = () => {
           { bookId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        alert('Book added to cart successfully!');
+        toast('Book added to cart successfully!');
       } catch (error) {
           if (error.response && error.response.status === 400) {
             // Item already exists in the cart
             toast('Item already exists in the cart');
         } else {
             console.error('Error when adding book to cart', error);
+            toast('Error when adding book to cart');
         }
       }
     };
@@ -140,8 +141,6 @@ const Details = () => {
         )}
 
         <Footer />
-
-        <div className="space"></div>
     </>
 
   )

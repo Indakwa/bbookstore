@@ -1,8 +1,10 @@
 
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = ({ onCancel, totalPrice }) => {
+    const navigate = useNavigate();
     const handleClose = () => {
         // Call the passed-in onCancel function here
         onCancel();
@@ -18,6 +20,7 @@ const Checkout = ({ onCancel, totalPrice }) => {
     
             // Display success toast message if payment is confirmed
             toast.success('Success! Wait for your transaction to be confirmed by admin');
+            navigate("/profile")
         } catch (error) {
             console.error('Error confirming payment:', error);
             // Handle error if payment confirmation fails
