@@ -16,9 +16,9 @@ const Details = () => {
         try {
           const response = await axios.get(`http://localhost:3000/api/books/${bookId}`);
           setBook(response.data);
-          console.log(response.data)
         } catch (error) {
           console.error('Error fetching book details:', error);
+          toast("Error fetching book details.")
         }
       };
   

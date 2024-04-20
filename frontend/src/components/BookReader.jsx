@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const BookReader = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const BookReader = () => {
         // Extract the book URL from the response data
         const bookURL = response.data.BookURL;
         setBookTitle(response.data.Title)
-        console.log(response.data.Title)
         // Fetch the book content from the Cloudinary URL
         const bookContentResponse = await fetch(bookURL);
         if (!bookContentResponse.ok) {
@@ -35,6 +35,7 @@ const BookReader = () => {
       } catch (error) {
         setBookError(error.message); // Store error message
         console.error('Error fetching book content:', error);
+        toast("Error fetching book content");
       }
     };
     fetchBookContent();

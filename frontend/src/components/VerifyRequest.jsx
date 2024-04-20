@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoIosClose } from "react-icons/io";
+import { toast } from 'react-toastify';
 
 const Verify = () => {
+    const navigate = useNavigate();
     const { submissionId } = useParams();
     const API_URL = 'http://localhost:3000/api';
     const [submissionDetails, setSubmissionDetails] = useState(null);
@@ -15,7 +17,6 @@ const Verify = () => {
         try {
           const response = await axios.get(`${API_URL}/requests/${submissionId}`);
           setSubmissionDetails(response.data);
-
 
                 // Extract the book URL from the response data
         const bookURL = response.data.BookURL;
@@ -51,9 +52,12 @@ const Verify = () => {
             await axios.put(`${API_URL}/approve-request/${submissionId}`, { requestStatus: 'approved' }, config);
             // Optionally, you can update the UI or redirect the user after approval
             // For example, you can show a success message or redirect to a different page
+            toast("Request Approved Successfully")
+            navigate("/admin")
         } catch (error) {
             console.error('Error approving submission:', error);
             // Handle error
+            toast("Error approving submission")
         }
     };
 
@@ -70,9 +74,12 @@ const Verify = () => {
             await axios.put(`${API_URL}/decline-request/${submissionId}`, { requestStatus: 'declined' }, config);
             // Optionally, you can update the UI or redirect the user after decline
             // For example, you can show a success message or redirect to a different page
+            toast("Request Denied Successfully")
+            navigate("/admin")
         } catch (error) {
             console.error('Error declining submission:', error);
             // Handle error
+            toast("Error declining submission")
         }
     };
 
@@ -87,7 +94,6 @@ const Verify = () => {
                 <div className="request-container">
                     <div className="left">
                         <div className="cover-div">
-                            <p className="label">Cover Image</p>
                             <div className='cover'>
                                 <img src={submissionDetails.CoverImageURL} alt="Cover" />
                             </div>
@@ -97,19 +103,19 @@ const Verify = () => {
                     <div className="right">
                         <div className="title-div">
                             <p className="label">Book Title</p>
-                            <p className='output title'>{submissionDetails.Title}</p>
+                            <p className='output title'>{submissionDetails.BookTitle}</p>
                         </div>
                         <div className="author-div">
                             <p className="label">Author</p>
                             <p className='output author'>{submissionDetails.Author}</p>
                         </div>
                         <div className="synopsis-div">
-                            <p className="label">Synopsis</p>
+                            <p className="label red">Synopsis</p>
                             <p className='output synopsis'>{submissionDetails.Synopsis}</p>
                         </div>
                         <div className="genre-div">
                             <p className="label">Genre</p>
-                            <p className='output genre'>
+                            <p className='output'>
                                 {/* Map over the genres, capitalize each genre, and join with commas and spaces */}
                                 {submissionDetails.Genre.map(genre => genre.charAt(0).toUpperCase() + genre.slice(1)).join(', ')}
                             </p>
@@ -137,7 +143,7 @@ const Verify = () => {
 
                         <div className="contact-div">
                             <p className="label">Publisher Contact</p>
-                            <div className='output contact'>{submissionDetails.PublisherContact}</div>
+                            <div className='output green'>{submissionDetails.PublisherContact}</div>
                         </div>
                     </div>
                 </div>

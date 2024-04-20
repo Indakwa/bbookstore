@@ -47,6 +47,7 @@ const Cart = () => {
                 setShowCheckout(true);
             } catch (error) {
                 console.error('Error during checkout:', error);
+                toast("Error during checkout. Try again later.")
             }
         }else{
             toast("Your Cart is Empty")
@@ -68,6 +69,7 @@ const Cart = () => {
             setCartItems(prevCartItems => prevCartItems.filter(item => item.BookID !== bookId));
         } catch (error) {
             console.error('Error removing from cart:', error);
+            toast("Error removing from cart. Try Again Later.")
         }
     };
 

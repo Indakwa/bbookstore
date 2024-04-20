@@ -41,6 +41,7 @@ const Profile = () => {
                 console.log(response.data)
             } catch (error) {
                 console.error('Error fetching user books:', error);
+                toast("Error fetching user books.")
             }
         };
     
@@ -177,7 +178,7 @@ const Profile = () => {
                     <div className="latest-book-div">
                         <h4>Latest Added Book</h4>
                         <div key={latestBook.BookID} className='latest-book'>
-                            <Link to={`/book/${latestBook.BookID}`} className='book-link'>
+                            <Link to={`/details/${latestBook.BookID}`} className='book-link'>
                                 <div className='latest-book-top'>
                                     <img src={latestBook.CoverImageURL} alt={latestBook.Title} />
                                 </div>

@@ -204,7 +204,7 @@ const Admin = () => {
                                 <td>{request.user ? request.user.Username : 'Unknown'}</td>
                                 <td>{request.requestStatus}</td>
                                 <td className='actions'>
-                                    {request.requestStatus.Status === 'pending' && (
+                                    {request.requestStatus === 'pending' && (
                                     <Link to={`/verify/${request.SubmissionID}`}>
                                         Verify Request <FaAngleRight className='icon'/>
                                     </Link>

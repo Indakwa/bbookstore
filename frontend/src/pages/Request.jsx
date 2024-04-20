@@ -33,7 +33,8 @@ const Request = ({ onCancel }) => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();     
+        e.preventDefault();    
+        toast('Uploading Your Files. Please Wait...'); 
         try {
             // Create FormData object to send files along with other form data
             const formDataToSend = new FormData();

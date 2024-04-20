@@ -169,6 +169,11 @@
                             cursor: pointer;
                         }
                     }
+
+                    a{
+                        color: $yell;
+                        text-decoration: none;
+                    }
                 }
             }
         }
@@ -197,19 +202,16 @@
 
             .left{
                 width: 35%;
-                border: $b;
-                padding: .5rem;
     
                 .cover-div{
-                    .label{
-                        font-size: .8rem;
-                    }
     
                     .cover{
+                        height: 70vh;
+
                         img{
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;
+                            object-fit: contain;
                         }
                     }
                 }
@@ -217,8 +219,16 @@
     
             .right{
                 width: 60%;
-                border: $b;
-                padding: .5rem;
+
+                .yellow{
+                    color: $yell;
+                }
+                .red{
+                    color: $red;
+                }
+                .green{
+                    color: $gree;
+                }
     
                 .label{
                     font-size: 1.1rem;
@@ -232,10 +242,27 @@
                         text-decoration: none;
                     }
                 }
-                .book{
+                .book, .copy{
+                    color: $yell;
+                    font-weight: 600;
+
                     &:hover{
                         cursor: pointer;
+                        transform: scale(1.02);
                     }
+                }
+
+                .title{
+                    font-weight: 600;
+                }
+
+                .green{
+                    color: $gree;
+                    font-weight: 600;
+                }
+                .red{
+                    color: $red;
+                    font-weight: 600;
                 }
             }
         }
@@ -244,7 +271,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 2rem;
-            width: 50%;
+            width: 60%;
 
             .btn{
                 display: block;
@@ -255,6 +282,18 @@
                 border-radius: 5px;
                 border: none;
                 background: $yell;
+
+                &:hover{
+                    transform: scale(1.05);
+                    cursor: pointer;
+                }
+            }
+
+
+            .decline{
+                background: none;
+                color: $red;
+                border: 2px solid $red;
             }
         }
     }

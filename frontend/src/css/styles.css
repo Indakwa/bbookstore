@@ -1201,6 +1201,10 @@ footer .footer-bottom p {
   color: #252525;
   cursor: pointer;
 }
+.admin .requests .transaction-history-table tbody .actions a, .admin .requests .request-history-table tbody .actions a, .admin .requests .pay-publishers-table tbody .actions a, .admin .transactions .transaction-history-table tbody .actions a, .admin .transactions .request-history-table tbody .actions a, .admin .transactions .pay-publishers-table tbody .actions a, .admin .pay-publishers .transaction-history-table tbody .actions a, .admin .pay-publishers .request-history-table tbody .actions a, .admin .pay-publishers .pay-publishers-table tbody .actions a {
+  color: #eec16e;
+  text-decoration: none;
+}
 
 .verify {
   background: #252525;
@@ -1223,22 +1227,27 @@ footer .footer-bottom p {
 }
 .verify .container .request-container .left {
   width: 35%;
-  border: 2px solid red;
-  padding: 0.5rem;
 }
-.verify .container .request-container .left .cover-div .label {
-  font-size: 0.8rem;
+.verify .container .request-container .left .cover-div .cover {
+  height: 70vh;
 }
 .verify .container .request-container .left .cover-div .cover img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .verify .container .request-container .right {
   width: 60%;
-  border: 2px solid red;
-  padding: 0.5rem;
+}
+.verify .container .request-container .right .yellow {
+  color: #eec16e;
+}
+.verify .container .request-container .right .red {
+  color: #ee6e6e;
+}
+.verify .container .request-container .right .green {
+  color: #96ca80;
 }
 .verify .container .request-container .right .label {
   font-size: 1.1rem;
@@ -1251,14 +1260,30 @@ footer .footer-bottom p {
   color: #eec16e;
   text-decoration: none;
 }
-.verify .container .request-container .right .book:hover {
+.verify .container .request-container .right .book, .verify .container .request-container .right .copy {
+  color: #eec16e;
+  font-weight: 600;
+}
+.verify .container .request-container .right .book:hover, .verify .container .request-container .right .copy:hover {
   cursor: pointer;
+  transform: scale(1.02);
+}
+.verify .container .request-container .right .title {
+  font-weight: 600;
+}
+.verify .container .request-container .right .green {
+  color: #96ca80;
+  font-weight: 600;
+}
+.verify .container .request-container .right .red {
+  color: #ee6e6e;
+  font-weight: 600;
 }
 .verify .container .btns {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
-  width: 50%;
+  width: 60%;
 }
 .verify .container .btns .btn {
   display: block;
@@ -1269,6 +1294,15 @@ footer .footer-bottom p {
   border-radius: 5px;
   border: none;
   background: #eec16e;
+}
+.verify .container .btns .btn:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.verify .container .btns .decline {
+  background: none;
+  color: #ee6e6e;
+  border: 2px solid #ee6e6e;
 }
 .verify .modal {
   position: absolute;
