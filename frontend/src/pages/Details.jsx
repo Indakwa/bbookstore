@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
 import { useParams, Link } from 'react-router-dom'; 
 import { toast } from 'react-toastify'
 import axios from 'axios';
@@ -9,7 +7,6 @@ import Footer from '../components/Footer';
 
 const Details = () => {
     const { bookId } = useParams(); 
-    const [addedToWishlist, setAddedToWishlist] = useState(false);
     const [book, setBook] = useState(null);
     const [books, setBooks] = useState(null);
 
@@ -28,9 +25,7 @@ const Details = () => {
       fetchBookDetails();
     }, [bookId]);
 
-    const handleWishlist = () => {
-        setAddedToWishlist(!addedToWishlist); // Toggle using logical NOT operator
-    };
+
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -100,11 +95,6 @@ const Details = () => {
                     <p className="synopsis">
                       {book.Synopsis}
                     </p>
-                    <button className='addToWishlist' onClick={handleWishlist}>
-                    Add To Wishlist &nbsp;
-                        { addedToWishlist ? <FaHeart className='icon'/> : <FaRegHeart className='icon'/> }
-                        
-                    </button>
                     <div className="book-genres">
                       <h6>Genre: </h6>
                       <ul>

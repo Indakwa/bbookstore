@@ -732,6 +732,7 @@ footer .footer-bottom p {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  overflow: hidden;
 }
 .profile .top .profilePic img {
   width: 100%;
@@ -740,35 +741,31 @@ footer .footer-bottom p {
      object-fit: cover;
 }
 .profile .top .profile-details {
-  width: 60%;
+  width: 40%;
 }
 .profile .top .profile-details .username {
   font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 500;
   margin-bottom: 0.8rem;
 }
 .profile .top .profile-details .email {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
   color: #96ca80;
 }
-.profile .top .profile-details .bio {
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.8rem;
-}
 .profile .top .ctas {
+  width: 40%;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 .profile .top .ctas #request-btn {
   display: block;
-  width: 100%;
+  width: 48%;
   padding: 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 500;
   border-radius: 5px;
   border: none;
   background: #eec16e;
@@ -776,28 +773,31 @@ footer .footer-bottom p {
 }
 .profile .top .ctas #request-btn:hover {
   cursor: pointer;
+  transform: scale(1.1);
 }
-.profile .top .ctas #edit-btn {
+.profile .top .ctas #logout-btn {
   display: block;
-  width: 100%;
+  width: 48%;
   padding: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   border-radius: 5px;
-  border: none;
-  background: #96ca80;
-  margin-top: 1.5rem;
-  color: #252525;
+  border: 2px solid #ee6e6e;
+  background: none;
+  color: #ee6e6e;
 }
-.profile .top .ctas #edit-btn:hover {
+.profile .top .ctas #logout-btn:hover {
   cursor: pointer;
   transform: scale(1.05);
+  background: #ee6e6e;
+  color: #f5f5f5;
 }
 .profile .my-books {
   margin-top: 4rem;
 }
 .profile .my-books h4 {
   font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 .profile .my-books .inner-container {
@@ -809,6 +809,11 @@ footer .footer-bottom p {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+}
+.profile .my-books .inner-container .container .yet {
+  font-size: 1.5rem;
+  color: #ee6e6e;
+  margin-top: 2rem;
 }
 .profile .my-books .inner-container .container .book {
   background: rgba(255, 255, 255, 0.1);
@@ -824,8 +829,6 @@ footer .footer-bottom p {
   color: #f5f5f5;
 }
 .profile .my-books .inner-container .container .book .book-link .coverImage {
-  border: 2px solid red;
-  padding: 0.5rem;
   height: 80px;
   width: 60px;
 }
@@ -855,11 +858,64 @@ footer .footer-bottom p {
 .profile .my-books .inner-container .container .book .book-link .progress .percentage {
   font-size: 1.2rem;
 }
-.profile .my-books .inner-container .side {
+.profile .my-books .inner-container .latest-book-div {
   background: rgba(255, 255, 255, 0.1);
-  height: 300px;
-  width: 28%;
+  min-height: 300px;
+  width: 350px;
   border-radius: 8px;
+  padding: 2rem;
+}
+.profile .my-books .inner-container .latest-book-div h4 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book {
+  text-decoration: none;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book:hover {
+  cursor: pointer;
+  background: rgba(238, 193, 110, 0.18);
+}
+.profile .my-books .inner-container .latest-book-div .latest-book:hover .latest-book-top img {
+  transform: scale(1.2);
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-top {
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-top img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0.9;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-bottom {
+  padding: 1rem 0.8rem;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-bottom .title {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #f5f5f5;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-bottom .author {
+  font-size: 1rem;
+  margin-top: 0.4rem;
+  color: #96ca80;
+}
+.profile .my-books .inner-container .latest-book-div .latest-book .latest-book-bottom .price {
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #ee6e6e;
 }
 .profile .publisher-sales {
   margin-top: 4rem;
@@ -883,6 +939,16 @@ footer .footer-bottom p {
   border: 1px solid rgba(85, 85, 85, 0);
   text-align: start;
 }
+.profile .publisher-sales .books-on-sale-table .actions {
+  color: #96ca80;
+}
+.profile .publisher-sales .books-on-sale-table .actions .edit-icon {
+  transform: scale(1.1);
+}
+.profile .publisher-sales .books-on-sale-table .actions:hover .edit-icon {
+  transform: scale(1.3);
+  transform: translateX(10px);
+}
 .profile .publisher-sales .books-on-sale-table th {
   background-color: rgba(34, 34, 34, 0.4156862745);
 }
@@ -891,36 +957,6 @@ footer .footer-bottom p {
 }
 .profile .publisher-sales .books-on-sale-table tbody tr:hover {
   background-color: rgba(102, 102, 102, 0.1450980392);
-  cursor: pointer;
-}
-.profile .publisher-sales .books-on-sale-table tbody .actions .btn-1 {
-  outline: none;
-  border: 1px solid #eec16e;
-  display: inline-block;
-  margin-right: 2rem;
-  background: none;
-  color: #eec16e;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-}
-.profile .publisher-sales .books-on-sale-table tbody .actions .btn-1:hover {
-  background-color: #eec16e;
-  color: #252525;
-  cursor: pointer;
-}
-.profile .publisher-sales .books-on-sale-table tbody .actions .btn-2 {
-  outline: none;
-  border: 1px solid #ee6e6e;
-  display: inline-block;
-  margin-right: 2rem;
-  background: none;
-  color: #ee6e6e;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-}
-.profile .publisher-sales .books-on-sale-table tbody .actions .btn-2:hover {
-  background-color: #ee6e6e;
-  color: #252525;
   cursor: pointer;
 }
 

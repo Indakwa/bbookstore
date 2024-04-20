@@ -19,13 +19,13 @@ const payPublisherController = require('../controllers/payPublisherController');
 router.post('/signup', userController.createUser);
 router.post('/login', userController.loginUser);
 router.get('/users', userController.getAllUsers);
-router.get('/users/:id', userController.getUserById);
+router.get('/user', userController.getUserById);
 router.put('/users/:id', userController.updateUser);
 router.delete('/users/:id', userController.deleteUser);
 
 // User profile routes
 router.post('/user-profiles', userProfile.createProfile);
-router.get('/user-profiles/:id', userProfile.getProfileById);
+router.get('/user-profiles', userProfile.getProfileById);
 router.put('/user-profiles/:id', userProfile.updateProfile);
 router.delete('/user-profiles/:id', userProfile.deleteProfile);
 
