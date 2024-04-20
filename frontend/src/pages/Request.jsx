@@ -54,6 +54,7 @@ const Request = ({ onCancel }) => {
             await axios.post('http://localhost:3000/api/submit-request', formDataToSend, config);
             // Handle success (e.g., show a success message, redirect user, etc.)
             toast('Publish request submitted successfully!');
+            handleClose()
         } catch (error) {
             // Handle error (e.g., show error message to user)
             console.error('Error submitting publish request:', error);
@@ -147,7 +148,7 @@ const Request = ({ onCancel }) => {
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="epub" className="custom-file-upload">Upload Book (.txt)</label>
+                    <label htmlFor="epub">Upload Book (.txt)</label>
                     <input 
                         type="file" 
                         name='epub' 
@@ -158,7 +159,7 @@ const Request = ({ onCancel }) => {
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="CoverImage" className="custom-file-upload">Upload Cover Image</label>
+                    <label htmlFor="CoverImage">Upload Cover Image</label>
                     <input 
                         type="file" 
                         name='coverImage' 
@@ -170,7 +171,7 @@ const Request = ({ onCancel }) => {
                     />
                 </div>
                 <div className="input-div">
-                    <label htmlFor="Copyright" className="custom-file-upload">Upload Copyright Information (.pdf)</label>
+                    <label htmlFor="Copyright" >Upload Copyright Information (.pdf)</label>
                     <input 
                         type="file" 
                         name='copyright' 

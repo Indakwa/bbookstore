@@ -297,8 +297,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100vh;
+    min-height: 200vh;
     background: $bla;
+    z-index: 5;
 
     .request-container{
         width: 80vw;
@@ -370,27 +371,20 @@
                     border-radius: 5px;
                     border: none;
                     background: $yell;
-                }
+                    margin-top: 1rem;
 
-                .custom-file-upload {
-                    border: 1px solid $whi;
-                    display: inline-block;
-                    padding: .5rem 1rem;
-                    cursor: pointer;
-                    border-radius: 4px;
-                    font-size: 1rem;
-                    margin-top: .8rem;
+                    &:hover{
+                        cursor: pointer;
+                        transform: scale(1.05);
+                    }
                 }
 
                 input[type="file"] {
-                    border: $b;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                    border: 1px solid $whi;
                     font-size: 1rem;
                     padding: .5rem 1rem;
                     cursor: pointer;
-                    opacity: .7;
+                    opacity: .9;
                 }
             }
         }

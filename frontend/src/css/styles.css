@@ -965,8 +965,9 @@ footer .footer-bottom p {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 200vh;
   background: #252525;
+  z-index: 5;
 }
 .request .request-container {
   width: 80vw;
@@ -1037,25 +1038,18 @@ footer .footer-bottom p {
   border-radius: 5px;
   border: none;
   background: #eec16e;
+  margin-top: 1rem;
 }
-.request .request-container .inner-container .input-div .custom-file-upload {
-  border: 1px solid #f5f5f5;
-  display: inline-block;
-  padding: 0.5rem 1rem;
+.request .request-container .inner-container .input-div .submit:hover {
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-top: 0.8rem;
+  transform: scale(1.05);
 }
 .request .request-container .inner-container .input-div input[type=file] {
-  border: 2px solid red;
-  position: absolute;
-  top: 0;
-  left: 0;
+  border: 1px solid #f5f5f5;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .admin {
