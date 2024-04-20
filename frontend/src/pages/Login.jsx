@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa";
+
 
 const Login = () => {
     const API_URL = 'http://localhost:3000/api';
@@ -10,6 +13,10 @@ const Login = () => {
         Email: '',
         Password: ''
       });
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -85,7 +92,7 @@ const Login = () => {
                 <div>
                     <label htmlFor="Password">Enter Password:</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="Password"
                         name="Password"
                         value={formData.Password}
@@ -93,6 +100,12 @@ const Login = () => {
                         required
                         autoComplete="off"
                     />
+                    {showPassword ? 
+                        <FaRegEye className='password-icon' onClick={togglePasswordVisibility}/>
+                        : 
+                        <FaRegEyeSlash className='password-icon' onClick={togglePasswordVisibility}/>
+                    }
+                    
                 </div>
                 <button type="submit">Log In</button>
                 <p>Don't have an account? 
@@ -103,6 +116,7 @@ const Login = () => {
                         Create Account
                     </Link>
                 </p>
+                <Link to="mailto:benedictindakwa@gmail.com.com?subject=FORGOT PASSWORD BBOOKSTORE" className='forgot'>I Forgot Password</Link>
             </form>
             <div className="right-div">
             <img src="/assets/1.png" alt="" />

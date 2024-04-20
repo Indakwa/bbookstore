@@ -157,6 +157,9 @@ footer .footer-bottom p {
   width: 50%;
   margin-left: 6rem;
 }
+.sign-up .sign-up-container .inner-container form div, .sign-up .login-container .inner-container form div, .login .sign-up-container .inner-container form div, .login .login-container .inner-container form div {
+  position: relative;
+}
 .sign-up .sign-up-container .inner-container form div label, .sign-up .login-container .inner-container form div label, .login .sign-up-container .inner-container form div label, .login .login-container .inner-container form div label {
   font-size: 0.8rem;
   display: inline-block;
@@ -175,6 +178,14 @@ footer .footer-bottom p {
   padding: 0.8rem 0.3rem;
   margin-bottom: 1.5rem;
 }
+.sign-up .sign-up-container .inner-container form div .password-icon, .sign-up .login-container .inner-container form div .password-icon, .login .sign-up-container .inner-container form div .password-icon, .login .login-container .inner-container form div .password-icon {
+  position: absolute;
+  top: 1.8rem;
+  right: 6rem;
+}
+.sign-up .sign-up-container .inner-container form div .password-icon:hover, .sign-up .login-container .inner-container form div .password-icon:hover, .login .sign-up-container .inner-container form div .password-icon:hover, .login .login-container .inner-container form div .password-icon:hover {
+  cursor: pointer;
+}
 .sign-up .sign-up-container .inner-container form button, .sign-up .login-container .inner-container form button, .login .sign-up-container .inner-container form button, .login .login-container .inner-container form button {
   display: block;
   width: 50%;
@@ -192,6 +203,15 @@ footer .footer-bottom p {
 .sign-up .sign-up-container .inner-container form p #toLogin, .sign-up .login-container .inner-container form p #toLogin, .login .sign-up-container .inner-container form p #toLogin, .login .login-container .inner-container form p #toLogin {
   text-decoration: none;
   color: #96ca80;
+}
+.sign-up .sign-up-container .inner-container form .forgot, .sign-up .login-container .inner-container form .forgot, .login .sign-up-container .inner-container form .forgot, .login .login-container .inner-container form .forgot {
+  text-decoration: none;
+  color: #ee6e6e;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+.sign-up .sign-up-container .inner-container form .forgot:hover, .sign-up .login-container .inner-container form .forgot:hover, .login .sign-up-container .inner-container form .forgot:hover, .login .login-container .inner-container form .forgot:hover {
+  transform: scale(1.1);
 }
 .sign-up .sign-up-container .inner-container .right-div, .sign-up .login-container .inner-container .right-div, .login .sign-up-container .inner-container .right-div, .login .login-container .inner-container .right-div {
   width: 50%;

@@ -29,6 +29,8 @@
                 margin-left: 6rem;
     
                 div{
+                    position: relative;
+
                     label{
                         font-size: .8rem;
                         display: inline-block;
@@ -46,6 +48,16 @@
                         color: $whi;
                         padding: .8rem .3rem;
                         margin-bottom: 1.5rem;
+                    }
+
+                    .password-icon{
+                        position: absolute;
+                        top: 1.8rem;
+                        right: 6rem;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
                     }
                 }
     
@@ -66,6 +78,17 @@
                     #toLogin{
                         text-decoration: none;
                         color: $gree;
+                    }
+                }
+
+                .forgot{
+                    text-decoration: none;
+                    color: $red;
+                    font-size: .8rem;
+                    margin-top: 1rem;
+
+                    &:hover{
+                        transform: scale(1.1);
                     }
                 }
             }

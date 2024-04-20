@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom';
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios'
 
 const SignUp = () => {
@@ -13,7 +15,12 @@ const SignUp = () => {
         Password: '',
         confirmPassword: ''
       });
-    
+      
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -127,7 +134,7 @@ const SignUp = () => {
                 <div>
                     <label htmlFor="Password">Enter Password:</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="Password"
                         name="Password"
                         value={formData.Password}
@@ -135,11 +142,16 @@ const SignUp = () => {
                         required
                         autoComplete="off"
                     />
+                    {showPassword ? 
+                        <FaRegEye className='password-icon' onClick={togglePasswordVisibility}/>
+                        : 
+                        <FaRegEyeSlash className='password-icon' onClick={togglePasswordVisibility}/>
+                    }
                 </div>
                 <div>
                     <label htmlFor="ConfirmPassword">Confirm Password:</label>
                     <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         id="ConfirmPassword"
                         name="ConfirmPassword"
                         value={formData.ConfirmPassword}
@@ -147,6 +159,11 @@ const SignUp = () => {
                         required
                         autoComplete="off"
                     />
+                    {showPassword ? 
+                        <FaRegEye className='password-icon' onClick={togglePasswordVisibility}/>
+                        : 
+                        <FaRegEyeSlash className='password-icon' onClick={togglePasswordVisibility}/>
+                    }
                 </div>
                 <button type="submit">Sign Up</button>
                 <p>Already have an account? <Link to="/login" id="toLogin">Login</Link></p>
