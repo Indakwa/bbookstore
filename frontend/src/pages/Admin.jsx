@@ -10,6 +10,7 @@ const Admin = () => {
     const API_URL = 'http://localhost:3000/api';
     const [requests, setRequests] = useState([]);
     const [booksInventory, setBooksInventory] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [payPublishers, setPayPublishers] = useState([]);
     const [jwt, setJwt] = useState(null);
@@ -162,6 +163,19 @@ const Admin = () => {
         };
         fetchUserDetails();
     }, []);
+
+    useEffect(() => {
+        const fetchAllUsers = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/api/users');
+            setAllUsers(response.data);
+          } catch (error) {
+            console.error('Error fetching all Users', error);
+          }
+        };
+    
+        fetchAllUsers();
+      }, []);
 
            
     useEffect(() => {
@@ -324,6 +338,30 @@ const Admin = () => {
                                 <td>{details.price}</td>
                                 <td>{details.Number_Sold}</td>
                                 <td className='edit-actions'>Edit Book Info <MdOutlineEdit className='edit-icon'/></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
+
+            <section className="users-management">
+                <h4 className='green'>All Users Management</h4>
+                <table className="users-management-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allUsers.map(user => (
+                            <tr key={user.UserID}>
+                                <td>{user.Username}</td>
+                                <td>{user.Email}</td>
+                                <td>{user.Role}</td>
+                                <td className='edit-actions'>Edit User Info <MdOutlineEdit className='edit-icon'/></td>
                             </tr>
                         ))}
                     </tbody>

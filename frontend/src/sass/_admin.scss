@@ -93,7 +93,7 @@
         }
     }
 
-    .requests, .transactions, .pay-publishers, .books-management{
+    .requests, .transactions, .pay-publishers, .books-management, .users-management{
         margin-top: 4rem;
         margin-bottom: 6rem;
 
@@ -109,7 +109,7 @@
             color: $yell;
         }
 
-        .transaction-history-table, .request-history-table, .pay-publishers-table, .books-management-table {
+        .transaction-history-table, .request-history-table, .pay-publishers-table, .books-management-table, .users-management-table {
                 width: 100%;
                 border-collapse: collapse;
                 background-color: #33333372;
