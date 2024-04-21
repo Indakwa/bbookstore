@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { MdOutlineEdit } from "react-icons/md";
 import { PDFDocument, rgb } from 'pdf-lib';
+import { HiOutlineDocumentReport } from "react-icons/hi";
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -332,7 +333,7 @@ const Admin = () => {
             y -= 20;
             drawText(`Report Date: ${currentDate}`, 50, y, rgb(0, 0, 0), 12);
             y -= 20;
-            drawText(`Reporting Peroid: March - April 2024`, 50, y, rgb(0, 0, 0), 12);
+            drawText(`Reporting Period: March - April 2024`, 50, y, rgb(0, 0, 0), 12);
             y -= 20;
             drawText('-----------------------------------------', 50, y);
             y -= 30;
@@ -374,13 +375,104 @@ const Admin = () => {
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            link.download = 'inventory_report.pdf';
+            link.download = 'inventory_report_bbookstore.pdf';
             link.click();
         } catch (err) {
             console.error('Error generating inventory report:', err);
         }
     };
 
+
+    const generateUsersReport = async () => {
+        try {
+            // Get current date
+            const currentDate = new Date().toLocaleDateString();
+
+            const readerUsers = allUsers.filter(user => user.Role === "reader");
+            const publisherUsers = allUsers.filter(user => user.Role === "publisher");
+
+
+
+            // Create PDF
+            const pdfDoc = await PDFDocument.create();
+            const page = pdfDoc.addPage();
+
+            const { width, height } = page.getSize();
+            const fontSize = 12;
+
+            const drawText = (text, x, y, color, size) => {
+                page.drawText(text, {
+                    x,
+                    y,
+                    size: size || fontSize,
+                    color: color || rgb(0, 0, 0),
+                });
+            };
+
+            let y = height - 50;
+
+            // Header Section
+            drawText('USERS REPORT', 200, y, rgb(0, 0, 0), 18);
+            y -= 30;
+            drawText(`Company Name: BBookstore Platform`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText(`Report Date: ${currentDate}`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText(`Reporting Period: March - April 2024`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText('-----------------------------------------', 50, y);
+            y -= 30;
+
+            // Executive Summary
+            drawText('Executive Summary:', 50, y, rgb(0, 0, 0), 18);
+            y -= 20;
+            drawText('This report provides an overview of the Users in BBookstore Platform,', 50, y);
+            y -= 15;
+            drawText('For the Period of March and April 2024', 50, y);
+            y -= 40;
+
+
+            // Key Metrics
+            drawText('Key Metrics:', 50, y, rgb(0, 0, 0), 18);
+            y -= 20;
+            drawText(`- Total Users: ${allUsers.length}`, 50, y);
+            y -= 20;
+            drawText(`- Total Readers: ${readerUsers.length}`, 50, y);
+            y -= 20;
+            drawText(`- Total Publishers: ${publisherUsers.length}`, 50, y);
+            y -= 40;
+
+
+            drawText(`All The Users (${allUsers.length})`, 50, y, rgb(0, 0, 0), 18);
+            y -= 20;
+
+            drawText('-------------------------------------------------------------------------------------------------', 50, y);
+            y -= 20;
+
+            
+
+            Object.values(allUsers).forEach((user, index) => {
+                drawText(`Username: ${user.Username}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Email: ${user.Email}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Role: ${user.Role}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 30;
+
+            });
+
+            const pdfBytes = await pdfDoc.save();
+
+            // Download the PDF
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'users_report_bbookstore.pdf';
+            link.click();
+        } catch (err) {
+            console.error('Error generating inventory report:', err);
+        }
+    };
 
 
   return (
@@ -397,8 +489,98 @@ const Admin = () => {
                     <p className="email">{userDetails.Email}</p>
                 </div>
                 <div className="ctas">
-                    <button id='request-btn' onClick={generateSalesReport}>Generate Sales Report</button>
+                    <button id='request-btn'>Generate Sales Report</button>
                     <button id='logout-btn' onClick={handleLogout}>Log Out</button>
+                </div>
+            </div>
+
+            <div className="admin-overview">
+                <div className="overview-container">
+                    <div className="inner-div">
+                        <h6>Sales Overview</h6>
+                        <div className="top-part">
+                            <p className="big"><span>KSh.</span>
+                                {transactions.reduce((acc, transaction) => acc + transaction.TotalPrice, 0)}
+                            </p>
+                            <p className="small">TOTAL SALES</p>
+                            <p className="small">REVENUE</p>
+                        </div>
+
+                        <div className="bottom-part">
+                            <p className="txt">
+                                Total Orders: &nbsp;
+                                <span>
+                                    {transactions.length}
+                                </span>
+                            </p>
+                            <p className="txt">
+                                Total Customers: &nbsp;
+                                <span>
+                                    {[...new Set(transactions.map(transaction => transaction.user.Username))].length}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="inner-div">
+                        <h6>Inventory Overview</h6>
+                        <div className="top-part">
+                            <p className="big">
+                                {Object.keys(booksInventory).length}
+                            </p>
+                            <p className="small">TOTAL BOOKS</p>
+                        </div>
+
+                        <div className="bottom-part">
+                            <p className="txt">
+                                Total Number Sold: &nbsp;
+                                <span>
+                                    {Object.values(booksInventory).reduce(
+                                        (sum, book) => sum + book.Number_Sold,
+                                        0
+                                    )}
+                                </span>
+                            </p>
+                            <p className="txt">Total Genres: <span>6</span></p>
+                        </div>
+                    </div>
+                    <div className="inner-div">
+                        <h6>Users Overview</h6>
+                        <div className="top-part">
+                            <p className="big">
+                                {allUsers.length}
+                            </p>
+                            <p className="small">TOTAL USERS</p>
+                        </div>
+
+                        <div className="bottom-part">
+                            <p className="txt">
+                                Total Readers: &nbsp;
+                                <span>
+                                    {allUsers.filter(user => user.Role === "reader").length}
+                                </span>
+                            </p>
+                            <p className="txt">
+                                Total Publishers: &nbsp;
+                                <span>
+                                    {allUsers.filter(user => user.Role === "publisher").length}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="reports">
+                    <button className='generate' onClick={generateSalesReport}>
+                        Generate Sales Report
+                        <HiOutlineDocumentReport className='icon'/>
+                    </button>
+                    <button className='generate' onClick={generateInventoryReport}>
+                        Generate Inventory Report
+                        <HiOutlineDocumentReport className='icon'/>
+                    </button>
+                    <button className='generate' onClick={generateUsersReport}>
+                        Generate Users Report
+                        <HiOutlineDocumentReport className='icon'/>
+                    </button>
                 </div>
             </div>
 
@@ -500,7 +682,7 @@ const Admin = () => {
             </div>
 
             <section className="books-management">
-                <h4 className='yellow' onClick={generateInventoryReport}>All Books Management</h4>
+                <h4 className='yellow'>All Books Management</h4>
                 <table className="books-management-table">
                     <thead>
                         <tr>
