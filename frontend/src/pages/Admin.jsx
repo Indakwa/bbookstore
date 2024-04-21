@@ -247,41 +247,43 @@ const Admin = () => {
             let y = height - 50;
 
             // Header Section
-            drawText('Sales Report', 200, y);
-            y -= 20;
-            drawText('Company Name: XYZ Corporation', 50, y);
+            drawText('SALES REPORT', 200, y, rgb(0.9333333333333333, 0.7568627450980392, 0.43137254901960786), 32);
+            y -= 30;
+            drawText('Company Name: BBookstore Platform', 50, y);
             y -= 20;
             drawText(`Report Date: ${currentDate}`, 50, y);
             y -= 20;
-            drawText('Reporting Period: March 2024', 50, y);
-            y -= 30;
+            drawText('Reporting Period: March - April 2024', 50, y);
+            y -= 40;
 
             // Executive Summary
-            drawText('Executive Summary:', 50, y);
+            drawText('Executive Summary:', 50, y, rgb(0.9333333333333333, 0.7568627450980392, 0.43137254901960786), 18);
             y -= 20;
-            drawText('This report provides an overview of the sales performance of XYZ Corporation for the month of March 2024.', 50, y);
-            y -= 30;
+            drawText('This report provides an overview of the sales performance of BBookstore Platform,', 50, y);
+            y -= 15;
+            drawText('For the Period of March and April 2024', 50, y);
+            y -= 40;
 
             // Key Metrics
-            drawText('Key Metrics:', 50, y);
+            drawText('Key Metrics:', 50, y, rgb(0.9333333333333333, 0.7568627450980392, 0.43137254901960786), 18);
             y -= 20;
-            drawText(`- Total Sales Revenue: $${totalSalesRevenue.toFixed(2)}`, 70, y);
+            drawText(`- Total Sales Revenue: KSh${totalSalesRevenue.toFixed(2)}`, 50, y);
             y -= 20;
-            drawText(`- Total Number of Orders: ${totalOrders}`, 70, y);
+            drawText(`- Total Number of Orders: ${totalOrders}`, 50, y);
             y -= 20;
-            drawText(`- Total Customers: ${totalCustomers}`, 70, y);
-            y -= 30;
+            drawText(`- Total Customers: ${totalCustomers}`, 50, y);
+            y -= 40;
 
             // Product Performance
-            drawText('Product Performance (Top Selling Products):', 50, y);
+            drawText('Product Performance (Top Selling Products):', 50, y, rgb(0.9333333333333333, 0.7568627450980392, 0.43137254901960786), 18);
             y -= 20;
-            drawText('Product Name        Total Sales', 70, y);
+            drawText('Product Name                    Total Sales', 55, y);
             y -= 20;
-            drawText('---------------------------------', 70, y);
+            drawText('-------------------------------------------------------------------------------------------------------------------', 55, y);
             y -= 20;
 
             topSellingProducts.forEach(product => {
-                drawText(`${product.product}           $${product.totalSales.toFixed(2)}`, 70, y);
+                drawText(`${product.product}                             KSh${product.totalSales.toFixed(2)}`, 55, y);
                 y -= 20;
             });
 
@@ -291,10 +293,11 @@ const Admin = () => {
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = window.URL.createObjectURL(blob);
-            link.download = 'sales_report.pdf';
+            link.download = 'sales_report_bbookstore.pdf';
             link.click();
         } catch (err) {
             console.error('Error generating sales report:', err);
+            toast("Error generating sales report. Try again later.")
         }
     };
 
