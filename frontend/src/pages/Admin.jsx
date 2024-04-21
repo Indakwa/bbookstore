@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { MdOutlineEdit } from "react-icons/md";
+import { PDFDocument, rgb } from 'pdf-lib';
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Admin = () => {
             try {
                 const response = await axios.get(`${API_URL}/transactions`);
                 setTransactions(response.data);
-                console.log(response.data)
+                console.log(`TRANSACTIONS \n ${response.data}`)
             } catch (error) {
                 console.error('Error fetching transactions:', error);
             }
@@ -200,6 +201,105 @@ const Admin = () => {
 
 
 
+    const generateReport = async () => {
+        try {
+            // Get current date
+            const currentDate = new Date().toLocaleDateString();
+
+            // Calculate totals
+            const totalSalesRevenue = transactions.reduce((acc, transaction) => acc + transaction.TotalPrice, 0);
+            const totalOrders = transactions.length;
+            const totalCustomers = [...new Set(transactions.map(transaction => transaction.user.Username))].length;
+
+            // Group transactions by product and calculate total sales for each product
+            const productSales = transactions.reduce((acc, transaction) => {
+                transaction.CartItems.forEach(item => {
+                    if (!acc[item.Name]) {
+                        acc[item.Name] = {
+                            product: item.Name,
+                            totalSales: 0
+                        };
+                    }
+                    acc[item.Name].totalSales += parseFloat(item.Price);
+                });
+                return acc;
+            }, {});
+
+            // Sort products by total sales
+            const topSellingProducts = Object.values(productSales).sort((a, b) => b.totalSales - a.totalSales).slice(0, 3);
+
+            // Create PDF
+            const pdfDoc = await PDFDocument.create();
+            const page = pdfDoc.addPage();
+
+            const { width, height } = page.getSize();
+            const fontSize = 12;
+
+            const drawText = (text, x, y) => {
+                page.drawText(text, {
+                    x,
+                    y,
+                    size: fontSize,
+                    color: rgb(0, 0, 0),
+                });
+            };
+
+            let y = height - 50;
+
+            // Header Section
+            drawText('Sales Report', 200, y);
+            y -= 20;
+            drawText('Company Name: XYZ Corporation', 50, y);
+            y -= 20;
+            drawText(`Report Date: ${currentDate}`, 50, y);
+            y -= 20;
+            drawText('Reporting Period: March 2024', 50, y);
+            y -= 30;
+
+            // Executive Summary
+            drawText('Executive Summary:', 50, y);
+            y -= 20;
+            drawText('This report provides an overview of the sales performance of XYZ Corporation for the month of March 2024.', 50, y);
+            y -= 30;
+
+            // Key Metrics
+            drawText('Key Metrics:', 50, y);
+            y -= 20;
+            drawText(`- Total Sales Revenue: $${totalSalesRevenue.toFixed(2)}`, 70, y);
+            y -= 20;
+            drawText(`- Total Number of Orders: ${totalOrders}`, 70, y);
+            y -= 20;
+            drawText(`- Total Customers: ${totalCustomers}`, 70, y);
+            y -= 30;
+
+            // Product Performance
+            drawText('Product Performance (Top Selling Products):', 50, y);
+            y -= 20;
+            drawText('Product Name        Total Sales', 70, y);
+            y -= 20;
+            drawText('---------------------------------', 70, y);
+            y -= 20;
+
+            topSellingProducts.forEach(product => {
+                drawText(`${product.product}           $${product.totalSales.toFixed(2)}`, 70, y);
+                y -= 20;
+            });
+
+            const pdfBytes = await pdfDoc.save();
+
+            // Download the PDF
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'sales_report.pdf';
+            link.click();
+        } catch (err) {
+            console.error('Error generating sales report:', err);
+        }
+    };
+
+
+
   return (
     <>
         <section className="admin">
@@ -214,7 +314,7 @@ const Admin = () => {
                     <p className="email">{userDetails.Email}</p>
                 </div>
                 <div className="ctas">
-                    <button id='request-btn'>Publish Book</button>
+                    <button id='request-btn' onClick={generateReport}>Generate Sales Report</button>
                     <button id='logout-btn' onClick={handleLogout}>Log Out</button>
                 </div>
             </div>
