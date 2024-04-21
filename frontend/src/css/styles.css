@@ -1084,9 +1084,20 @@ footer .footer-bottom p {
   padding-bottom: 4rem;
 }
 .admin h2 {
+  position: relative;
   font-size: 3rem;
   color: #eec16e;
   margin-bottom: 1rem;
+}
+.admin h2 #logout-icon {
+  position: absolute;
+  right: 0;
+  color: #ee6e6e;
+  font-size: 2.5rem;
+}
+.admin h2 #logout-icon:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 .admin .top {
   display: flex;
@@ -1109,7 +1120,7 @@ footer .footer-bottom p {
      object-fit: cover;
 }
 .admin .top .profile-details {
-  width: 40%;
+  width: 25%;
 }
 .admin .top .profile-details .username {
   font-family: "Montserrat", sans-serif;
@@ -1124,41 +1135,28 @@ footer .footer-bottom p {
   color: #96ca80;
 }
 .admin .top .ctas {
-  width: 40%;
+  width: 60%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
-.admin .top .ctas #request-btn {
+.admin .top .ctas .goto-btn {
   display: block;
   width: 48%;
   padding: 0.5rem;
   font-size: 1.2rem;
   font-weight: 500;
   border-radius: 5px;
-  border: none;
-  background: #eec16e;
-  color: #252525;
-}
-.admin .top .ctas #request-btn:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-}
-.admin .top .ctas #logout-btn {
-  display: block;
-  width: 48%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 5px;
-  border: 2px solid #ee6e6e;
+  border: 2px solid #eec16e;
   background: none;
-  color: #ee6e6e;
+  color: #eec16e;
+  margin-bottom: 0.6rem;
+  margin-top: 0.6rem;
 }
-.admin .top .ctas #logout-btn:hover {
+.admin .top .ctas .goto-btn:hover {
   cursor: pointer;
-  transform: scale(1.05);
-  background: #ee6e6e;
-  color: #f5f5f5;
+  color: #252525;
+  background: #eec16e;
 }
 .admin .admin-overview {
   margin-top: 3rem;

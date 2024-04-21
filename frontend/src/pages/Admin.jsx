@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaAngleRight } from "react-icons/fa6";
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,9 +6,14 @@ import { toast } from 'react-toastify';
 import { MdOutlineEdit } from "react-icons/md";
 import { PDFDocument, rgb } from 'pdf-lib';
 import { HiOutlineDocumentReport } from "react-icons/hi";
+import { MdLogout } from "react-icons/md";
 
 const Admin = () => {
     const navigate = useNavigate();
+    const pendingRequestsSection = useRef(null);
+    const transactionHistorySection = useRef(null);
+    const inventoryManagementSection = useRef(null);
+    const usersManagementSection = useRef(null);
     const API_URL = 'http://localhost:3000/api';
     const [requests, setRequests] = useState([]);
     const [booksInventory, setBooksInventory] = useState([]);
@@ -474,11 +479,36 @@ const Admin = () => {
         }
     };
 
+    const scrollToPendingRequestsSection = () => {
+        if (pendingRequestsSection.current) {
+            pendingRequestsSection.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    const scrollToInventoryManagementSection = () => {
+        if (inventoryManagementSection.current) {
+            inventoryManagementSection.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    const scrollToTransactionHistorySection = () => {
+        if (transactionHistorySection.current) {
+            transactionHistorySection.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    const scrollToUsersManagementSection = () => {
+        if (usersManagementSection.current) {
+            usersManagementSection.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
 
   return (
     <>
         <section className="admin">
-            <h2>Admin Dashboard</h2>
+            <h2>
+                Admin Dashboard 
+                <MdLogout id='logout-icon' onClick={handleLogout}/>
+            </h2>
+            
 
             <div className="top">
                 <div className="profilePic">
@@ -489,8 +519,18 @@ const Admin = () => {
                     <p className="email">{userDetails.Email}</p>
                 </div>
                 <div className="ctas">
-                    <button id='request-btn'>Generate Sales Report</button>
-                    <button id='logout-btn' onClick={handleLogout}>Log Out</button>
+                    <button className='goto-btn' onClick={scrollToPendingRequestsSection}>
+                        Go To Pending Requests
+                    </button>
+                    <button className='goto-btn' onClick={scrollToTransactionHistorySection}>
+                        Go To Transaction History
+                    </button>
+                    <button className='goto-btn' onClick={scrollToInventoryManagementSection}>
+                        Go To Books Management
+                    </button>
+                    <button className='goto-btn' onClick={scrollToUsersManagementSection}>
+                        Go To Users Management
+                    </button>
                 </div>
             </div>
 
@@ -584,7 +624,7 @@ const Admin = () => {
                 </div>
             </div>
 
-            <div className="requests">
+            <div className="requests" ref={pendingRequestsSection}>
                 <h4 className='green'>Pending Requests</h4>
                 <table className="request-history-table">
                     <thead>
@@ -618,7 +658,7 @@ const Admin = () => {
                 </table>
             </div>
 
-            <div className="transactions">
+            <div className="transactions" ref={transactionHistorySection}>
                 <h4 className='yellow'>Transaction History</h4>
                 <table className="transaction-history-table">
                     <thead>
@@ -681,7 +721,7 @@ const Admin = () => {
                 </table>
             </div>
 
-            <section className="books-management">
+            <section className="books-management" ref={inventoryManagementSection}>
                 <h4 className='yellow'>All Books Management</h4>
                 <table className="books-management-table">
                     <thead>
@@ -709,7 +749,7 @@ const Admin = () => {
                 </table>
             </section>
 
-            <section className="users-management">
+            <section className="users-management" ref={usersManagementSection}>
                 <h4 className='green'>All Users Management</h4>
                 <table className="users-management-table">
                     <thead>
