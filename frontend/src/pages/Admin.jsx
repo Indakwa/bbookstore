@@ -46,7 +46,6 @@ const Admin = () => {
             try {
                 const response = await axios.get(`${API_URL}/transactions`);
                 setTransactions(response.data);
-                console.log(`TRANSACTIONS \n ${response.data}`)
             } catch (error) {
                 console.error('Error fetching transactions:', error);
             }
@@ -201,7 +200,7 @@ const Admin = () => {
 
 
 
-    const generateReport = async () => {
+    const generateSalesReport = async () => {
         try {
             // Get current date
             const currentDate = new Date().toLocaleDateString();
@@ -301,6 +300,87 @@ const Admin = () => {
         }
     };
 
+    const generateInventoryReport = async () => {
+        try {
+            // Get current date
+            const currentDate = new Date().toLocaleDateString();
+
+
+
+            // Create PDF
+            const pdfDoc = await PDFDocument.create();
+            const page = pdfDoc.addPage();
+
+            const { width, height } = page.getSize();
+            const fontSize = 12;
+
+            const drawText = (text, x, y, color, size) => {
+                page.drawText(text, {
+                    x,
+                    y,
+                    size: size || fontSize,
+                    color: color || rgb(0, 0, 0),
+                });
+            };
+
+            let y = height - 50;
+
+            // Header Section
+            drawText('INVENTORY REPORT', 200, y, rgb(0, 0, 0), 18);
+            y -= 30;
+            drawText(`Company Name: BBookstore Platform`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText(`Report Date: ${currentDate}`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText(`Reporting Peroid: March - April 2024`, 50, y, rgb(0, 0, 0), 12);
+            y -= 20;
+            drawText('-----------------------------------------', 50, y);
+            y -= 30;
+
+            // Executive Summary
+            drawText('Executive Summary:', 50, y, rgb(0, 0, 0), 18);
+            y -= 20;
+            drawText('This report provides an overview of the inventory in BBookstore Platform,', 50, y);
+            y -= 15;
+            drawText('For the Period of March and April 2024', 50, y);
+            y -= 40;
+
+            // Executive Summary
+            drawText(`All The Books (${Object.keys(booksInventory).length})`, 50, y, rgb(0, 0, 0), 18);
+            y -= 20;
+
+            drawText('-------------------------------------------------------------------------------------------------', 50, y);
+            y -= 20;
+
+            
+
+            Object.values(booksInventory).forEach((book, index) => {
+                drawText(`Title: ${book.Title}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Author: ${book.Author}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Publisher Contact: 0${book.Contact.toString()}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Price: KSh${book.price}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 15;
+                drawText(`Number Sold: ${book.Number_Sold.toString()}`, 50, y, rgb(0, 0, 0), 10);
+                y -= 30;
+
+            });
+
+            const pdfBytes = await pdfDoc.save();
+
+            // Download the PDF
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'inventory_report.pdf';
+            link.click();
+        } catch (err) {
+            console.error('Error generating inventory report:', err);
+        }
+    };
+
 
 
   return (
@@ -317,7 +397,7 @@ const Admin = () => {
                     <p className="email">{userDetails.Email}</p>
                 </div>
                 <div className="ctas">
-                    <button id='request-btn' onClick={generateReport}>Generate Sales Report</button>
+                    <button id='request-btn' onClick={generateSalesReport}>Generate Sales Report</button>
                     <button id='logout-btn' onClick={handleLogout}>Log Out</button>
                 </div>
             </div>
@@ -420,7 +500,7 @@ const Admin = () => {
             </div>
 
             <section className="books-management">
-                <h4 className='yellow'>All Books Management</h4>
+                <h4 className='yellow' onClick={generateInventoryReport}>All Books Management</h4>
                 <table className="books-management-table">
                     <thead>
                         <tr>
