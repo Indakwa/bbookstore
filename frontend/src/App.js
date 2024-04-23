@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 import Genres from "./pages/Genres";
 import Profile from "./pages/Profile";
 import Admin from './pages/Admin';
+import Books from './pages/Books';
 import BookReader from './components/BookReader';
 import VerifyRequest from './components/VerifyRequest';
 import AdminLogin from './pages/AdminLogin';
@@ -29,6 +30,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/books' element={<Books />} />
           <Route path="/genres/:genre" element={<Genres />} />
           <Route path='/admin-login' element={<AdminLogin />} />
           <Route path='/verify/:submissionId' element={<VerifyRequest />} />
