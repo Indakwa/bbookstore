@@ -11,8 +11,8 @@ const Footer = () => {
                 <div className="logo">
                     <p id="logo">BBookstore</p>
                 </div>
-                <p className="tagline">Lorem ipsum dolor sit amet.</p>
-                <p className="tagline">Bpsum dolor sit amet.</p>
+                <p className="tagline">Curated Collections, Seamless Purchases, Happy Endings:</p>
+                <p className="tagline">It's All Here at BBookstore.</p>
 
                 <div className="socials">
                     <BsTwitterX className="icon"/>
@@ -26,30 +26,20 @@ const Footer = () => {
                     <h6>Quick Links</h6>
                     <div className="links">
                         <Link to="/home" className="footer-link">Home</Link>
-                        <Link to="/about" className="footer-link">About</Link>
-                        <Link to="/" className="footer-link">Upcoming</Link>
-                        <Link to="/" className="footer-link">How it Works</Link>  
-                        <Link to="/" className="footer-link">Profile</Link>
+                        <Link to="/books" className="footer-link">All Books</Link>
+                        <Link to="/how" className="footer-link">How it Works</Link>  
+                        <Link to="/cart" className="footer-link">My Cart</Link>
+                        <Link to="/profile" className="footer-link">My Profile</Link>
                     </div>
                 </div>
                 <div className="footer-links">
-                    <h6>Quick Links</h6>
+                    <h6>Genres</h6>
                     <div className="links">
-                        <Link to="/home" className="footer-link">Home</Link>
-                        <Link to="/about" className="footer-link">About</Link>
-                        <Link to="/" className="footer-link">Upcoming</Link>
-                        <Link to="/" className="footer-link">How it Works</Link>  
-                        <Link to="/" className="footer-link">Profile</Link>
-                    </div>
-                </div>
-                <div className="footer-links">
-                    <h6>Quick Links</h6>
-                    <div className="links">
-                        <Link to="/home" className="footer-link">Home</Link>
-                        <Link to="/about" className="footer-link">About</Link>
-                        <Link to="/" className="footer-link">Upcoming</Link>
-                        <Link to="/" className="footer-link">How it Works</Link>  
-                        <Link to="/" className="footer-link">Profile</Link>
+                        <Link to="/genres/Adventure" className="footer-link">Adventure</Link>
+                        <Link to="/genres/Comedy" className="footer-link">Comedy</Link>
+                        <Link to="/genres/Romance" className="footer-link">Romance</Link>
+                        <Link to="/genres/Fantasy" className="footer-link">Fantasy</Link>  
+                        <Link to="/genres/Fiction" className="footer-link">Fiction</Link>
                     </div>
                 </div>
             </div>

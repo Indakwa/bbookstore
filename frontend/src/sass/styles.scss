@@ -90,9 +90,9 @@ footer{
     padding-bottom: 2rem;
     .footer-top{
         display: flex;
-        justify-content: space-between;
+        gap: 20%;
 
-        .left{
+        .left{   
             width: 30%;
 
             .logo{
@@ -122,9 +122,9 @@ footer{
 
         }
         .right{
-            width: 50%;
+            width: 40%;
             display: flex;
-            justify-content: space-between;
+            gap: 50%;
 
             .footer-links{
                 
