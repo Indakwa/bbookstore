@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const AdminLogin = () => {
@@ -66,7 +66,7 @@ const AdminLogin = () => {
             <h2 id="logo">BBookstore</h2>
         </div>
 
-        <h2>Log into your Account</h2>
+        <h2>Log into your Admin Account</h2>
         <div className="inner-container">
             <form onSubmit={handleSubmit}>
                 <div>
@@ -95,14 +95,6 @@ const AdminLogin = () => {
                     />
                 </div>
                 <button type="submit">Log In</button>
-                <p>Don't have an account? 
-                    <Link 
-                        to="/" 
-                        id="toLogin"
-                    >
-                        Create Account
-                    </Link>
-                </p>
             </form>
             <div className="right-div">
             <img src="/assets/1.png" alt="" />
