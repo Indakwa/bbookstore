@@ -4,6 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import Footer from '../components/Footer';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const Home = () => {
@@ -12,7 +13,125 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchFeedback, setSearchFeedback] = useState('');
+  
+  const [adventureBooks, setAdventureBooks] = useState([]);
+  const [comedyBooks, setComedyBooks] = useState([]);
+  const [fictionBooks, setFictionBooks] = useState([]);
+  const [fantasyBooks, setFantasyBooks] = useState([]);
+  const [romanceBooks, setRomanceBooks] = useState([]);
+  const [horrorBooks, setHorrorBooks] = useState([]);
 
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Adventure"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setAdventureBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Comedy"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setComedyBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Fiction"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setFictionBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Fantasy"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setFantasyBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Romance"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setRomanceBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooksByGenre = async () => {
+      const genre = "Horror"
+      try {
+        const response = await axios.get(`http://localhost:3000/api/books/genre/${genre}`);
+        if (response.status === 404) {
+          toast(`No books found for genre: ${genre}`)
+        } else {
+          setHorrorBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching books by genre:', error);
+      }
+    };
+
+    fetchBooksByGenre();
+  }, []);
+
+
+  //Fetch All Books
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -137,11 +256,11 @@ const Home = () => {
             )}
 
             <section className="genre">
-              <p className="genre-title">Bestsellers</p>
+              <p className="genre-title">Adventure</p>
               <div className="genre-container">
-                {books.map((book) => (
+                {adventureBooks.map((book) => (
                   <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
-                    <div >
+                    <div>
                       <div className="top">
                         <img src={book.CoverImageURL} alt={book.Title} />
                       </div>
@@ -157,6 +276,117 @@ const Home = () => {
                 ))}
               </div>
             </section>
+
+            <section className="genre">
+              <p className="genre-title">Comedy</p>
+              <div className="genre-container">
+                {comedyBooks.map((book) => (
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div>
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section className="genre">
+              <p className="genre-title">Fiction</p>
+              <div className="genre-container">
+                {fictionBooks.map((book) => (
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div>
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+            
+            <section className="genre">
+              <p className="genre-title">Fantasy</p>
+              <div className="genre-container">
+                {fantasyBooks.map((book) => (
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div>
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section className="genre">
+              <p className="genre-title">Romance</p>
+              <div className="genre-container">
+                {romanceBooks.map((book) => (
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div>
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+            
+            <section className="genre">
+              <p className="genre-title">Horror</p>
+              <div className="genre-container">
+                {horrorBooks.map((book) => (
+                  <Link to={`/details/${book.BookID}`} key={book.BookID} className="book">
+                    <div>
+                      <div className="top">
+                        <img src={book.CoverImageURL} alt={book.Title} />
+                      </div>
+                      <div className="bottom">
+                        <p className="title">
+                          {truncateTitle(book.Title, 40)}
+                        </p>
+                        <p className="author">{book.Author}</p>
+                        <p className='price'><span>KSh.</span>{book.Price}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
           </section>
       </section>
 

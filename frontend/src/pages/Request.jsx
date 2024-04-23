@@ -140,6 +140,7 @@ const Request = ({ onCancel }) => {
                     <label htmlFor="PublisherContact">Enter your Phone Number</label>
                     <input 
                         type="tel" 
+                        maxLength={10}
                         name='PublisherContact'
                         value={formData.PublisherContact}
                         onChange={handleChange}
