@@ -1,0 +1,39 @@
+.how{
+    width: 80vw;
+    margin: 0 auto;
+
+    .how-container{
+        margin-top: 2rem;
+
+        h2{
+            font-size: 3rem;
+            color: $yell;
+            margin-bottom: 1rem;
+        }
+
+        .inner-container{
+            margin-bottom: 2rem;
+
+            h3{
+                font-size: 2rem;
+            }
+
+            p{
+                font-family: $mont;
+                font-size: 1.2rem;
+                line-height: 2rem;
+            }
+            .reminder{
+                font-size: 1rem;
+                color: $gree;
+                font-weight: 600;
+            }
+        }
+
+        .wishes{
+            font-size: 2rem;
+            font-family: $mont;
+            color: $yell;
+        }
+    }
+}

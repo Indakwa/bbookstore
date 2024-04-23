@@ -14,6 +14,7 @@ import BookReader from './components/BookReader';
 import VerifyRequest from './components/VerifyRequest';
 import AdminLogin from './pages/AdminLogin';
 import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
+import How from './pages/How';
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/books' element={<Books />} />
+          <Route path='/how' element={<How />} />
           <Route path="/genres/:genre" element={<Genres />} />
           <Route path='/admin-login' element={<AdminLogin />} />
           <Route path='/verify/:submissionId' element={<VerifyRequest />} />

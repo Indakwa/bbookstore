@@ -1600,4 +1600,38 @@ footer .footer-bottom p {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: #ee6e6e;
+}
+
+.how {
+  width: 80vw;
+  margin: 0 auto;
+}
+.how .how-container {
+  margin-top: 2rem;
+}
+.how .how-container h2 {
+  font-size: 3rem;
+  color: #eec16e;
+  margin-bottom: 1rem;
+}
+.how .how-container .inner-container {
+  margin-bottom: 2rem;
+}
+.how .how-container .inner-container h3 {
+  font-size: 2rem;
+}
+.how .how-container .inner-container p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+.how .how-container .inner-container .reminder {
+  font-size: 1rem;
+  color: #96ca80;
+  font-weight: 600;
+}
+.how .how-container .wishes {
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+  color: #eec16e;
 }/*# sourceMappingURL=styles.css.map */
