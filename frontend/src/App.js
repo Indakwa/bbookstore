@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import BookReader from './components/BookReader';
 import VerifyRequest from './components/VerifyRequest';
 import AdminLogin from './pages/AdminLogin';
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 
 
@@ -35,6 +36,10 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer />
+      <TawkMessengerReact
+          propertyId="6627794ba0c6737bd12f4bc0"
+          widgetId="1hs533kio"
+      />
     </>
   );
 }

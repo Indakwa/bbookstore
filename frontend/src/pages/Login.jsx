@@ -116,7 +116,7 @@ const Login = () => {
                         Create Account
                     </Link>
                 </p>
-                <Link to="mailto:benedictindakwa@gmail.com.com?subject=FORGOT PASSWORD BBOOKSTORE" className='forgot'>I Forgot Password</Link>
+                <p className='forgot'>Forgot Password? <span id='instr'>Use the Live Chat Widget for Help</span></p>
             </form>
             <div className="right-div">
             <img src="/assets/1.png" alt="" />

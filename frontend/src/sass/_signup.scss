@@ -88,12 +88,16 @@
 
                 .forgot{
                     text-decoration: none;
-                    color: $red;
-                    font-size: .8rem;
+                    color: $whi;
+                    font-size: .7rem;
                     margin-top: 1rem;
 
                     &:hover{
-                        transform: scale(1.1);
+                        cursor: pointer;
+                    }
+
+                    #instr{
+                        color: $gree;
                     }
                 }
             }

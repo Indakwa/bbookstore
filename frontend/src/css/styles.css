@@ -210,12 +210,15 @@ footer .footer-bottom p {
 }
 .sign-up .sign-up-container .inner-container form .forgot, .sign-up .login-container .inner-container form .forgot, .login .sign-up-container .inner-container form .forgot, .login .login-container .inner-container form .forgot {
   text-decoration: none;
-  color: #ee6e6e;
-  font-size: 0.8rem;
+  color: #f5f5f5;
+  font-size: 0.7rem;
   margin-top: 1rem;
 }
 .sign-up .sign-up-container .inner-container form .forgot:hover, .sign-up .login-container .inner-container form .forgot:hover, .login .sign-up-container .inner-container form .forgot:hover, .login .login-container .inner-container form .forgot:hover {
-  transform: scale(1.1);
+  cursor: pointer;
+}
+.sign-up .sign-up-container .inner-container form .forgot #instr, .sign-up .login-container .inner-container form .forgot #instr, .login .sign-up-container .inner-container form .forgot #instr, .login .login-container .inner-container form .forgot #instr {
+  color: #96ca80;
 }
 .sign-up .sign-up-container .inner-container .right-div, .sign-up .login-container .inner-container .right-div, .login .sign-up-container .inner-container .right-div, .login .login-container .inner-container .right-div {
   width: 50%;
